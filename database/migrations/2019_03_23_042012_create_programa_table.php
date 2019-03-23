@@ -16,7 +16,8 @@ class CreateProgramaTable extends Migration
         Schema::create('programas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome');
-            $table->string('objetivo')->nullable();
+            $table->string('objetivo')->nullable();            
+            $table->bigInteger('filiais_id');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateProgramaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('programa');
+        Schema::dropIfExists('programas');
     }
 }

@@ -32,6 +32,6 @@ class CreateFilialTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('filial');
+        Schema::dropIfExists('filiais');
     }
 }

@@ -4,9 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-use App\Enums\UserType;
-
-class CreateUsersTable extends Migration
+class CreateProgramaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,15 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('programas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->tinyInteger('tipo')->unsigned()->default(UserType::Administrativo);
+            $table->string('nome');
+            $table->string('objetivo')->nullable();            
             $table->bigInteger('filiais_id');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -35,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('programas');
     }
 }

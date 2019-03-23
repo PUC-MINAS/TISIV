@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+
+use App\Enums\UserType;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        DB::table('filiais')->insert([
+            ['nome' => 'Sede Matriz', 'logadouro' => 'Praça Juliano Maria', 'numero' => '1', 'bairro' => 'Planalto', 'cep' => '33200000', 'uf' => 0]
+        ]);
+
+        DB::table('users')->insert([
+            ['name' => 'AdminTest', 'email' => 'admin@gmail.com', 'password' => Hash::make('admintest'), 'tipo' => UserType::Adm, 'filiais_id' => 1]
+        ]);
     }
 }

@@ -20,7 +20,7 @@ class CreateProjetoTable extends Migration
             $table->date('inicio');
             $table->date('fim');
             $table->string('descricao');
-            $table->bigInteger('programas_id');
+            $table->bigInteger('programas_id')->unsigned();
             $table->timestamps();
         });
     }

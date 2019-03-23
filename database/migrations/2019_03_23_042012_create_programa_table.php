@@ -17,7 +17,7 @@ class CreateProgramaTable extends Migration
             $table->bigIncrements('id');
             $table->string('nome');
             $table->string('objetivo')->nullable();            
-            $table->bigInteger('filiais_id');
+            $table->bigInteger('filiais_id')->unsigned();
             $table->timestamps();
         });
     }

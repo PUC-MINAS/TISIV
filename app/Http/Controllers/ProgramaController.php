@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Programa;
 
 class ProgramaController extends Controller
 {
@@ -14,9 +15,14 @@ class ProgramaController extends Controller
     public function index()
     {
         // Criar listagem com todos os programas ativos
-        return view('programas.index');
+        $programas = Programa::all();
+
+        return view('programas.index')->with('programas', $programas);
     } 
     
+    // Fazer um pull da master.
+    // Fazer um merge com a master e resolver erros localmente.
+    // 
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +31,7 @@ class ProgramaController extends Controller
      */
     public function create()
     {
-        //
+        return view('programas.criar');
     }
 
     /**

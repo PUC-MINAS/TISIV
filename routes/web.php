@@ -20,4 +20,8 @@ Route::get('/', 'HomeController@index')->name('home');
 /* Rotas de Programas */
 Route::get('/programas', 'ProgramaController@index')->name('programas');
 Route::get('/programas/create', 'ProgramaController@create');
-Route::post('/programas/store', 'ProgramaController@store');
+Route::get('/programas/detalhe/{id}', 'ProgramaController@show');
+Route::get('/programas/editar/{id}', 'ProgramaController@edit');
+Route::post('/programas/store', 'ProgramaController@store')->name('salvarPrograma');
+Route::put('/programas/update/{id}', 'ProgramaController@update')->name('editarPrograma');
+Route::delete('/programas/delete/{id}', 'ProgramaController@destroy')->name('deletarPrograma');

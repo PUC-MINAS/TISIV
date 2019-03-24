@@ -1,20 +1,22 @@
 @extends('layouts.app')
 @section('content-app')
 
-<form action="{{url('programas/store')}}" method="post" class="form">
-    @csrf
+<form action="{{ route('editarPrograma', $programa->id)}}" method="POST" class="form">
+    @csrf  
+    @method('PUT')
+    
     <div class="row">
         <div class="col-4">
             <div class="form-group">
                 <label for="">Nome</label>
-                <input type="text" name="nome" id="nome" class="form-control">
+                <input type="text" name="nome" id="nome" class="form-control" value="{{ $programa->nome }}">
             </div>
         </div>
 
         <div class="col-4">
             <div class="form-group">
                 <label for="objetivo">Objetivo</label>
-                <input type="text" name="objetivo" id="objetivo" class="form-control">
+                <input type="text" name="objetivo" id="objetivo" class="form-control" value="{{ $programa->objetivo }}">
             </div>
         </div>
 
@@ -23,7 +25,8 @@
                 <label for="filial">Filial</label>
                 <select class="form-control" name="filial" id="filial">
                 @foreach($filiais as $filial)
-                    <option value="{{$filial->id}}">{{ $filial->nome }}</option>
+                <!-- Adicionar a Filial atual como selecionada -->
+                    <option value="{{ $filial->id }}">{{ $filial->nome }}</option>
                 @endforeach
                 </select>
             </div>

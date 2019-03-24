@@ -10,6 +10,7 @@
             <th scope="col">Objetivo</th>
             <th scope="col">Filial</th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         @foreach($programas as $programa)
@@ -17,15 +18,18 @@
             <tr>
                 <td>{{ $programa->nome }}</td>
                 <td>{{ $programa->objetivo }}</td>
+                <!-- Buscar nome da filial -->
                 <td>{{ $programa->filiais_id }}</td>
-                <!-- <td><a class="btn btn-info" href="{{ route('programas/edit')}}">Editar</a></td> -->
-                <!-- <td>
-                    <form action="{{ route('programas/destroy', $usuario->id) }}" method="POST">
+                <td>
+                    <a class="btn btn-success" href="{{ url('programas/editar', $programa->id) }}" >Editar</a>                    
+                </td>
+                <td>
+                    <form action="{{ route('deletarPrograma', $programa->id) }}" method="POST">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger">Excluir</button>
                     </form>
-                </td> -->
+                </td>        
             </tr>
             </tbody>
         @endforeach

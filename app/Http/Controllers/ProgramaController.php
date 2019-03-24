@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Programa;
+use App\Filial;
 
 class ProgramaController extends Controller
 {
@@ -14,16 +15,10 @@ class ProgramaController extends Controller
      */
     public function index()
     {
-        // Criar listagem com todos os programas ativos
         $programas = Programa::all();
-
         return view('programas.index')->with('programas', $programas);
     } 
     
-    // Fazer um pull da master.
-    // Fazer um merge com a master e resolver erros localmente.
-    // 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -31,7 +26,8 @@ class ProgramaController extends Controller
      */
     public function create()
     {
-        return view('programas.criar');
+        $filiais = Filial::all();
+        return view('programas.criar')->with('filiais', $filiais);
     }
 
     /**
@@ -42,7 +38,13 @@ class ProgramaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $programa = new Programa();
+        $programa->nome = $request->input('nome');
+        $programa->objetivo = $request->input('objetivo');
+        $programa->filiais_id = $request->input('filial');
+        $programa->save();
+
+        return redirect('programas');        
     }
 
     /**
@@ -53,7 +55,8 @@ class ProgramaController extends Controller
      */
     public function show($id)
     {
-        //
+        $programa = Programa::find($id);
+        return view('programas.detalhe')->with('programa', $programa);
     }
 
     /**
@@ -64,7 +67,9 @@ class ProgramaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $filiais = Filial::all();
+        $programa = Programa::find($id);
+        return view('programas.editar')->with('programa', $programa)->with('filiais', $filiais);
     }
 
     /**
@@ -76,7 +81,14 @@ class ProgramaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $programa = Programa::findOrFail($id);
+
+        $programa->nome = $request->input('nome');
+        $programa->objetivo = $request->input('objetivo');
+        $programa->filiais_id = $request->input('filial');
+        $programa->save();
+
+        return redirect('programas');
     }
 
     /**
@@ -87,6 +99,9 @@ class ProgramaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $programa = Programa::find($id);
+        $programa->delete();
+
+        return redirect('programas');
     }
 }

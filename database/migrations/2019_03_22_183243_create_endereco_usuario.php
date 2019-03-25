@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+use App\Enums\UF;
+
 class CreateEnderecoUsuario extends Migration
 {
     /**
@@ -22,7 +24,7 @@ class CreateEnderecoUsuario extends Migration
             $table->string('bairro')->nullable();
             $table->string('cep')->nullable();
             $table->string('cidade');
-            $table->string('estado');
+            $table->tinyInteger('uf')->unsigned()->default(UF::NaoInformado);
             $table->string('nacionalidade')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';

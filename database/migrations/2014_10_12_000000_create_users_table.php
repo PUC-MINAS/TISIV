@@ -22,7 +22,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->tinyInteger('tipo')->unsigned()->default(UserType::Administrativo);
-            $table->bigInteger('filiais_id');
+            $table->bigInteger('filiais_id')->unsigned();
+            $table->foreign('filiais_id')->references('id')->on('filiais');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+use App\Enums\UF;
+
 class CreateFilialTable extends Migration
 {
     /**
@@ -20,7 +22,7 @@ class CreateFilialTable extends Migration
             $table->string('numero')->nullable();
             $table->string('bairro')->nullable();
             $table->string('cep')->nullable();
-            $table->tinyInteger('uf')->unsigned()->nullable();
+            $table->tinyInteger('uf')->unsigned()->default(UF::NaoInformado);
             $table->timestamps();
         });
     }

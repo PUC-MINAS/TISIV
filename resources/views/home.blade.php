@@ -20,4 +20,6 @@
         </div>
     </div>
 </div>
+<br>
+@parent
 @endsection

@@ -5,6 +5,8 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
+@section('sidebar')
+
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -53,7 +55,7 @@
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
       <i class="fas fa-fw fa-wrench"></i>
-      <span>Utilities</span>
+      <span>Ferramentas</span>
     </a>
     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
@@ -62,6 +64,21 @@
         <a class="collapse-item" href="utilities-border.html">Borders</a>
         <a class="collapse-item" href="utilities-animation.html">Animations</a>
         <a class="collapse-item" href="utilities-other.html">Other</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Nav Item - Utilities Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsuarios" aria-expanded="true" aria-controls="collapseUtilities">
+      <i class="fas fa-fw fa-users"></i>
+      <span>Atendidos</span>
+    </a>
+    <div id="collapseUsuarios" class="collapse" aria-labelledby="headingUsuarios" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Gestão:</h6>
+        <a class="collapse-item" href="{{url('cadastro/create')}}">Formulário de Cadastro</a>
+        <a class="collapse-item" href="utilities-border.html">Alterar informações</a>
       </div>
     </div>
   </li>
@@ -119,11 +136,15 @@
 </ul>
 <!-- End of Sidebar -->
 
+@show
+
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
   <!-- Main Content -->
   <div id="content">
+
+    @section('topbar')
 
     <!-- Topbar -->
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -278,7 +299,7 @@
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+          <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()-> name }}</span>
             <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
           </a>
           <!-- Dropdown - User Information -->
@@ -307,7 +328,9 @@
 
     </nav>
     <!-- End of Topbar -->
+    @show
 
+    @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
@@ -594,12 +617,13 @@
 
   </div>
   <!-- End of Main Content -->
+  @show
 
   <!-- Footer -->
   <footer class="sticky-footer bg-white">
     <div class="container my-auto">
       <div class="copyright text-center my-auto">
-        <span>Copyright &copy; Your Website 2019</span>
+        <span>Copyright &copy; Instituto Sacramentino de Nossa Senhora 2019</span>
       </div>
     </div>
   </footer>

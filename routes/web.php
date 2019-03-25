@@ -25,3 +25,6 @@ Route::get('/programas/editar/{id}', 'ProgramaController@edit');
 Route::post('/programas/store', 'ProgramaController@store')->name('salvarPrograma');
 Route::put('/programas/update/{id}', 'ProgramaController@update')->name('editarPrograma');
 Route::delete('/programas/delete/{id}', 'ProgramaController@destroy')->name('deletarPrograma');
+
+/* Rotas de Usuários */
+Route::resource('cadastro', 'UsuarioController');

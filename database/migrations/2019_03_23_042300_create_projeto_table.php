@@ -21,6 +21,7 @@ class CreateProjetoTable extends Migration
             $table->date('fim');
             $table->string('descricao');
             $table->bigInteger('programas_id')->unsigned();
+            $table->foreign('programas_id')->references('id')->on('programas')->onDelete('cascade');
             $table->timestamps();
         });
     }

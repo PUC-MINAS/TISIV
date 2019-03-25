@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->tinyInteger('tipo')->unsigned()->default(UserType::Administrativo);
             $table->bigInteger('filiais_id')->unsigned();
+            $table->foreign('filiais_id')->references('id')->on('filiais');
             $table->rememberToken();
             $table->timestamps();
         });

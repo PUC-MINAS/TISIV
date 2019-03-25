@@ -299,7 +299,7 @@
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()-> name }}</span>
+          <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ (Auth::check() == true) ? (Auth::user()-> name) : "Visitante" }}</span>
             <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
           </a>
           <!-- Dropdown - User Information -->
@@ -620,7 +620,7 @@
   @show
 
   <!-- Footer -->
-  <footer class="sticky-footer bg-white">
+  <footer class="sticky-footer bg-white" style="position: fixed; bottom: 0px; width: 80%">
     <div class="container my-auto">
       <div class="copyright text-center my-auto">
         <span>Copyright &copy; Instituto Sacramentino de Nossa Senhora 2019</span>

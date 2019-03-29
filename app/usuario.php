@@ -19,5 +19,6 @@ class usuario extends Model
         'descobriu_por','observacao',
         'raca_cor','povo_tradicional'
     ];
+    protected $dates = ['dta_nasc', 'created_at', 'updated_at'];
     protected $primarykey = 'id';
 }

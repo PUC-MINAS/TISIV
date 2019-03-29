@@ -15,7 +15,7 @@
     <div class="sidebar-brand-icon rotate-n-15">
       <i class="fas fa-laugh-wink"></i>
     </div>
-    <div class="sidebar-brand-text mx-3">SGAS</div>
+    <div class="sidebar-brand-text mx-3">Gestão CSF</div>
   </a>
 
   <!-- Divider -->
@@ -72,12 +72,13 @@
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsuarios" aria-expanded="true" aria-controls="collapseUtilities">
       <i class="fas fa-fw fa-users"></i>
-      <span>Atendidos</span>
+      <span>Beneficiados</span>
     </a>
     <div id="collapseUsuarios" class="collapse" aria-labelledby="headingUsuarios" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Gestão:</h6>
         <a class="collapse-item" href="{{url('cadastro/create')}}">Formulário de Cadastro</a>
+        <a class="collapse-item" href="{{url('cadastro')}}">Relação de cadastrados</a>
         <a class="collapse-item" href="utilities-border.html">Alterar informações</a>
       </div>
     </div>
@@ -95,7 +96,7 @@
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
       <i class="fas fa-fw fa-folder"></i>
-      <span>Pages</span>
+      <span>Páginas</span>
     </a>
     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
@@ -115,14 +116,14 @@
   <li class="nav-item">
     <a class="nav-link" href="charts.html">
       <i class="fas fa-fw fa-chart-area"></i>
-      <span>Charts</span></a>
+      <span>Gráficos</span></a>
   </li>
 
   <!-- Nav Item - Tables -->
   <li class="nav-item">
     <a class="nav-link" href="tables.html">
       <i class="fas fa-fw fa-table"></i>
-      <span>Tables</span></a>
+      <span>Tabelas</span></a>
   </li>
 
   <!-- Divider -->
@@ -157,7 +158,7 @@
       <!-- Topbar Search -->
       <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
         <div class="input-group">
-          <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+          <input type="text" class="form-control bg-light border-0 small" placeholder="Busque por..." aria-label="Search" aria-describedby="basic-addon2">
           <div class="input-group-append">
             <button class="btn btn-primary" type="button">
               <i class="fas fa-search fa-sm"></i>
@@ -299,8 +300,8 @@
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()-> name }}</span>
-            <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+          <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ (Auth::check() == true) ? (Auth::user()-> name) : "Visitante" }}</span>
+            <img class="img-profile rounded-circle" src="https://source.unsplash.com/user/erondu/60x60">
           </a>
           <!-- Dropdown - User Information -->
           <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -619,7 +620,7 @@
   @show
 
   <!-- Footer -->
-  <footer class="sticky-footer bg-white">
+  <footer class="sticky-footer bg-white" style="position: fixed; bottom: 0px; width: 80%">
     <div class="container my-auto">
       <div class="copyright text-center my-auto">
         <span>Copyright &copy; Instituto Sacramentino de Nossa Senhora 2019</span>

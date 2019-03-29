@@ -16,7 +16,18 @@ class UsuarioController extends Controller
 {
     public function index()
     {
-
+        $usuarios = usuario::orderBy('dta_nasc', 'asc')->paginate(10);
+        /*
+            usuario::all('nome',
+            'sexo', 'dta_nasc',
+            'cpf', 'rg', 'certidao_nasc',
+            EstadoCivil::getKey(estado_civil), Escolaridade::getKey(escolaridade),
+            'profissao', 'telefone', 'num_wpp', 'contato_emerg', 'cras', 'num_cad',
+            'medicamentos', 'alergias', FormaDivulgacao::getKey(descobriu_por),
+            'observacao', RacaCor::getKey(raca_cor),
+            PovoTradicional::getKey(povo_tradicional))->orderBy('dta_nasc','asc')->paginate(10);
+        */
+        return view('cadastro.index', ['usuarios' => $usuarios]);
     }
 
     public function create()

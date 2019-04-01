@@ -28,3 +28,6 @@ Route::delete('/programas/delete/{id}', 'ProgramaController@destroy')->name('del
 
 /* Rotas de Usuários */
 Route::resource('cadastro', 'UsuarioController');
+
+/* Rotas de Projetos */
+Route::resource('projetos', 'ProjetoController');

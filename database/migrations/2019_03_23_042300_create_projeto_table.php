@@ -16,10 +16,10 @@ class CreateProjetoTable extends Migration
         Schema::create('projetos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome');
-            $table->string('objetivo')->nullable();
+            $table->text('objetivo')->nullable();
             $table->date('inicio');
             $table->date('fim');
-            $table->string('descricao');
+            $table->text('descricao');
             $table->bigInteger('programas_id')->unsigned();
             $table->foreign('programas_id')->references('id')->on('programas')->onDelete('cascade');
             $table->timestamps();

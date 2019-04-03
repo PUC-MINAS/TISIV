@@ -4,7 +4,7 @@
 <div class="card shadow">
     <div class="card-header"><h4 class="m-0 font-weight-bold text-primary">Novo Projeto</h4></div>
     <div class="card-body">
-        <form action="{{url('projetos/store')}}" method="post">
+        <form action="{{url('projetos/store')}}" method="post" onsubmit="return validaForm(this);">
             @csrf
             <div class="form-row">
                 <div class="form-group col-md-8">
@@ -49,4 +49,13 @@
 </div>
 
 
+@endsection
+
+@section('script')
+<script>
+    function validaForm(form){
+        console.log("Ta funfando");
+        return false;
+    }
+</script>
 @endsection

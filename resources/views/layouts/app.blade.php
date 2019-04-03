@@ -671,3 +671,7 @@
 </div>
 
 @endsection
+
+@section('script-base')
+  @yield('script')
+@endsection

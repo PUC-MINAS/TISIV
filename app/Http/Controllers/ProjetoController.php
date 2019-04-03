@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Projeto;
+use App\Programa;
 
 class ProjetoController extends Controller
 {
@@ -25,7 +26,8 @@ class ProjetoController extends Controller
      */
     public function create()
     {
-        //
+        $programas = Programa::all();
+        return view('projetos.create')->with('programas', $programas);
     }
 
     /**

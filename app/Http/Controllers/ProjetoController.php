@@ -57,7 +57,8 @@ class ProjetoController extends Controller
      */
     public function show($id)
     {
-        //
+        $projeto = Projeto::find($id);
+        return view('projetos.show')->with('projeto', $projeto);
     }
 
     /**
@@ -68,7 +69,10 @@ class ProjetoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $projeto = Projeto::find($id);
+        $programas = Programa::all();
+        return view('projetos.edit')->with('projeto', $projeto)
+                                    ->with('programas', $programas);
     }
 
     /**

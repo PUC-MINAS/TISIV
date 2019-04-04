@@ -29,7 +29,7 @@
                         <td>{{ $projeto->fim }}</td>
                         <td>{{ $projeto->getPrograma()->nome }}</td>
                         <td>
-                            <a class="btn btn-success" href="{{ url('projetos/'.$projeto->id.'/edit') }}" >Editar</a>                    
+                            <a class="btn btn-success" href="{{ url('projetos/'.$projeto->id) }}" >Detalhes</a>                    
                         </td>     
                     </tr>
                     </tbody>

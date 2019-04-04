@@ -38,7 +38,15 @@ class ProjetoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $projeto = new Projeto();
+        $projeto->nome = $request->input('nome');
+        $projeto->programa_id = $request->input('programa');
+        $projeto->objetivo = $request->input('objetivo');
+        $projeto->descricao = $request->input('descricao');
+        $projeto->inicio = date($request->input('inicio'));
+        $projeto->fim = date($request->input('fim'));
+        $projeto->save();
+        return redirect('projetos');
     }
 
     /**

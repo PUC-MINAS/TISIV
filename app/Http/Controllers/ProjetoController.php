@@ -84,7 +84,15 @@ class ProjetoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $projeto = Projeto::find($id);
+        $projeto->nome = $request->input('nome');
+        $projeto->programa_id = $request->input('programa');
+        $projeto->objetivo = $request->input('objetivo');
+        $projeto->descricao = $request->input('descricao');
+        $projeto->inicio = date($request->input('inicio'));
+        $projeto->fim = date($request->input('fim'));
+        $projeto->save();
+        return redirect('projetos');
     }
 
     /**
@@ -95,6 +103,7 @@ class ProjetoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $projeto = Projeto::destroy($id);
+        return redirect('projetos');
     }
 }

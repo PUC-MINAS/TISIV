@@ -3,7 +3,7 @@
 <div class="card shadow">
     <div class="card-header"><h4 class="m-0 font-weight-bold text-primary">Editar: {{$projeto->nome}}</h4></div>
     <div class="card-body">
-        <form action="{{url('projetos')}}" method="post" onsubmit="return validaForm(this);">
+        <form action="{{url('projetos/'.$projeto->id)}}" method="post" onsubmit="return validaForm(this);">
             @csrf
             @method('PUT')
             <div class="form-row">
@@ -44,8 +44,8 @@
                     <textarea class="form-control" name="descricao" id="descricao" rows="5">{{$projeto->descricao}}</textarea>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            <a href="{{ url('projetos')}}" class="btn btn-warning">Voltar</a>
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a href="{{ url('projetos')}}" class="btn btn-primary">Voltar</a>
             
         </form>
     </div>

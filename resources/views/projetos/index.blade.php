@@ -10,8 +10,6 @@
                 <thead>
                 <tr>
                     <th scope="col">Nome</th>
-                    <th scope="col">Objetivo</th>
-                    <th scope="col">Descrição</th>
                     <th scope="col">Início</th>
                     <th scope="col">Fim</th>
                     <th scope="col">Programa</th>
@@ -22,14 +20,11 @@
                     <tbody>
                     <tr>
                         <td>{{ $projeto->nome }}</td>
-                        <td>{{ $projeto->objetivo }}</td>
-                        <!-- Buscar nome da filial -->
-                        <td>{{ $projeto->descricao }}</td>
                         <td>{{ $projeto->inicio }}</td>
                         <td>{{ $projeto->fim }}</td>
                         <td>{{ $projeto->getPrograma()->nome }}</td>
                         <td>
-                            <a class="btn btn-success" href="{{ url('projetos/'.$projeto->id) }}" >Detalhes</a>                    
+                            <a class="btn btn-primary" href="{{ url('projetos/'.$projeto->id) }}" >Detalhes</a>                    
                         </td>     
                     </tr>
                     </tbody>

@@ -23,7 +23,7 @@
 
   <!-- Nav Item - Dashboard -->
   <li class="nav-item active">
-    <a class="nav-link" href="index.html">
+    <a class="nav-link" href="{{url('/')}}">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Dashboard</span></a>
   </li>
@@ -49,6 +49,13 @@
         <a class="collapse-item" href="cards.html">Cards</a>
       </div>
     </div> -->
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="{{url('projetos')}}">
+      <i class="fas fa-fw fa-cog"></i>
+      <span>Projetos</span>
+    </a>
   </li>
 
   <!-- Nav Item - Utilities Collapse Menu -->
@@ -663,4 +670,8 @@
 </div>
 </div>
 
+@endsection
+
+@section('script-base')
+  @yield('script')
 @endsection

@@ -59,7 +59,7 @@
   </li>
 
   <!-- Nav Item - Utilities Collapse Menu -->
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
       <i class="fas fa-fw fa-wrench"></i>
       <span>Ferramentas</span>
@@ -73,7 +73,7 @@
         <a class="collapse-item" href="utilities-other.html">Other</a>
       </div>
     </div>
-  </li>
+  </li> -->
 
   <!-- Nav Item - Utilities Collapse Menu -->
   <li class="nav-item">
@@ -86,7 +86,7 @@
         <h6 class="collapse-header">Gestão:</h6>
         <a class="collapse-item" href="{{url('cadastro/create')}}">Formulário de Cadastro</a>
         <a class="collapse-item" href="{{url('cadastro')}}">Relação de cadastrados</a>
-        <a class="collapse-item" href="utilities-border.html">Alterar informações</a>
+        
       </div>
     </div>
   </li>
@@ -95,12 +95,12 @@
   <hr class="sidebar-divider">
 
   <!-- Heading -->
-  <div class="sidebar-heading">
+  <!-- <div class="sidebar-heading">
     Addons
-  </div>
+  </div> -->
 
   <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
       <i class="fas fa-fw fa-folder"></i>
       <span>Páginas</span>
@@ -117,24 +117,24 @@
         <a class="collapse-item" href="blank.html">Blank Page</a>
       </div>
     </div>
-  </li>
+  </li> -->
 
   <!-- Nav Item - Charts -->
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a class="nav-link" href="charts.html">
       <i class="fas fa-fw fa-chart-area"></i>
       <span>Gráficos</span></a>
-  </li>
+  </li> -->
 
   <!-- Nav Item - Tables -->
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a class="nav-link" href="tables.html">
       <i class="fas fa-fw fa-table"></i>
       <span>Tabelas</span></a>
-  </li>
+  </li> -->
 
   <!-- Divider -->
-  <hr class="sidebar-divider d-none d-md-block">
+  <!-- <hr class="sidebar-divider d-none d-md-block"> -->
 
   <!-- Sidebar Toggler (Sidebar) -->
   <div class="text-center d-none d-md-inline">
@@ -627,7 +627,7 @@
   @show
 
   <!-- Footer -->
-  <footer class="sticky-footer bg-white" style="position: fixed; bottom: 0px; width: 80%">
+  <footer class="sticky-footer bg-white">
     <div class="container my-auto">
       <div class="copyright text-center my-auto">
         <span>Copyright &copy; Instituto Sacramentino de Nossa Senhora 2019</span>

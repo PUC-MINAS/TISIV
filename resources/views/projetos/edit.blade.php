@@ -45,7 +45,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-success">Salvar</button>
-            <a href="{{ url('projetos')}}" class="btn btn-primary">Voltar</a>
+            <a href="{{ url('projetos/'.$projeto->id)}}" class="btn btn-warning">Cancelar</a>
             
         </form>
     </div>

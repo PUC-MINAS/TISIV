@@ -14,14 +14,15 @@ class CreateProjetoTable extends Migration
     public function up()
     {
         Schema::create('projetos', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->string('nome');
             $table->text('objetivo')->nullable();
             $table->date('inicio');
             $table->date('fim');
             $table->text('descricao')->nullable();
-            $table->bigInteger('programa_id')->unsigned();
-            $table->foreign('programa_id')->references('id')->on('programas')->onDelete('cascade');
+            $table->integer('id_programas')->unsigned();
+            $table->foreign('id_programas')->references('id')->on('programas')->onDelete('cascade');
             $table->timestamps();
         });
     }

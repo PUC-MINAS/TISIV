@@ -14,14 +14,15 @@ class CreateTurmasOficinasProjetos extends Migration
     public function up()
     {
         Schema::create('turmas_oficinas_projetos', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->string('educador')->nullable();
             $table->string('horario');
             $table->integer('maximoAlunos')->nullable();
             $table->integer('idadeMinima')->nullable();
             $table->integer('idadeMaxima')->nullable();
-            $table->bigInteger('oficina_projeto_id')->unsigned();
-            $table->foreign('oficina_projeto_id')->references('id')->on('oficinas_projetos')->onDelete('cascade');
+            $table->integer('id_oficinas_projetos')->unsigned();
+            $table->foreign('id_oficinas_projetos')->references('id')->on('oficinas_projetos')->onDelete('cascade');
             $table->timestamps();
         });
     }

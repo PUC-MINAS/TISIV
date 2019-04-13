@@ -16,8 +16,8 @@ class CreateEnderecoUsuario extends Migration
     public function up()
     {
         Schema::create('endereco_usuario', function (Blueprint $table) {
-            $table->bigInteger('usuario_id')->unsigned();
-            $table->foreign('usuario_id')->references('id')->on('usuario')->onDelete('cascade');
+            $table->integer('id_usuario')->unsigned();
+            $table->foreign('id_usuario')->references('id')->on('usuario')->onDelete('cascade');
             $table->string('rua')->nullable();
             $table->integer('numero')->nullable();
             $table->integer('apto')->nullable();

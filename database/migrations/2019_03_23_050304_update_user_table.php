@@ -14,7 +14,9 @@ class UpdateUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table){
-            $table->foreign('filiais_id')->references('id')->on('filiais');
+            $table->engine = 'InnoDB';
+            $table->integer('id_filiais')->unsigned();
+            $table->foreign('id_filiais')->references('id')->on('filiais')->onDelete('cascade');
          });
     }
 
@@ -26,7 +28,7 @@ class UpdateUserTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {            
-            $table->dropForeign('users_filiais_id_foreign');           
+            $table->dropForeign('users_id_filiais_foreign');           
         });
     }
 }

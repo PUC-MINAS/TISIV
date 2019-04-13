@@ -20,7 +20,7 @@ class CreateUsuario extends Migration
     public function up()
     {
         Schema::create('usuario', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('nome');
             $table->string('sexo')->nullable();
             $table->date('dta_nasc')->nullable();

@@ -41,7 +41,7 @@ class ProgramaController extends Controller
         $programa = new Programa();
         $programa->nome = $request->input('nome');
         $programa->objetivo = $request->input('objetivo');
-        $programa->filiais_id = $request->input('filial');
+        $programa->id_filiais = $request->input('filial');
         $programa->save();
 
         return redirect('programas');        
@@ -85,7 +85,7 @@ class ProgramaController extends Controller
 
         $programa->nome = $request->input('nome');
         $programa->objetivo = $request->input('objetivo');
-        $programa->filiais_id = $request->input('filial');
+        $programa->id_filiais = $request->input('filial');
         $programa->save();
 
         return redirect('programas');

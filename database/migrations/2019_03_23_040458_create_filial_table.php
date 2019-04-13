@@ -16,7 +16,8 @@ class CreateFilialTable extends Migration
     public function up()
     {
         Schema::create('filiais', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->string('nome');
             $table->string('logadouro')->nullable();
             $table->string('numero')->nullable();

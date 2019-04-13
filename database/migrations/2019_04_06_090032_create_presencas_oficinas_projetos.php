@@ -14,13 +14,14 @@ class CreatePresencasOficinasProjetos extends Migration
     public function up()
     {
         Schema::create('presencas_oficinas_projetos', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->date('data');
             $table->boolean('estevePresente')->default(false);
-            $table->bigInteger('matricula_id')->unsigned();
-            $table->bigInteger('turma_id')->unsigned();
-            $table->foreign('matricula_id')->references('id')->on('matriculas_oficinas_projetos')->onDelete('cascade');
-            $table->foreign('turma_id')->references('id')->on('turmas_oficinas_projetos')->onDelete('cascade');
+            $table->integer('id_matriculas')->unsigned();
+            $table->integer('id_turmas')->unsigned();
+            $table->foreign('id_matriculas')->references('id')->on('matriculas_oficinas_projetos')->onDelete('cascade');
+            $table->foreign('id_turmas')->references('id')->on('turmas_oficinas_projetos')->onDelete('cascade');
             $table->timestamps();
         });
     }

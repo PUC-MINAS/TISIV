@@ -31,3 +31,6 @@ Route::resource('cadastro', 'UsuarioController');
 
 /* Rotas de Projetos */
 Route::resource('projetos', 'ProjetoController');
+
+/* Rotas de OficinasProjetos */
+Route::resource('oficinas-projetos', 'OficinaProjetoController');

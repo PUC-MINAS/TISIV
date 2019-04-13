@@ -40,7 +40,7 @@ class ProjetoController extends Controller
     {
         $projeto = new Projeto();
         $projeto->nome = $request->input('nome');
-        $projeto->programa_id = $request->input('programa');
+        $projeto->id_programas = $request->input('programa');
         $projeto->objetivo = $request->input('objetivo');
         $projeto->descricao = $request->input('descricao');
         $projeto->inicio = date($request->input('inicio'));
@@ -86,7 +86,7 @@ class ProjetoController extends Controller
     {
         $projeto = Projeto::find($id);
         $projeto->nome = $request->input('nome');
-        $projeto->programa_id = $request->input('programa');
+        $projeto->id_programas = $request->input('programa');
         $projeto->objetivo = $request->input('objetivo');
         $projeto->descricao = $request->input('descricao');
         $projeto->inicio = date($request->input('inicio'));

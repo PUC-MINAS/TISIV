@@ -14,11 +14,12 @@ class CreateProgramaTable extends Migration
     public function up()
     {
         Schema::create('programas', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->string('nome');
             $table->string('objetivo')->nullable();
-            $table->bigInteger('filiais_id')->unsigned();
-            $table->foreign('filiais_id')->references('id')->on('filiais')->onDelete('cascade');
+            $table->integer('id_filiais')->unsigned();
+            $table->foreign('id_filiais')->references('id')->on('filiais')->onDelete('cascade');
             $table->timestamps();
         });
     }

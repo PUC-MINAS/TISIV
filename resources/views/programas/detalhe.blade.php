@@ -8,7 +8,7 @@
     <div class="card-body">
         <p><b>Objetivo:</b> {{$programa->objetivo}}</p>
         <!-- Buscar nome da filial -->
-        <p><b>Filial:</b> {{$programa->filiais_id}}</p>
+        <p><b>Filial:</b> {{$programa->id_filiais}}</p>
     </div>
 </div>
 

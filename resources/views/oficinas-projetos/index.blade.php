@@ -1,11 +1,10 @@
 @extends('layouts.app')
 @section('content-app')
 
-
 <div class="card shadow">
     <div class="card-header card-header-space-between">
-        <h4 class="m-0 font-weight-bold text-primary">Projetos</h4>
-        <a class="btn btn-primary" href="{{ url('projetos/create') }}" >Criar Projeto</a>
+        <h4 class="m-0 font-weight-bold text-primary">Oficinas de Projetos</h4>
+        <a class="btn btn-primary" href="{{ url('oficinas-projetos/create') }}" >Criar Oficina</a>
     </div>
     <div class="card-body">
         <div class="table-responsive table-full-width">
@@ -15,19 +14,21 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Início</th>
                     <th scope="col">Fim</th>
+                    <th scope="col">Projeto</th>
                     <th scope="col">Programa</th>
                     <th></th>
                 </tr>
                 </thead>
-                @foreach($projetos as $projeto)
+                @foreach($oficinas as $oficina)
                     <tbody>
                     <tr>
-                        <td>{{ $projeto->nome }}</td>
-                        <td>{{ $projeto->inicio }}</td>
-                        <td>{{ $projeto->fim }}</td>
-                        <td>{{ $projeto->getPrograma()->nome }}</td>
+                        <td>{{ $oficina->nome }}</td>
+                        <td>{{ $oficina->inicio }}</td>
+                        <td>{{ $oficina->fim }}</td>
+                        <td>{{ $oficina->getProjeto()->nome }}</td>
+                        <td>{{ $oficina->getProjeto()->getPrograma()->nome }}</td>
                         <td>
-                            <a class="btn btn-primary" href="{{ url('projetos/'.$projeto->id) }}" >Detalhes</a>                    
+                            <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id) }}" >Detalhes</a>                    
                         </td>     
                     </tr>
                     </tbody>
@@ -36,6 +37,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection

@@ -16,7 +16,7 @@
                     <select class="form-control" name="programa" id="programa" onfocusout="validaSelectPrograma(this)">
                         <option value="">-- Selecione um Programa --</option>
                         @foreach($programas as $programa)
-                            @if($programa->id == $projeto->programa_id)
+                            @if($programa->id == $projeto->id_programas)
                             <option selected value="{{ $programa->id }}">{{$programa->nome}}</option>
                             @endif
                             <option value="{{ $programa->id }}">{{$programa->nome}}</option>

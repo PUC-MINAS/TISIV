@@ -19,7 +19,7 @@
                 <td>{{ $programa->nome }}</td>
                 <td>{{ $programa->objetivo }}</td>
                 <!-- Buscar nome da filial -->
-                <td>{{ $programa->filiais_id }}</td>
+                <td>{{ $programa->id_filiais }}</td>
                 <td>
                     <a class="btn btn-success" href="{{ url('programas/editar', $programa->id) }}" >Editar</a>                    
                 </td>

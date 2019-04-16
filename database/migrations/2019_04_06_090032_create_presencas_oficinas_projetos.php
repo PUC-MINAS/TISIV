@@ -18,6 +18,8 @@ class CreatePresencasOficinasProjetos extends Migration
             $table->increments('id');
             $table->date('data');
             $table->boolean('estevePresente')->default(false);
+            $table->boolean('justificada')->nullable();
+            $table->string('justificativa')->nullable();
             $table->integer('id_matriculas')->unsigned();
             $table->integer('id_turmas')->unsigned();
             $table->foreign('id_matriculas')->references('id')->on('matriculas_oficinas_projetos')->onDelete('cascade');

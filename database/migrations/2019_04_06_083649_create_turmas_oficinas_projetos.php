@@ -17,7 +17,7 @@ class CreateTurmasOficinasProjetos extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('educador')->nullable();
-            $table->string('horario');
+            $table->text('horario')->nullable();
             $table->integer('maximoAlunos')->nullable();
             $table->integer('idadeMinima')->nullable();
             $table->integer('idadeMaxima')->nullable();

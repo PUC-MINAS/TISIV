@@ -8,10 +8,14 @@ use App\TurmaOficinaProjeto;
 
 class TurmaOficinaProjetoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     function criarListaPresenca ($idOficina, $idTurma) {
         $oficina = OficinaProjeto::find($idOficina);
         $turma = TurmaOficinaProjeto::find($idTurma);
-        dd($turma);
-        return view('turma-oficina-projeto.criar')->with('turma', $turma);
+        return view('turma-oficina-projeto.criar-lista-presenca')->with('turma', $turma);
     }
 }

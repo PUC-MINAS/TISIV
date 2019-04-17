@@ -19,8 +19,12 @@ class CreateProgramaTable extends Migration
             $table->string('nome');
             $table->string('objetivo')->nullable();
             $table->integer('id_filiais')->unsigned();
-            $table->foreign('id_filiais')->references('id')->on('filiais')->onDelete('cascade');
             $table->timestamps();
+        });
+
+        Schema::table('programas', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->foreign('id_filiais')->references('id')->on('filiais')->onDelete('cascade');
         });
     }
 

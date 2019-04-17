@@ -23,10 +23,14 @@ class CreateMatriculasOficinasProjetos extends Migration
             $table->date('data_conclusao')->nullable();
             $table->integer('id_turmas')->unsigned();
             $table->integer('id_usuario')->unsigned();
+            $table->timestamps();
+        });
+
+        Schema::table('matriculas_oficinas_projetos', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->unique(['id_turmas', 'id_usuario']);
             $table->foreign('id_turmas')->references('id')->on('turmas_oficinas_projetos')->onDelete('cascade');
             $table->foreign('id_usuario')->references('id')->on('usuario')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

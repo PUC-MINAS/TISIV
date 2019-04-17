@@ -22,8 +22,12 @@ class CreateTurmasOficinasProjetos extends Migration
             $table->integer('idadeMinima')->nullable();
             $table->integer('idadeMaxima')->nullable();
             $table->integer('id_oficinas_projetos')->unsigned();
-            $table->foreign('id_oficinas_projetos')->references('id')->on('oficinas_projetos')->onDelete('cascade');
             $table->timestamps();
+        });
+
+        Schema::table('turmas_oficinas_projetos', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->foreign('id_oficinas_projetos')->references('id')->on('oficinas_projetos')->onDelete('cascade');
         });
     }
 

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->tinyInteger('tipo')->unsigned()->default(UserType::Administrativo);
+            $table->integer('id_filiais')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });

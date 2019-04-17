@@ -22,9 +22,13 @@ class CreatePresencasOficinasProjetos extends Migration
             $table->string('justificativa')->nullable();
             $table->integer('id_matriculas')->unsigned();
             $table->integer('id_turmas')->unsigned();
+            $table->timestamps();
+        });
+
+        Schema::table('presencas_oficinas_projetos', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->foreign('id_matriculas')->references('id')->on('matriculas_oficinas_projetos')->onDelete('cascade');
             $table->foreign('id_turmas')->references('id')->on('turmas_oficinas_projetos')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

@@ -24,8 +24,12 @@ class CreateOficinasProjetos extends Migration
             $table->date('fim');
             $table->text('ementa')->nullable();
             $table->integer('id_projetos')->unsigned();
-            $table->foreign('id_projetos')->references('id')->on('projetos')->onDelete('cascade');
             $table->timestamps();
+        });
+
+        Schema::table('oficinas_projetos', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->foreign('id_projetos')->references('id')->on('projetos')->onDelete('cascade');
         });
     }
 

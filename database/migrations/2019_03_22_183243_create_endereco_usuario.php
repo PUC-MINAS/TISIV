@@ -17,7 +17,6 @@ class CreateEnderecoUsuario extends Migration
     {
         Schema::create('endereco_usuario', function (Blueprint $table) {
             $table->integer('id_usuario')->unsigned();
-            $table->foreign('id_usuario')->references('id')->on('usuario')->onDelete('cascade');
             $table->string('rua')->nullable();
             $table->integer('numero')->nullable();
             $table->integer('apto')->nullable();
@@ -27,6 +26,11 @@ class CreateEnderecoUsuario extends Migration
             $table->tinyInteger('uf')->unsigned()->default(UF::NaoInformado);
             $table->string('nacionalidade')->nullable();
             $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+        Schema::table('endereco_usuario', function (Blueprint $table) {            
+            $table->foreign('id_usuario')->references('id')->on('usuario')->onDelete('cascade');
             $table->engine = 'InnoDB';
         });
     }

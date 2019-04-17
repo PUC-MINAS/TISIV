@@ -22,8 +22,12 @@ class CreateProjetoTable extends Migration
             $table->date('fim');
             $table->text('descricao')->nullable();
             $table->integer('id_programas')->unsigned();
-            $table->foreign('id_programas')->references('id')->on('programas')->onDelete('cascade');
             $table->timestamps();
+        });
+
+        Schema::table('projetos', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->foreign('id_programas')->references('id')->on('programas')->onDelete('cascade');
         });
     }
 

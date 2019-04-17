@@ -13,9 +13,8 @@ class UpdateUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table){
+         Schema::table('users', function (Blueprint $table){
             $table->engine = 'InnoDB';
-            $table->integer('id_filiais')->unsigned();
             $table->foreign('id_filiais')->references('id')->on('filiais')->onDelete('cascade');
          });
     }

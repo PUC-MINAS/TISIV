@@ -15,4 +15,12 @@ class TurmaOficinaProjeto extends Model
     function getMatriculas() {
         return $this->hasMany('App\MatriculaOficinaProjeto', 'id_turmas')->get();
     }
+
+    function getPresencas() {
+        return $this->hasMany('App\PresencaOficinaProjeto', 'id_turmas')->get();
+    }
+
+    function getListasDePresencas() {
+        return $this->hasMany('App\PresencaOficinaProjeto', 'id_turmas')->get('data')->unique('data')->values();
+    }
 }

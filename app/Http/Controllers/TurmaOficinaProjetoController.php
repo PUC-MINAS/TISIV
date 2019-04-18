@@ -13,9 +13,4 @@ class TurmaOficinaProjetoController extends Controller
         $this->middleware('auth');
     }
 
-    function criarListaPresenca ($idOficina, $idTurma) {
-        $oficina = OficinaProjeto::find($idOficina);
-        $turma = TurmaOficinaProjeto::find($idTurma);
-        return view('turma-oficina-projeto.criar-lista-presenca')->with('turma', $turma);
-    }
 }

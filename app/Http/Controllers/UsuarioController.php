@@ -11,6 +11,11 @@ use Auth;
 
 class UsuarioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $usuarios = usuario::orderBy('dta_nasc', 'asc')->paginate(10);

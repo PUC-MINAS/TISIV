@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+use App\Enums\UF;
+
 class CreateEnderecoUsuario extends Migration
 {
     /**
@@ -14,17 +16,21 @@ class CreateEnderecoUsuario extends Migration
     public function up()
     {
         Schema::create('endereco_usuario', function (Blueprint $table) {
-            $table->bigInteger('usuario_id')->unsigned();
-            $table->foreign('usuario_id')->references('id')->on('usuario')->onDelete('cascade');
+            $table->integer('id_usuario')->unsigned();
             $table->string('rua')->nullable();
             $table->integer('numero')->nullable();
             $table->integer('apto')->nullable();
             $table->string('bairro')->nullable();
             $table->string('cep')->nullable();
             $table->string('cidade');
-            $table->string('estado');
+            $table->tinyInteger('uf')->unsigned()->default(UF::NaoInformado);
             $table->string('nacionalidade')->nullable();
             $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+        Schema::table('endereco_usuario', function (Blueprint $table) {            
+            $table->foreign('id_usuario')->references('id')->on('usuario')->onDelete('cascade');
             $table->engine = 'InnoDB';
         });
     }

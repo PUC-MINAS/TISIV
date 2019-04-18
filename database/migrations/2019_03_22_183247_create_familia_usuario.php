@@ -16,13 +16,18 @@ class CreateFamiliaUsuario extends Migration
     public function up()
     {
         Schema::create('familia_usuario', function (Blueprint $table) {
-            $table->bigInteger('usuario_id')->unsigned();
-            $table->foreign('usuario_id')->references('id')->on('usuario')->onDelete('cascade');
+            $table->increments('id');
+            $table->integer('id_usuario')->unsigned();
             $table->string('nome_parente');
             $table->tinyInteger('parentesco')->unsigned()->default(Parentesco::NaoInformado);
             $table->date('dta_nasc')->nullable();
             $table->string('profissao')->nullable();
             $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+        Schema::table('familia_usuario', function (Blueprint $table) {
+            $table->foreign('id_usuario')->references('id')->on('usuario')->onDelete('cascade');
             $table->engine = 'InnoDB';
         });
     }

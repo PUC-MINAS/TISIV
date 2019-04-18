@@ -17,4 +17,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::post('/cadastro/endereco', 'UsuarioController@storeEndereco');
+Route::post('/cadastro/familia', 'UsuarioController@storeFamilia');
 Route::resource('cadastro', 'UsuarioController');
+

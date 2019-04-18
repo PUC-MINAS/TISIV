@@ -79,7 +79,6 @@
         <h6 class="collapse-header">Gestão:</h6>
         <a class="collapse-item" href="{{url('cadastro/create')}}">Formulário de Cadastro</a>
         <a class="collapse-item" href="{{url('cadastro')}}">Relação de cadastrados</a>
-        <a class="collapse-item" href="utilities-border.html">Alterar informações</a>
       </div>
     </div>
   </li>
@@ -621,12 +620,11 @@
   @show
   <br><br>
   <!-- Footer -->
-  <footer class="bg-white" style="position: absolute; bottom: 0px; width: 80%">
+  <footer class="bg-white" style="position: absolute; bottom: 0px; width: 80%;">
     <div class="container my-auto">
-      <div class="copyright text-center">
+      <div class="copyright text-center" style="position: relative; bottom: 6px;">
         <span>Copyright &copy; Instituto Sacramentino de Nossa Senhora 2019</span>
       </div>
-      <br>
     </div>
   </footer>
   <!-- End of Footer -->

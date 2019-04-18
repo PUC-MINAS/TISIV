@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\usuario;
-use App\Enums\Escolaridade;
-use App\Enums\FormaDivulgacao;
-use App\Enums\RacaCor;
-use App\Enums\PovoTradicional;
-use App\Enums\EstadoCivil;
+use App\endereco_usuario;
+use App\familia_usuario;
 use DateTime;
 use Auth;
 
@@ -17,16 +14,7 @@ class UsuarioController extends Controller
     public function index()
     {
         $usuarios = usuario::orderBy('dta_nasc', 'asc')->paginate(10);
-        /*
-            usuario::all('nome',
-            'sexo', 'dta_nasc',
-            'cpf', 'rg', 'certidao_nasc',
-            EstadoCivil::getKey(estado_civil), Escolaridade::getKey(escolaridade),
-            'profissao', 'telefone', 'num_wpp', 'contato_emerg', 'cras', 'num_cad',
-            'medicamentos', 'alergias', FormaDivulgacao::getKey(descobriu_por),
-            'observacao', RacaCor::getKey(raca_cor),
-            PovoTradicional::getKey(povo_tradicional))->orderBy('dta_nasc','asc')->paginate(10);
-        */
+
         return view('cadastro.index', ['usuarios' => $usuarios]);
     }
 
@@ -63,8 +51,75 @@ class UsuarioController extends Controller
         $usuario->observacao = $request->input('observacoes');
         $usuario->raca_cor = $request->input('raca-cor');
         $usuario->povo_tradicional = $request->input('povo-tradicional');
-	    $usuario->save();
-	    return redirect()->route('home');
+        $usuario->save();
+
+        return view('cadastro.endereco', ['usuario' => $usuario]);
+    }
+
+    public function storeEndereco(Request $request){
+
+        $endereco = new endereco_usuario();
+        $endereco->id_usuario = $request->input('usuario-id');
+        $endereco->rua = $request->input('rua');
+        $endereco->numero = $request->input('numero');
+        $endereco->apto = $request->input('apto');
+        $endereco->bairro = $request->input('bairro');
+        $endereco->cep = $request->input('cep');
+        $endereco->cidade = $request->input('cidade');
+        $endereco->uf = $request->input('uf');
+        $endereco->nacionalidade = $request->input('nacionalidade');
+        $endereco->save();
+
+        return view('cadastro.familia', ['id' => $endereco->id_usuario]);
+    }
+
+    public function storeFamilia(Request $request){
+
+        if (self::hasInput($request)){
+
+            $usuario_id = $request->input('usuario-id');
+
+            $parente_1 = new familia_usuario();
+            $parente_1->id_usuario = $usuario_id;
+            $parente_1->nome_parente = $request->input('nome1');
+            $parente_1->parentesco = $request->input('parentesco1');
+            $parente_1->dta_nasc = $request->input('dta-nasc1');
+            $parente_1->profissao = $request->input('profissao1');
+            $parente_1->save();
+
+            $parente_2 = new familia_usuario();
+            $parente_2->id_usuario = $usuario_id;
+            $parente_2->nome_parente = $request->input('nome2');
+            $parente_2->parentesco = $request->input('parentesco2');
+            $parente_2->dta_nasc = $request->input('dta-nasc2');
+            $parente_2->profissao = $request->input('profissao2');
+            $parente_2->save();
+
+            $parente_3 = new familia_usuario();
+            $parente_3->id_usuario = $usuario_id;
+            $parente_3->nome_parente = $request->input('nome3');
+            $parente_3->parentesco = $request->input('parentesco3');
+            $parente_3->dta_nasc = $request->input('dta-nasc3');
+            $parente_3->profissao = $request->input('profissao3');
+            $parente_3->save();
+
+            $parente_4 = new familia_usuario();
+            $parente_4->id_usuario = $usuario_id;
+            $parente_4->nome_parente = $request->input('nome4');
+            $parente_4->parentesco = $request->input('parentesco4');
+            $parente_4->dta_nasc = $request->input('dta-nasc4');
+            $parente_4->profissao = $request->input('profissao4');
+            $parente_4->save();
+
+            $parente_5 = new familia_usuario();
+            $parente_5->id_usuario = $usuario_id;
+            $parente_5->nome_parente = $request->input('nome5');
+            $parente_5->parentesco = $request->input('parentesco5');
+            $parente_5->dta_nasc = $request->input('dta-nasc5');
+            $parente_5->profissao = $request->input('profissao5');
+            $parente_5->save();
+        }
+        return redirect()->route('home');
     }
 
     public function show($id)
@@ -85,5 +140,9 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
 
+    }
+
+    public function hasInput(Request $request){
+        return count($request->all()) > 0;
     }
 }

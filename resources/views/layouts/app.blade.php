@@ -619,13 +619,14 @@
   </div>
   <!-- End of Main Content -->
   @show
-
+  <br><br>
   <!-- Footer -->
-  <footer class="sticky-footer bg-white" style="position: fixed; bottom: 0px; width: 80%">
+  <footer class="bg-white" style="position: absolute; bottom: 0px; width: 80%">
     <div class="container my-auto">
-      <div class="copyright text-center my-auto">
+      <div class="copyright text-center">
         <span>Copyright &copy; Instituto Sacramentino de Nossa Senhora 2019</span>
       </div>
+      <br>
     </div>
   </footer>
   <!-- End of Footer -->

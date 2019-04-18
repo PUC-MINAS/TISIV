@@ -11,4 +11,8 @@ class familia_usuario extends Model
         'nome_parente', 'parentesco',
         'dta_nasc', 'profissao'
     ];
+
+    public function usuario(){
+        return $this->belongsTo('App\usuario', 'usuario_id');
+    }
 }

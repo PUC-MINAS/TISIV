@@ -29,10 +29,10 @@
 
 </head>
 <body id="page-top">
-    
+
     @yield('content-base')
 
-  
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>

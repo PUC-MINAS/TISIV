@@ -35,5 +35,8 @@ Route::resource('projetos', 'ProjetoController');
 /* Rotas de OficinasProjetos */
 Route::resource('oficinas-projetos', 'OficinaProjetoController');
 
+/* Rotas de TurmaOficinaProjeto */
+Route::resource('turma-oficina-projeto', 'TurmaOficinaProjetoController');
+
 /* Rotas PresencaOficinaProjeto */
 Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/criar-lista-presenca', 'TurmaOficinaProjetoController@criarListaPresenca');

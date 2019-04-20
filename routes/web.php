@@ -39,4 +39,8 @@ Route::resource('oficinas-projetos', 'OficinaProjetoController');
 Route::resource('turma-oficina-projeto', 'TurmaOficinaProjetoController');
 
 /* Rotas PresencaOficinaProjeto */
-Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/criar-lista-presenca', 'TurmaOficinaProjetoController@criarListaPresenca');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencas/', 'PresencaOficinaProjetoController@index');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencas/create', 'PresencaOficinaProjetoController@create');
+Route::post('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencas/', 'PresencaOficinaProjetoController@store');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencas/{data}', 'PresencaOficinaProjetoController@show');
+Route::put('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencas/{idPresenca}/justificar', 'PresencaOficinaProjetoController@justificar');

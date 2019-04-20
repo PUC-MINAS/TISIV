@@ -8,15 +8,12 @@ use App\TurmaOficinaProjeto;
 
 class TurmaOficinaProjetoController extends Controller
 {
-    function criarListaPresenca ($idOficina, $idTurma) {
-        $oficina = OficinaProjeto::find($idOficina);
-        $turma = TurmaOficinaProjeto::find($idTurma);
-        dd($turma);
-        return view('turma-oficina-projeto.criar')->with('turma', $turma);
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
-    
 
-    /**
+  /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

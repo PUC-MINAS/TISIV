@@ -65,6 +65,13 @@
     </a>
   </li>
 
+  <li class="nav-item">
+    <a href="{{url('turma-oficina-projeto')}}" class="nav-link collapsed">
+      <i class="fas fa-fw fa-cog"></i>
+      <span>Turma Oficina de Projeto</span>
+    </a>
+  </li>
+
   <!-- Nav Item - Utilities Collapse Menu -->
   <!-- <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
@@ -93,7 +100,6 @@
         <h6 class="collapse-header">Gestão:</h6>
         <a class="collapse-item" href="{{url('cadastro/create')}}">Formulário de Cadastro</a>
         <a class="collapse-item" href="{{url('cadastro')}}">Relação de cadastrados</a>
-        
       </div>
     </div>
   </li>

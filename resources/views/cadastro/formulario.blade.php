@@ -14,7 +14,18 @@
 
 	<div class="card">
 		<div class="card-header">
-			<h4 class="card-title">Cadastrar Beneficiado</h4>
+            <h4 class="card-title" style="display: inline">Cadastrar Beneficiado</h4>
+            <div class="ml-auto close">
+                <form action="{{ route('home') }}" method="GET">
+                    @method('GET')
+                    <button
+                        type="submit"
+                        class="btn btn-circle"
+                        style="position: relative; bottom: 0.5vh"
+                        ><i class="far fa-times-circle"></i>
+                    </button>
+                </form>
+            </div>
 		</div>
 		<div class="card-body container">
             <form method="POST" action="{{url('cadastro')}}">
@@ -159,8 +170,7 @@
                 </div>
                 <br>
                 <div class="row ml-0 col-xs-6 col-sm-12">
-                    <button type="submit" class="btn btn-success btn-fill col-sm-2">Cadastrar</button>
-                    <a href="{{url('cadastro')}}" class="btn btn-danger btn-fill ml-3 col-sm-2">Cancelar</a>
+                    <button type="submit" class="btn btn-success btn-lg btn-circle ml-auto"><i class="fas fa-angle-right"></i></button>
                 </div>
 			</form>
 

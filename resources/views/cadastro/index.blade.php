@@ -65,11 +65,20 @@
                     <td>{{ \App\Enums\PovoTradicional::getDescription($usuario->povo_tradicional)}}</td>
                     <td>
                         &nbsp;
-                        <button
+                        <form action="{{ route('endereco.detalhe', $usuario->id) }}" method="GET">
+                            @method('GET')
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                style="position: relative; bottom: 3.7vh"
+                                ><i class="fas fa-map-marked-alt"></i>
+                            </button>
+                        </form>
+                        {{-- <button
                             type="button"
                             class="btn btn-primary"
                             ><i class="fas fa-map-marked-alt"></i>
-                        </button></td>
+                        </button></td> --}}
                     <td>
                         &nbsp;
                         <button

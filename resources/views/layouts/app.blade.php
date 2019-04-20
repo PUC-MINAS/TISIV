@@ -93,7 +93,6 @@
         <h6 class="collapse-header">Gestão:</h6>
         <a class="collapse-item" href="{{url('cadastro/create')}}">Formulário de Cadastro</a>
         <a class="collapse-item" href="{{url('cadastro')}}">Relação de cadastrados</a>
-        
       </div>
     </div>
   </li>
@@ -154,7 +153,7 @@
 @show
 
 <!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column"> 
+<div id="content-wrapper" class="d-flex flex-column">
 
   <!-- Main Content -->
   <div id="content">
@@ -439,7 +438,7 @@
       <!-- Content Row -->
 
       <!-- <div class="row"> -->
- 
+
         <!-- Area Chart -->
         <!-- <div class="col-xl-8 col-lg-7">
           <div class="card shadow mb-4"> -->

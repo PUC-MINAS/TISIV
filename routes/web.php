@@ -27,8 +27,12 @@ Route::put('/programas/update/{id}', 'ProgramaController@update')->name('editarP
 Route::delete('/programas/delete/{id}', 'ProgramaController@destroy')->name('deletarPrograma');
 
 /* Rotas de Usuários */
-Route::post('/cadastro/endereco', 'UsuarioController@storeEndereco');
-Route::post('/cadastro/familia', 'UsuarioController@storeFamilia');
+Route::get('/cadastro/endereco/{id}', 'UsuarioController@formularioEndereco')->name('formulario.endereco');
+Route::post('/cadastro/endereco', 'UsuarioController@storeEndereco')->name('cadastro.endereco');
+Route::get('/cadastro/familia/{id}', 'UsuarioController@formularioFamilia')->name('formulario.familia');
+Route::post('/cadastro/familia', 'UsuarioController@storeFamilia')->name('cadastro.familia');
+Route::get('/cadastro/detalhe/endereco/{id}', 'UsuarioController@detalheEndereco')->name('endereco.detalhe');
+Route::get('/cadastro/detalhe/familia/{id}', 'UsuarioController@detalheFamilia')->name('familia.detalhe');
 Route::resource('cadastro', 'UsuarioController');
 
 /* Rotas de Projetos */

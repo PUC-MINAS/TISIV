@@ -17,7 +17,7 @@
 			<h4 class="card-title">Cadastrar Grupo Familiar</h4>
 		</div>
 		<div class="card-body container">
-            <form method="POST" action="{{url('cadastro/familia')}}">
+            <form method="POST" action="{{ route('cadastro.familia') }}">
                 @csrf
                 <input
                     type="hidden"
@@ -212,7 +212,11 @@
                 <br>
                 <div class="row ml-0 col-xs-6 col-sm-12">
                     <button type="submit" class="btn btn-success btn-fill col-sm-2">Cadastrar</button>
-                    <a href="{{url('cadastro')}}" class="btn btn-danger btn-fill ml-3 col-sm-2">Cancelar</a>
+                    <form action="{{ route('cadastro.destroy', $id) }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-fill ml-3 col-sm-2">Cancelar</button>
+                    </form>
                 </div>
 			</form>
 		</div>

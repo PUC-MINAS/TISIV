@@ -14,32 +14,31 @@
 
 	<div class="card">
 		<div class="card-header">
-			<h4 class="card-title">Cadastrar Endereço</h4>
+            <h4 class="card-title" style="display: inline">Cadastrar Endereço</h4>
+            <div class="ml-auto close">
+                <form action="{{ route('cadastro.destroy', $id) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <button
+                        type="submit"
+                        class="btn btn-circle"
+                        style="position: relative; bottom: 0.5vh"
+                        ><i class="far fa-times-circle"></i>
+                    </button>
+                </form>
+            </div>
 		</div>
 		<div class="card-body container">
-            <form method="POST" action="{{url('cadastro/endereco')}}">
+            <form method="POST" action="{{ route('cadastro.endereco') }}">
                 @csrf
                 <div class="row col-xs-6 col-sm-12">
-                    <div class="form-group col-sm-12">
-					    <label for="beneficiado1">Beneficiado</label>
-                        <input
-                            type="text"
-                            name="beneficiado1"
-                            class="form-control"
-                            id="beneficiado1"
-                            value="{{$usuario->nome}}"
-                            disabled
-                        >
+                    <div class="form-group col-sm-8">
                         <input
                             type="hidden"
                             id="usuario-id"
                             name="usuario-id"
-                            value="{{$usuario->id}}"
+                            value="{{$id}}"
                         >
-                    </div>
-                </div>
-                <div class="row col-xs-6 col-sm-12">
-                    <div class="form-group col-sm-8">
 					    <label for="rua">Rua</label>
 					    <input type="text" name="rua" class="form-control" id="rua">
                     </div>
@@ -84,8 +83,7 @@
                 </div>
                 <br>
                 <div class="row ml-0 col-xs-6 col-sm-12">
-                    <button type="submit" class="btn btn-success btn-fill col-sm-2">Cadastrar</button>
-                    <a href="{{url('cadastro')}}" class="btn btn-danger btn-fill ml-3 col-sm-2">Cancelar</a>
+                    <button type="submit" class="btn btn-success btn-lg btn-circle ml-auto"><i class="fas fa-angle-right"></i></button>
                 </div>
 			</form>
 

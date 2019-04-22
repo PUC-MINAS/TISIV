@@ -11,4 +11,8 @@ class MatriculaOficinaProjeto extends Model
     function getUsuario () {
         return $this->belongsTo('App\usuario', 'id_usuario')->first();
     }
+
+    function getTurma () {
+        return $this->belongsTo('App\TurmaOficinaProjeto', 'id_turmas')->first();
+    }
 }

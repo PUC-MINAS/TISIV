@@ -12,4 +12,8 @@ class OficinaProjeto extends Model
     function getProjeto() {        
         return $this->belongsTo('App\Projeto', 'id_projetos')->first();
     }
+
+    function getTurma() {
+        return $this->hasMany('App\TurmaOficinaProjeto', 'id_oficinas_projetos')->get();
+    }
 }

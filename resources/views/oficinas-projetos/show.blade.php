@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content-app')
 
-<div class="card shadow">
+<div class="card shadow mb-4">
     <div class="card-header card-header-space-between">
         <h4 class="m-0 font-weight-bold text-primary">Detalhes: {{$oficina->nome}}</h4>
         <div class="dropdown no-arrow">
@@ -77,6 +77,45 @@
             </button>
             <a href="{{ url('oficinas-projetos')}}" class="btn btn-primary">Voltar</a>           
         </form>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-header card-header-space-between">
+        <h4 class="m-0 font-weight-bold text-primary">Turmas</h4>
+        <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/create') }}" >Criar Turma</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive table-full-width">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Turma</th>
+                    <th scope="col">Educador</th>
+                    <th scope="col">Horário</th>
+                    <th scope="col">Máximo de alunos</th>
+                    <th scope="col">Idade mínima</th>
+                    <th scope="col">Idade máxima</th>                    
+                    <th></th>
+                </tr>
+                </thead>
+                @foreach($oficina->getTurma() as $turma)
+                    <tbody>
+                    <tr>
+                        <td>{{ $turma->nome() }}</td>
+                        <td>{{ $turma->educador }}</td>
+                        <td>{{ $turma->horario }}</td>
+                        <td>{{ $turma->maximoAlunos }}</td>
+                        <td>{{ $turma->idadeMinima }}</td>
+                        <td>{{ $turma->idadeMaxima }}</td>                    
+                        <td>
+                            <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/'.$turma->id) }}" >Detalhes</a>                    
+                        </td>     
+                    </tr>
+                    </tbody>
+                @endforeach
+            </table>
+        </div>
     </div>
 </div>
 

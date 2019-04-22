@@ -51,7 +51,7 @@
                 <div class="col">
                     <div class="card bg-success text-white shadow">
                         <div class="card-body">
-                            Concluiu.
+                            Aluno Concluiu a oficina
                             <div class="text-white-50 small">
                                 Data conclusão {{$matricula->data_conclusao}}
                             </div>
@@ -63,28 +63,27 @@
         </form>
         <div class="row mt-5">
             <div class="col">
-                <!-- <a href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/'.$matricula->id_turmas.'/matriculas/'.$matricula->id.'/edit')}}" class="btn btn-success">Editar</a> -->
                 <div class="dropdown" style="display: inline-block">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Ações
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Marcar conclusão</a>
-                        <a class="dropdown-item" href="#">Marcar desistência</a>
+                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#concluirModal" >Marcar conclusão</button>
+                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#desistirModal" >Marcar desistência</button>
                     </div>
                 </div>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletarModal">
                     Deletar
                 </button>
-                <a href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/'.$matricula->getTurma()->id.'/matriculas')}}" class="btn btn-primary">Voltar</a>
+                <a href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/'.$matricula->getTurma()->id)}}" class="btn btn-primary">Voltar</a>
             </div>
         </div>  
         
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modals -->
+<div class="modal fade" id="deletarModal" tabindex="-1" role="dialog" aria-labelledby="deletarModalLable" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -103,6 +102,56 @@
             @method('delete')
             @csrf
             <button type="submit" class="btn btn-danger">Deletar</button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="concluirModal" tabindex="-1" role="dialog" aria-labelledby="concluirModalLable" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="concluirModalLable">Marcar conclusão Oficina</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Deseja marcar a conclusão da oficina para "{{$matricula->getUsuario()->nome}}"
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        <form action="{{url('/oficinas-projetos/'.$oficina->id.'/turmas/'.$matricula->getTurma()->id.'/matriculas/'.$matricula->id.'/concluir')}}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-success">Concluir</button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="desistirModal" tabindex="-1" role="dialog" aria-labelledby="desistirModalLable" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="desistirModalLable">Marcar desistência da Oficina</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Deseja informar a desistência do aluno "{{$matricula->getUsuario()->nome}}" da oficina?
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        <form action="{{url('/oficinas-projetos/'.$oficina->id.'/turmas/'.$matricula->getTurma()->id.'/matriculas/'.$matricula->id.'/desistir')}}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-danger">Informar Desistência</button>
         </form>
         
       </div>

@@ -50,7 +50,7 @@
                     <tr>
                         <td>{{ $usuario->nome }}</td>
                         <td>{{ $usuario->sexo}}</td>
-                        <td>{{ $usuario->dta_nasc->format('d/m/Y')}}</td>
+                        <td>{{ $usuario->dta_nasc}}</td>
                         <td>{{ $usuario->cpf}}</td>
                         <td>{{ $usuario->rg}}</td>
                         <td>{{ $usuario->certidao_nasc}}</td>

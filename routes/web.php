@@ -50,7 +50,6 @@ Route::resource('projetos', 'ProjetoController');
 Route::resource('oficinas-projetos', 'OficinaProjetoController');
 
 /* Rotas de TurmaOficinaProjeto */
-// Route::resource('turma-oficina-projeto', 'TurmaOficinaProjetoController');
 Route::get('oficinas-projetos/{idOficina}/turmas/create', 'TurmaOficinaProjetoController@create');
 Route::post('oficinas-projetos/{idOficina}/turmas/', 'TurmaOficinaProjetoController@store');
 Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}', 'TurmaOficinaProjetoController@show');

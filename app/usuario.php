@@ -21,4 +21,12 @@ class usuario extends Model
     ];
     protected $dates = ['dta_nasc', 'created_at', 'updated_at'];
     protected $primarykey = 'id';
+
+    public function endereco(){
+        return $this->hasOne('App\endereco_usuario', 'usuario_id');
+    }
+
+    public function familia(){
+        return $this->hasOne('App\familia_usuario', 'usuario_id');
+    }
 }

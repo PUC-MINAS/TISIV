@@ -91,17 +91,10 @@
 
   <!-- Nav Item - Utilities Collapse Menu -->
   <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsuarios" aria-expanded="true" aria-controls="collapseUtilities">
+    <a class="nav-link collapsed" href="{{url('usuarios')}}">
       <i class="fas fa-fw fa-users"></i>
       <span>Beneficiados</span>
     </a>
-    <div id="collapseUsuarios" class="collapse" aria-labelledby="headingUsuarios" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Gestão:</h6>
-        <a class="collapse-item" href="{{url('cadastro/create')}}">Formulário de Cadastro</a>
-        <a class="collapse-item" href="{{url('cadastro')}}">Relação de cadastrados</a>
-      </div>
-    </div>
   </li>
 
   <!-- Divider -->
@@ -160,7 +153,7 @@
 @show
 
 <!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column"> 
+<div id="content-wrapper" class="d-flex flex-column">
 
   <!-- Main Content -->
   <div id="content">
@@ -445,7 +438,7 @@
       <!-- Content Row -->
 
       <!-- <div class="row"> -->
- 
+
         <!-- Area Chart -->
         <!-- <div class="col-xl-8 col-lg-7">
           <div class="card shadow mb-4"> -->
@@ -638,11 +631,11 @@
   </div>
   <!-- End of Main Content -->
   @show
-
+  <br><br>
   <!-- Footer -->
   <footer class="sticky-footer bg-white">
     <div class="container my-auto">
-      <div class="copyright text-center my-auto">
+      <div class="copyright text-center" style="position: relative; bottom: 6px;">
         <span>Copyright &copy; Instituto Sacramentino de Nossa Senhora 2019</span>
       </div>
     </div>

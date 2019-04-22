@@ -16,6 +16,7 @@ class CreateEnderecoUsuario extends Migration
     public function up()
     {
         Schema::create('endereco_usuario', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('id_usuario')->unsigned();
             $table->string('rua')->nullable();
             $table->integer('numero')->nullable();
@@ -29,7 +30,7 @@ class CreateEnderecoUsuario extends Migration
             $table->engine = 'InnoDB';
         });
 
-        Schema::table('endereco_usuario', function (Blueprint $table) {            
+        Schema::table('endereco_usuario', function (Blueprint $table) {
             $table->foreign('id_usuario')->references('id')->on('usuario')->onDelete('cascade');
             $table->engine = 'InnoDB';
         });

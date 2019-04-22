@@ -68,7 +68,7 @@ class MatriculaOficinaProjetoController extends Controller
     public function destroy ($idOficina, $idTurma, $idMatricula) {
 
         $matriculas = MatriculaOficinaProjeto::destroy($idMatricula);
-        return redirect('oficinas-projetos/'.$idOficina.'/turmas/'.$idTurma);
+        return redirect('oficinas-projetos/'.$idOficina.'/turmas/'.$idTurma.'/matriculas');
     }
 
     

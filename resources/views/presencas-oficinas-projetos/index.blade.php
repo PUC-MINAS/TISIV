@@ -21,6 +21,7 @@
                 </li>
             @endforeach
         </ul>
+        <a href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/'.$turma->id)}}" class="btn btn-primary">Voltar</a>
     </div>
 </div>
 

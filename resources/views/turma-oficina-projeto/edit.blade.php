@@ -2,21 +2,12 @@
 @section('content-app')
 
 <div class="card shadow">
-    <div class="card-header"><h4 class="m-0 font-weight-bold text-primary">Nova Turma</h4></div>
+    <div class="card-header"><h4 class="m-0 font-weight-bold text-primary">Editar: {{$turma->nome()}}</h4></div>
     <div class="card-body">
-        <form action="{{url('turma-oficina-projeto/'.$turma->id)}}" method="post">
+        <form action="{{url('oficinas-projetos/'.$oficina->id.'/turmas/'.$turma->id)}}" method="post">
             @csrf
             @method('PUT')
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="oficina">Oficina</label>
-                    <select class="form-control" name="oficina" id="oficina">
-                        <option value="">-- Selecione uma oficina --</option>
-                        @foreach($oficinas as $oficina)
-                            <option value="{{ $oficina->id }}">{{$oficina->nome}}</option>
-                        @endforeach
-                    </select>
-                </div>
                 <div class="form-group col-md-6">
                     <label for="educador">Educador</label>
                     <input type="text" class="form-control" value="{{$turma->educador}}" name="educador">

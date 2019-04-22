@@ -29,10 +29,10 @@ class TurmaOficinaProjetoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($idOficina)
     {
-        $oficinas = OficinaProjeto::all();
-        return view('turma-oficina-projeto.create')->with('oficinas', $oficinas);
+        $oficina = OficinaProjeto::find($idOficina);
+        return view('turma-oficina-projeto.create')->with('oficina', $oficina);
     }
 
     /**
@@ -41,11 +41,11 @@ class TurmaOficinaProjetoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($idOficina, Request $request)
     {
         
         $turma = new TurmaOficinaProjeto();
-        $turma->id_oficinas_projetos = $request->input('oficina');
+        $turma->id_oficinas_projetos = $idOficina;
         $turma->educador = $request->input('educador');
         $turma->horario = $request->input('horario');
         $turma->maximoAlunos = $request->input('maximoAlunos');
@@ -53,7 +53,7 @@ class TurmaOficinaProjetoController extends Controller
         $turma->idadeMaxima = $request->input('idadeMaxima');
         $turma->save();
 
-        return redirect('turma-oficina-projeto');
+        return redirect('oficinas-projetos/'.$idOficina);
     }
 
     /**
@@ -62,10 +62,11 @@ class TurmaOficinaProjetoController extends Controller
      * @param  \App\TurmaOficinaProjeto  $turmaOficinaProjeto
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idOficina, $idTurma)
     {
-        $turma = TurmaOficinaProjeto::find($id);
-        return view('turma-oficina-projeto.show')->with('turma', $turma);        
+        $oficina = OficinaProjeto::find($idOficina);
+        $turma = TurmaOficinaProjeto::find($idTurma);
+        return view('turma-oficina-projeto.show')->with('turma', $turma)->with('oficina', $oficina);        
     }
 
     /**
@@ -74,12 +75,12 @@ class TurmaOficinaProjetoController extends Controller
      * @param  \App\TurmaOficinaProjeto  $turmaOficinaProjeto
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idOficina, $idTurma)
     {
-        $turma = TurmaOficinaProjeto::find($id);
-        $oficinas = OficinaProjeto::all();
+        $turma = TurmaOficinaProjeto::find($idTurma);
+        $oficina = OficinaProjeto::find($idOficina);
         return view('turma-oficina-projeto.edit')->with('turma', $turma)
-                                    ->with('oficinas', $oficinas);
+                                                 ->with('oficina', $oficina);
     }
 
     /**
@@ -89,11 +90,10 @@ class TurmaOficinaProjetoController extends Controller
      * @param  \App\TurmaOficinaProjeto  $turmaOficinaProjeto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($idOficina, $idTurma, Request $request)
     {
 
-        $turma = TurmaOficinaProjeto::find($id);
-        $turma->id_oficinas_projetos = $request->input('oficina');
+        $turma = TurmaOficinaProjeto::find($idTurma);
         $turma->educador = $request->input('educador');
         $turma->horario = $request->input('horario');
         $turma->maximoAlunos = $request->input('maximoAlunos');
@@ -101,7 +101,7 @@ class TurmaOficinaProjetoController extends Controller
         $turma->idadeMaxima = $request->input('idadeMaxima');
         $turma->save();
 
-        return redirect('turma-oficina-projeto');
+        return redirect('oficinas-projetos/'.$idOficina.'/turmas/'.$idTurma);
     }
 
     /**
@@ -110,9 +110,9 @@ class TurmaOficinaProjetoController extends Controller
      * @param  \App\TurmaOficinaProjeto  $turmaOficinaProjeto
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($idOficina, $idTurma)
     {        
-        $turma = TurmaOficinaProjeto::destroy($id);
-        return redirect('turma-oficina-projeto');
+        $turma = TurmaOficinaProjeto::destroy($idTurma);
+        return redirect('oficinas-projetos/'.$idOficina);
     }
 }

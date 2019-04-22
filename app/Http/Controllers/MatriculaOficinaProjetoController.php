@@ -51,7 +51,7 @@ class MatriculaOficinaProjetoController extends Controller
         }
         else {
             $matricula->save();
-            return redirect('oficinas-projetos/'.$idOficina.'/turmas/'.$matricula->id_turmas.'/matriculas');
+            return redirect('oficinas-projetos/'.$idOficina.'/turmas/'.$matricula->id_turmas);
         }
         
 
@@ -68,9 +68,33 @@ class MatriculaOficinaProjetoController extends Controller
     public function destroy ($idOficina, $idTurma, $idMatricula) {
 
         $matriculas = MatriculaOficinaProjeto::destroy($idMatricula);
-        return redirect('oficinas-projetos/'.$idOficina.'/turmas/'.$idTurma.'/matriculas');
+        return redirect('oficinas-projetos/'.$idOficina.'/turmas/'.$idTurma);
     }
 
-    
+    public function concluir ($idOficina, $idTurma, $idMatricula) {
+        $matricula = MatriculaOficinaProjeto::find($idMatricula);
+        if($matricula->concluir()) {
+            $matricula->save();
+            return redirect('oficinas-projetos/'.$idOficina.'/turmas/'.$matricula->id_turmas.'/matriculas/'.$idMatricula);
+        }
+        else {
+            $error = 'Não foi possível realizar a conclusão da oficina do aluno '.$matricula->getUsuario()->nome;
+            return redirect()->back()->with('error', $error);
+        }
+        
+    }
+
+    public function desistir ($idOficina, $idTurma, $idMatricula) {
+        $matricula = MatriculaOficinaProjeto::find($idMatricula);
+        if($matricula->desistir()) {
+            $matricula->save();
+            return redirect('oficinas-projetos/'.$idOficina.'/turmas/'.$matricula->id_turmas.'/matriculas/'.$idMatricula);
+        }
+        else {
+            $error = 'Não foi possível realizar a desistêcnia do aluno '.$matricula->getUsuario()->nome;
+            return redirect()->back()->with('error', $error);
+        }
+        
+    }
 
 }

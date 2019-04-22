@@ -44,3 +44,12 @@ Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencas/create', 'P
 Route::post('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencas/', 'PresencaOficinaProjetoController@store');
 Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencas/{data}', 'PresencaOficinaProjetoController@show');
 Route::put('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencas/{idPresenca}/justificar', 'PresencaOficinaProjetoController@justificar');
+
+/* Rotas MatriculaOficinaProjeto */
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/', 'MatriculaOficinaProjetoController@index');
+Route::get('oficinas-projetos/{idOficina}/matriculas/create', 'MatriculaOficinaProjetoController@create');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{idMatricula}', 'MatriculaOficinaProjetoController@show');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{idMatricula}/edit', 'MatriculaOficinaProjetoController@edit');
+Route::post('oficinas-projetos/{idOficina}/matriculas/', 'MatriculaOficinaProjetoController@store');
+Route::put('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{$idMatricula}', 'MatriculaOficinaProjetoController@update');
+Route::delete('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{idMatricula}', 'MatriculaOficinaProjetoController@destroy');

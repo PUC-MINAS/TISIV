@@ -23,4 +23,8 @@ class TurmaOficinaProjeto extends Model
     function getListasDePresencas() {
         return $this->hasMany('App\PresencaOficinaProjeto', 'id_turmas')->get('data')->unique('data')->values();
     }
+
+    function nome() {
+        return $this->getOficina()->nome.' - Turma '.$this->id;
+    }
 }

@@ -28,7 +28,7 @@
             </div>
 		</div>
 		<div class="card-body container">
-            <form method="POST" action="{{url('cadastro')}}">
+            <form method="POST" action="{{url('usuarios')}}">
                 @csrf
                 <div class="row col-xs-6 col-sm-12">
                     <div class="form-group col-sm-9">

@@ -14,10 +14,10 @@
 
 	<div class="card">
 		<div class="card-header">
-            <h4 class="card-title" style="display: inline">Cadastrar Endereço</h4>
+            <h4 class="card-title" style="display: inline">Alterar Endereço</h4>
             <div class="ml-auto close">
-                <form action="{{ route('cadastro.destroy', $id) }}" method="POST">
-                    @method('DELETE')
+                <form action="{{ route('endereco.index', $endereco->id_usuario) }}" method="GET">
+                    @method('GET')
                     @csrf
                     <button
                         type="submit"
@@ -29,7 +29,8 @@
             </div>
 		</div>
 		<div class="card-body container">
-            <form method="POST" action="{{ route('cadastro.endereco') }}">
+            <form method="POST" action="{{ route('endereco.update', $endereco->id) }}">
+                @method('POST')
                 @csrf
                 <div class="row col-xs-6 col-sm-12">
                     <div class="form-group col-sm-8">
@@ -37,34 +38,70 @@
                             type="hidden"
                             id="usuario-id"
                             name="usuario-id"
-                            value="{{$id}}"
+                            value="{{$endereco->id_usuario}}"
                         >
 					    <label for="rua">Rua</label>
-					    <input type="text" name="rua" class="form-control" id="rua">
+                        <input
+                            type="text"
+                            name="rua"
+                            class="form-control"
+                            id="rua"
+                            value="{{$endereco->rua}}"
+                        >
                     </div>
                     <div class="form-group col-sm-2">
                         <label for="numero" >Número</label>
-                        <input type="text" name="numero" class="form-control" id="numero">
+                        <input
+                            type="text"
+                            name="numero"
+                            class="form-control"
+                            id="numero"
+                            value="{{$endereco->numero}}"
+                        >
                     </div>
                     <div class="form-group col-xs-2 col-sm-2">
                         <label for="apto">Apartamento</label>
-                        <input type="text" name="apto" class="form-control" id="apto">
+                        <input
+                            type="text"
+                            name="apto"
+                            class="form-control"
+                            id="apto"
+                            value="{{$endereco->apto}}"
+                        >
                     </div>
                 </div>
                 <div class="row col-xs-6 col-sm-12">
                     <div class="form-group col-sm-9">
                         <label for="bairro">Bairro</label>
-                        <input type="text" name="bairro" id="bairro" class="form-control">
+                        <input
+                            type="text"
+                            name="bairro"
+                            id="bairro"
+                            class="form-control"
+                            value="{{$endereco->bairro}}"
+                        >
                     </div>
                     <div class="form-group col-sm-3">
                         <label for="cep">CEP</label>
-                        <input type="text" name="cep" class="form-control" id="cep">
+                        <input
+                            type="text"
+                            name="cep"
+                            class="form-control"
+                            id="cep"
+                            value="{{$endereco->cep}}"
+                        >
                     </div>
                 </div>
                 <div class="row col-xs-6 col-sm-12">
                     <div class="form-group col-sm-9">
                         <label for="cidade">Cidade</label>
-                        <input type="text" name="cidade" class="form-control" id="cidade">
+                        <input
+                            type="text"
+                            name="cidade"
+                            class="form-control"
+                            id="cidade"
+                            value="{{$endereco->cidade}}"
+                        >
                     </div>
                     <div class="form-group col-sm-3">
                         <label for="uf">UF</label>
@@ -78,7 +115,13 @@
                 <div class="row col-xs-6 col-sm-12">
                     <div class="form-group col-sm-12">
                         <label for="nacionalidade">Nacionalidade</label>
-                        <input type="text" name="nacionalidade" class="form-control" id="nacionalidade">
+                        <input
+                            type="text"
+                            name="nacionalidade"
+                            class="form-control"
+                            id="nacionalidade"
+                            value="{{$endereco->cidade}}"
+                        >
                     </div>
                 </div>
                 <br>

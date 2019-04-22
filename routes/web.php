@@ -27,13 +27,21 @@ Route::put('/programas/update/{id}', 'ProgramaController@update')->name('editarP
 Route::delete('/programas/delete/{id}', 'ProgramaController@destroy')->name('deletarPrograma');
 
 /* Rotas de Usuários */
-Route::get('/cadastro/endereco/{id}', 'UsuarioController@formularioEndereco')->name('formulario.endereco');
-Route::post('/cadastro/endereco', 'UsuarioController@storeEndereco')->name('cadastro.endereco');
-Route::get('/cadastro/familia/{id}', 'UsuarioController@formularioFamilia')->name('formulario.familia');
-Route::post('/cadastro/familia', 'UsuarioController@storeFamilia')->name('cadastro.familia');
-Route::get('/cadastro/detalhe/endereco/{id}', 'UsuarioController@detalheEndereco')->name('endereco.detalhe');
-Route::get('/cadastro/detalhe/familia/{id}', 'UsuarioController@detalheFamilia')->name('familia.detalhe');
-Route::resource('cadastro', 'UsuarioController');
+Route::resource('usuarios', 'UsuarioController');
+
+/* Rotas de Endereço */
+Route::get('/usuarios/endereco/{id}', 'EnderecoController@formulario')->name('endereco.formulario');
+Route::post('/usuarios/form/endereco', 'EnderecoController@store')->name('endereco.store');
+Route::get('/usuarios/endereco/detalhes/{id}', 'EnderecoController@index')->name('endereco.index');
+Route::get('/usuarios/endereco/detalhes/alterar/{id}', 'EnderecoController@edit')->name('endereco.edit');
+Route::any('/usuarios/endereco/detalhes/atualizar/{endereco}', 'EnderecoController@update')->name('endereco.update');
+Route::any('/usuarios/endereco/detalhes/remover/{id}', 'EnderecoController@destroy')->name('endereco.destroy');
+
+/* Rotas de Familia */
+Route::get('/usuarios/familia/{id}', 'FamiliaController@formulario')->name('familia.formulario');
+Route::any('/usuarios/form/familia', 'FamiliaController@store')->name('familia.store');
+Route::get('/usuarios/familia/detalhes/{id}', 'FamiliaController@index')->name('familia.index');
+Route::any('/usuarios/familia/detalhes/remover/{id}', 'FamiliaController@destroy')->name('familia.destroy');
 
 /* Rotas de Projetos */
 Route::resource('projetos', 'ProjetoController');

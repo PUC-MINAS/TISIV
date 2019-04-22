@@ -17,17 +17,18 @@
 			<h4 class="card-title">Cadastrar Grupo Familiar</h4>
 		</div>
 		<div class="card-body container">
-            <form method="POST" action="{{ route('cadastro.familia') }}">
+            <form method="POST" action="{{ route('familia.store') }}">
+                @method('POST')
                 @csrf
-                <input
-                    type="hidden"
-                    id="usuario-id"
-                    name="usuario-id"
-                    value="{{$id}}"
-                >
                 <div class="card">
                     <div class="row col-xs-6 col-sm-12">
                         <div class="form-group col-sm-6">
+                            <input
+                                type="hidden"
+                                id="usuario-id"
+                                name="usuario-id"
+                                value="{{$id}}"
+                            >
                             <label for="nome1">Nome</label>
                             <input type="text" name="nome1" class="form-control" id="nome1">
                         </div>
@@ -212,7 +213,7 @@
                 <br>
                 <div class="row ml-0 col-xs-6 col-sm-12">
                     <button type="submit" class="btn btn-success btn-fill col-sm-2">Cadastrar</button>
-                    <form action="{{ route('cadastro.destroy', $id) }}" method="POST">
+                    <form action="{{ route('usuarios.destroy', $id) }}" method="POST">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger btn-fill ml-3 col-sm-2">Cancelar</button>

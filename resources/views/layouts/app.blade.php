@@ -91,17 +91,10 @@
 
   <!-- Nav Item - Utilities Collapse Menu -->
   <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsuarios" aria-expanded="true" aria-controls="collapseUtilities">
+    <a class="nav-link collapsed" href="{{url('usuarios')}}">
       <i class="fas fa-fw fa-users"></i>
       <span>Beneficiados</span>
     </a>
-    <div id="collapseUsuarios" class="collapse" aria-labelledby="headingUsuarios" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Gestão:</h6>
-        <a class="collapse-item" href="{{url('cadastro/create')}}">Formulário de Cadastro</a>
-        <a class="collapse-item" href="{{url('cadastro')}}">Relação de cadastrados</a>
-      </div>
-    </div>
   </li>
 
   <!-- Divider -->

@@ -79,3 +79,4 @@ Route::delete('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{idMatr
 Route::get('usuarios/{idUsuario}/fichas-aquisicoes', 'FichaAquisicaoController@index');
 Route::post('usuarios/{idUsuario}/fichas-aquisicoes/store', 'FichaAquisicaoController@store');
 Route::get('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoController@show');
+Route::put('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoController@update');

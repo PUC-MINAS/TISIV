@@ -31,7 +31,7 @@ class usuario extends Model
     }
 
     public function getFichasAquisicoes() {
-        return $this->hasMany('App\FichaAquisicao', 'id_usuario')->get();
+        return $this->hasMany('App\FichaAquisicao', 'id_usuario')->orderBy('data_criacao', 'desc')->get();
     }
 
     public function temFichaAtiva() {

@@ -17,7 +17,7 @@
 
 <div class="card shadow">
     <div class="card-header card-header-space-between">
-        <h4 class="m-0 font-weight-bold text-primary">Fichas de Aquisições de {{$usuario->nome}}</h4>
+        <h4 class="m-0 font-weight-bold text-primary">{{$usuario->nome}} - Fichas de Aquisições</h4>
 
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#criarFichaModal">
             Nova Ficha

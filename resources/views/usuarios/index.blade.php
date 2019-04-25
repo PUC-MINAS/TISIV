@@ -93,6 +93,9 @@
                         </td>
                         <td>
                             &nbsp;
+                            <a href="{{ url('usuarios/'.$usuario->id.'/fichas-aquisicoes') }}" class="btn btn-primary">
+                                Fichas de Aquisições
+                            </a>
                             <button
                                 type="button"
                                 class="btn btn-warning"

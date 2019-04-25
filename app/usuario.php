@@ -29,4 +29,18 @@ class usuario extends Model
     public function familia(){
         return $this->hasOne('App\familia_usuario', 'usuario_id');
     }
+
+    public function getFichasAquisicoes() {
+        return $this->hasMany('App\FichaAquisicao', 'id_usuario')->orderBy('data_criacao', 'desc')->get();
+    }
+
+    public function temFichaAtiva() {
+        $hj = date('Y-m-d');
+        $fichasAtivas = $this->hasMany('App\FichaAquisicao', 'id_usuario')
+                             ->where('valido_ate', '>=', $hj)
+                             ->where('data_criacao', '<=', $hj)
+                             ->get();
+
+        return count($fichasAtivas) > 0;
+    }
 }

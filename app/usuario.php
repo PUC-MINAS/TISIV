@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\Sexo;
 
 class usuario extends Model
 {
@@ -42,5 +43,9 @@ class usuario extends Model
                              ->get();
 
         return count($fichasAtivas) > 0;
+    }
+
+    public function getSexo () {
+        return Sexo::getDescription($this->sexo);
     }
 }

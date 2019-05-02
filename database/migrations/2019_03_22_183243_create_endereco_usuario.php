@@ -18,14 +18,13 @@ class CreateEnderecoUsuario extends Migration
         Schema::create('endereco_usuario', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_usuario')->unsigned();
-            $table->string('rua')->nullable();
-            $table->integer('numero')->nullable();
-            $table->integer('apto')->nullable();
-            $table->string('bairro')->nullable();
+            $table->string('logadouro');
+            $table->integer('numero');
+            $table->integer('complemento')->nullable();
+            $table->string('bairro');
             $table->string('cep')->nullable();
             $table->string('cidade');
             $table->tinyInteger('uf')->unsigned()->default(UF::NaoInformado);
-            $table->string('nacionalidade')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

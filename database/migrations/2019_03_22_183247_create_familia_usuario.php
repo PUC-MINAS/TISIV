@@ -18,7 +18,7 @@ class CreateFamiliaUsuario extends Migration
         Schema::create('familia_usuario', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_usuario')->unsigned();
-            $table->string('nome_parente');
+            $table->string('nome');
             $table->tinyInteger('parentesco')->unsigned()->default(Parentesco::NaoInformado);
             $table->date('dta_nasc')->nullable();
             $table->string('profissao')->nullable();

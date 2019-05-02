@@ -10,6 +10,19 @@
 
 @section('content')
 
+@if(session('error'))
+<div class="row">
+    <div class="col">
+        <div class="alert alert-danger alert-dismissible fade show">
+                {{session('error')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>                       
+        </div>
+    </div>
+</div>
+@endif
+
 <div class="container-fluid">
 
 	<div class="card">
@@ -27,6 +40,7 @@
 		<div class="card-body container">
             <form method="POST" action="{{url('usuarios')}}">
                 @csrf
+                <h5>Informações Pessoais</h5>
                 <div class="row">
                     <div class="form-group col">
 					    <label for="nome-completo">Nome Completo</label>
@@ -130,13 +144,54 @@
                     </div>
                     
                 </div>
+                <h5 class="mt-5">Endereço</h5>
+                <div class="row">
+                    <div class="form-group col-sm-9">
+                        <label for="logadouro">Endereço</label>
+                        <input type="text" name="logadouro" class="form-control">
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="numero">Número</label>
+                        <input type="text" name="numero" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="complemento">Complemento</label>
+                        <input type="text" name="complemento" class="form-control">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="bairro">Bairro</label>
+                        <input type="text" name="bairro" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="cep">CEP</label>
+                        <input type="text" name="cep" class="form-control">
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" name="cidade" class="form-control">
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="uf">Estado</label>
+                        <select name="uf" id="uf" class="form-control">
+                        @foreach(\App\Enums\UF::list() as $uf)
+                            <option value="{{$uf}}">{{ \App\Enums\UF::getDescription($uf) }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+
+                </div>
+                <h5 class="mt-5">Informações Adicionais</h5>
                 <div class="row">
                     <div class="col">
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="cras" name="cras">
-                            <label class="form-check-label" for="cras">Possui Cadastro no CRAS?</label>
+                        <div class="custom-control custom-checkbox form-check mb-2">
+                            <input type="checkbox" class="custom-control-input" id="cras" name="cras">
+                            <label class="custom-control-label" for="cras">Possui Cadastro no CRAS?</label>
                         </div>
-                    </div>                    
+                    </div>                
                     
                 </div>
                 <div class="row">
@@ -178,8 +233,11 @@
                     </div>
                 </div>
                 <br>
-                <div class="row ml-0 col-xs-6 col-sm-12">
-                    <button type="submit" class="btn btn-success btn-lg btn-circle ml-auto"><i class="fas fa-angle-right"></i></button>
+                <div class="row">
+                    <div class="col">
+                        <a href="{{url('usuarios')}}" class="btn btn-primary">Voltar</a>
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                    </div>                    
                 </div>
 			</form>
 

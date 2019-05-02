@@ -58,19 +58,17 @@ class UsuarioController extends Controller
             $usuario->povo_tradicional = $request->input('povo-tradicional');
             $usuario->save();
 
-            if($request->input('logadouro') != null) {
-                $endereco = new endereco_usuario();
-                $endereco->id_usuario = $usuario->id;
-                $endereco->logadouro = $request->input('logadouro');
-                $endereco->numero = $request->input('numero');
-                $endereco->complemento = $request->input('complemento');
-                $endereco->bairro = $request->input('bairro');
-                $endereco->cep = $request->input('cep');
-                $endereco->cidade = $request->input('cidade');
-                $endereco->uf = $request->input('uf');
+            $endereco = new endereco_usuario();
+            $endereco->id_usuario = $usuario->id;
+            $endereco->logadouro = $request->input('logadouro');
+            $endereco->numero = $request->input('numero');
+            $endereco->complemento = $request->input('complemento');
+            $endereco->bairro = $request->input('bairro');
+            $endereco->cep = $request->input('cep');
+            $endereco->cidade = $request->input('cidade');
+            $endereco->uf = $request->input('uf');
 
-                $endereco->save();
-            }
+            $endereco->save();
 
             return redirect('usuarios')->with('sucess', 'Usuário cadastrado com sucesso');
         }
@@ -79,7 +77,10 @@ class UsuarioController extends Controller
 
     public function show($id)
     {
-
+        $usuario = usuario::find($id);
+        $endereco = $usuario->endereco();
+        return view('usuarios.show')->with('usuario', $usuario)
+                                    ->with('endereco', $endereco);
     }
 
     public function edit($id)

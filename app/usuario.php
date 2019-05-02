@@ -24,7 +24,7 @@ class usuario extends Model
     protected $primarykey = 'id';
 
     public function endereco(){
-        return $this->hasOne('App\endereco_usuario', 'usuario_id');
+        return $this->hasOne('App\endereco_usuario', 'id_usuario')->first();
     }
 
     public function familia(){

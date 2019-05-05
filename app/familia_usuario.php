@@ -11,7 +11,6 @@ class familia_usuario extends Model
         'nome_parente', 'parentesco',
         'dta_nasc', 'profissao'
     ];
-    protected $dates = ['dta_nasc', 'created_at', 'updated_at'];
     protected $primarykey = 'id';
 
     public function usuario(){

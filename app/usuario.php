@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\Sexo;
 
 class usuario extends Model
 {
@@ -23,11 +24,11 @@ class usuario extends Model
     protected $primarykey = 'id';
 
     public function endereco(){
-        return $this->hasOne('App\endereco_usuario', 'usuario_id');
+        return $this->hasOne('App\endereco_usuario', 'id_usuario')->first();
     }
 
-    public function familia(){
-        return $this->hasOne('App\familia_usuario', 'usuario_id');
+    public function getFamiliares(){
+        return $this->hasMany('App\familia_usuario', 'id_usuario')->get();
     }
 
     public function getFichasAquisicoes() {
@@ -42,5 +43,9 @@ class usuario extends Model
                              ->get();
 
         return count($fichasAtivas) > 0;
+    }
+
+    public function getSexo () {
+        return Sexo::getDescription($this->sexo);
     }
 }

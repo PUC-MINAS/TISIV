@@ -3,7 +3,7 @@
 
 <div class="card shadow">
     <div class="card-header card-header-space-between">
-        <h4 class="m-0 font-weight-bold text-primary">Turmas</h4>
+        <h4 class="card-title">Turmas</h4>
         <a class="btn btn-primary" href="{{ url('turma-oficina-projeto/create') }}" >Criar Turma</a>
     </div>
     <div class="card-body">

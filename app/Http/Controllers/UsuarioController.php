@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\usuario;
+use App\endereco_usuario;
 use DateTime;
 use Auth;
 
@@ -26,7 +27,7 @@ class UsuarioController extends Controller
 
     public function create()
     {
-        return view ('usuarios.formulario');
+        return view ('usuarios.create');
     }
 
     public function store(Request $request)
@@ -34,12 +35,10 @@ class UsuarioController extends Controller
         $nome = $request->input('nome-completo');
         if($nome != '')
         {
-
-            $usuario = new Usuario();
+            $usuario = new usuario();
             $usuario->nome = $nome;
             $usuario->sexo = $request->input('sexo');
-            $dataNascimento = $request->input('dta_nasc');
-            $usuario->dta_nasc = $dataNascimento != null ? ($dataNascimento) : ('1899-12-31');
+            $usuario->dta_nasc = $request->input('dta_nasc');
             $usuario->cpf = $request->input('cpf');
             $usuario->rg = $request->input('rg');
             $usuario->certidao_nasc = $request->input('certidao-nasc');
@@ -49,12 +48,7 @@ class UsuarioController extends Controller
             $usuario->telefone = $request->input('telefone');
             $usuario->num_wpp = $request->input('whats-app');
             $usuario->contato_emerg = $request->input('contato-emergencial');
-
-            /* Recupera valor da CheckBox do CRAS */
-            $cras = $request->input('cras');
-            $usuario->cras = ($cras == true) ? ($value = 1) : ($value = 0);
-            /* Recupera valor da CheckBox do CRAS */
-
+            $usuario->cras = $request->input('cras') != null ? true : false;
             $usuario->num_cad = $request->input('cad-unico');
             $usuario->medicamentos = $request->input('medicamentos');
             $usuario->alergias = $request->input('alergias');
@@ -62,33 +56,84 @@ class UsuarioController extends Controller
             $usuario->observacao = $request->input('observacoes');
             $usuario->raca_cor = $request->input('raca-cor');
             $usuario->povo_tradicional = $request->input('povo-tradicional');
-            $usuario->publicado = 0;
             $usuario->save();
 
-            return redirect()->route('endereco.formulario', ['id' => $usuario->id]);
+            $endereco = new endereco_usuario();
+            $endereco->id_usuario = $usuario->id;
+            $endereco->logadouro = $request->input('logadouro');
+            $endereco->numero = $request->input('numero');
+            $endereco->complemento = $request->input('complemento');
+            $endereco->bairro = $request->input('bairro');
+            $endereco->cep = $request->input('cep');
+            $endereco->cidade = $request->input('cidade');
+            $endereco->uf = $request->input('uf');
+
+            $endereco->save();
+
+            return redirect('usuarios')->with('success', 'Usuário cadastrado com sucesso');
         }
-        return redirect()->route('home');
+        return redirect()->back()->with('error', 'Erro ao realizar o cadastro.');
     }
 
     public function show($id)
     {
-
+        $usuario = usuario::find($id);
+        $endereco = $usuario->endereco();
+        return view('usuarios.show')->with('usuario', $usuario)
+                                    ->with('endereco', $endereco);
     }
 
     public function edit($id)
     {
-
+        $usuario = usuario::find($id);
+        $endereco = $usuario->endereco();
+        return view('usuarios.edit')->with('usuario', $usuario)
+                                    ->with('endereco', $endereco);
     }
 
     public function update(Request $request, $id)
     {
+        $usuario = usuario::find($id);
+        $usuario->nome = $request->input('nome-completo');
+        $usuario->sexo = $request->input('sexo');
+        $usuario->dta_nasc = $request->input('dta_nasc');
+        $usuario->cpf = $request->input('cpf');
+        $usuario->rg = $request->input('rg');
+        $usuario->certidao_nasc = $request->input('certidao-nasc');
+        $usuario->estado_civil = $request->input('estado-civil');
+        $usuario->escolaridade = $request->input('escolaridade');
+        $usuario->profissao = $request->input('profissao');
+        $usuario->telefone = $request->input('telefone');
+        $usuario->num_wpp = $request->input('whats-app');
+        $usuario->contato_emerg = $request->input('contato-emergencial');
+        $usuario->cras = $request->input('cras') != null ? true : false;
+        $usuario->num_cad = $request->input('cad-unico');
+        $usuario->medicamentos = $request->input('medicamentos');
+        $usuario->alergias = $request->input('alergias');
+        $usuario->descobriu_por = $request->input('descobriu-por');
+        $usuario->observacao = $request->input('observacoes');
+        $usuario->raca_cor = $request->input('raca-cor');
+        $usuario->povo_tradicional = $request->input('povo-tradicional');
+        $usuario->save();
 
+        $endereco = $usuario->endereco();
+        $endereco->logadouro = $request->input('logadouro');
+        $endereco->numero = $request->input('numero');
+        $endereco->complemento = $request->input('complemento');
+        $endereco->bairro = $request->input('bairro');
+        $endereco->cep = $request->input('cep');
+        $endereco->cidade = $request->input('cidade');
+        $endereco->uf = $request->input('uf');
+
+        $endereco->save();
+
+        return redirect('usuarios/'.$usuario->id)->with('success', 'Usuário atualizado com sucesso.');
     }
 
     public function destroy($id)
     {
         $usuario = usuario::findOrFail($id);
         $usuario->delete();
-        return redirect()->route('home');
+        return redirect('usuarios')->with('success', 'Usuário deletado com sucesso.');
     }
 }

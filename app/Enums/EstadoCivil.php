@@ -11,4 +11,14 @@ final class EstadoCivil extends Enum
     const Casado = 2;
     const Divorciado = 3;
     const Viuvo = 4;
+
+    public static function list () {
+        return [
+            EstadoCivil::NaoInformado,
+            EstadoCivil::Solteiro,
+            EstadoCivil::Casado,
+            EstadoCivil::Divorciado,
+            EstadoCivil::Viuvo
+        ];
+    }
 }

@@ -19,4 +19,22 @@ final class Parentesco extends Enum
     const Tio = 10;
     const Sobrinho = 11;
     const Primo = 12;
+
+    public static function list () {
+        return [
+            Parentesco::NaoInformado,
+            Parentesco::Pai,
+            Parentesco::Mae,
+            Parentesco::Avo,
+            Parentesco::Irmao,
+            Parentesco::Filho,
+            Parentesco::PadrastoMadastra,
+            Parentesco::Enteado,
+            Parentesco::Conjuge,
+            Parentesco::Neto,
+            Parentesco::Tio,
+            Parentesco::Sobrinho,
+            Parentesco::Primo
+        ];
+    }
 }

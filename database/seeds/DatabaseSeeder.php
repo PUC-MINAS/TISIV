@@ -25,8 +25,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('usuario')->insert([
             [
-                'nome' => 'usuario teste',
-                'publicado' => 1
+                'nome' => 'usuario teste'
             ]
         ]);
 

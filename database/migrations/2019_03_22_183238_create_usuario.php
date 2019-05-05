@@ -9,6 +9,7 @@ use App\Enums\FormaDivulgacao;
 use App\Enums\RacaCor;
 use App\Enums\PovoTradicional;
 use App\Enums\EstadoCivil;
+use App\Enums\Sexo;
 
 class CreateUsuario extends Migration
 {
@@ -21,13 +22,11 @@ class CreateUsuario extends Migration
     {
         Schema::create('usuario', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nome')->nullable();
-            $table->string('sexo')->nullable();
+            $table->string('nome');
+            $table->tinyInteger('sexo')->unsigned()->default(Sexo::NaoInformado);
             $table->date('dta_nasc')->nullable();
-            /* TODO :: TRATAR UNICIDADE DESSES CAMPOS NO CONTROLLER */
             $table->string('cpf')->nullable();
             $table->string('rg')->nullable();
-            /* TODO :: TRATAR UNICIDADE DESSES CAMPOS NO CONTROLLER */
             $table->string('certidao_nasc')->nullable();
             $table->tinyInteger('estado_civil')->unsigned()->default(EstadoCivil::NaoInformado);
             $table->tinyInteger('escolaridade')->unsigned()->default(Escolaridade::NaoInformado);
@@ -43,7 +42,6 @@ class CreateUsuario extends Migration
             $table->string('observacao')->nullable();
             $table->tinyInteger('raca_cor')->unsigned()->default(RacaCor::NaoInformado);
             $table->tinyInteger('povo_tradicional')->unsigned()->default(PovoTradicional::NaoPertence);
-            $table->tinyInteger('publicado')->unsigned();
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

@@ -3,7 +3,7 @@
 
 <div class="card shadow">
     <div class="card-header card-header-space-between">
-        <h4 class="m-0 font-weight-bold text-primary">
+        <h4 class="card-title">
             Lista de Presenca {{$data}} - {{$turma->getOficina()->nome}} - Turma {{$turma->id}}
         </h4>
     </div>

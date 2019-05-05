@@ -2,7 +2,7 @@
 @section('content-app')
 
 <div class="card shadow">
-    <div class="card-header"><h4 class="m-0 font-weight-bold text-primary">Editar: {{$oficina->nome}}</h4></div>
+    <div class="card-header"><h4 class="card-title">Editar: {{$oficina->nome}}</h4></div>
     <div class="card-body">
         <form action="{{url('oficinas-projetos/'.$oficina->id)}}" method="post" onsubmit="return validaForm(this);">
             @csrf

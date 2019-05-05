@@ -117,15 +117,18 @@ class UsuarioController extends Controller
         $usuario->save();
 
         $endereco = $usuario->endereco();
-        $endereco->logadouro = $request->input('logadouro');
-        $endereco->numero = $request->input('numero');
-        $endereco->complemento = $request->input('complemento');
-        $endereco->bairro = $request->input('bairro');
-        $endereco->cep = $request->input('cep');
-        $endereco->cidade = $request->input('cidade');
-        $endereco->uf = $request->input('uf');
 
-        $endereco->save();
+        if($endereco != null){        
+            $endereco->logadouro = $request->input('logadouro');
+            $endereco->numero = $request->input('numero');
+            $endereco->complemento = $request->input('complemento');
+            $endereco->bairro = $request->input('bairro');
+            $endereco->cep = $request->input('cep');
+            $endereco->cidade = $request->input('cidade');
+            $endereco->uf = $request->input('uf');
+
+            $endereco->save();
+        }
 
         return redirect('usuarios/'.$usuario->id)->with('success', 'Usuário atualizado com sucesso.');
     }

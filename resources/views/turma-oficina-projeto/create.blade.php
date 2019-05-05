@@ -2,7 +2,7 @@
 @section('content-app')
 
 <div class="card shadow">
-    <div class="card-header"><h4 class="m-0 font-weight-bold text-primary">Nova Turma - {{$oficina->nome}}</h4></div>
+    <div class="card-header"><h4 class="card-title">Nova Turma - {{$oficina->nome}}</h4></div>
     <div class="card-body">
         <form action="{{url('oficinas-projetos/'.$oficina->id.'/turmas')}}" method="post">
             @csrf

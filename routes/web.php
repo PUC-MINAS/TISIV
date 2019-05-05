@@ -38,10 +38,13 @@ Route::any('/usuarios/endereco/detalhes/atualizar/{endereco}', 'EnderecoControll
 Route::any('/usuarios/endereco/detalhes/remover/{id}', 'EnderecoController@destroy')->name('endereco.destroy');
 
 /* Rotas de Familia */
-Route::get('/usuarios/familia/{id}', 'FamiliaController@formulario')->name('familia.formulario');
-Route::any('/usuarios/form/familia', 'FamiliaController@store')->name('familia.store');
-Route::get('/usuarios/familia/detalhes/{id}', 'FamiliaController@index')->name('familia.index');
-Route::any('/usuarios/familia/detalhes/remover/{id}', 'FamiliaController@destroy')->name('familia.destroy');
+Route::get('/usuarios/{idUsuario}/familiares/create', 'FamiliaController@create');
+Route::get('/usuarios/{idUsuario}/familiares', 'FamiliaController@index');
+Route::post('/usuarios/{idUsuario}/familiares', 'FamiliaController@store');
+Route::get('/usuarios/{idUsuario}/familiares/{id}', 'FamiliaController@show');
+Route::get('/usuarios/{idUsuario}/familiares/{id}/edit', 'FamiliaController@edit');
+Route::put('/usuarios/{idUsuario}/familiares/{id}', 'FamiliaController@update');
+Route::delete('/usuarios/{idUsuario}/familiares/{id}', 'FamiliaController@destroy');
 
 /* Rotas de Projetos */
 Route::resource('projetos', 'ProjetoController');

@@ -2,7 +2,13 @@
 @section('content-app')
 
 <div class="card shadow">
-    <div class="card-header"><h4 class="m-0 font-weight-bold text-primary">Nova Oficina de Projeto</h4></div>
+    <div class="card-header">
+        <div class="align-baseline">   
+            <a href="{{url('oficinas-projetos/')}}" class="btn btn-circle"><i class="fas fa-chevron-circle-left"></i></a> 
+            <h4 class="card-title">Nova Oficina de Projeto</h4>
+        </div>
+        
+    </div>
     <div class="card-body">
         <form action="{{url('oficinas-projetos')}}" method="post" onsubmit="return validaForm(this);">
             @csrf
@@ -61,8 +67,8 @@
                 </div>
             </div>
             
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            <a href="{{ url('oficinas-projetos')}}" class="btn btn-warning">Voltar</a>            
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a href="{{ url('oficinas-projetos')}}" class="btn btn-primary">Voltar</a>            
         </form>
     </div>
 </div>

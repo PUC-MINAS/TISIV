@@ -2,4 +2,15 @@
 .card-header.card-header-space-between {
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
+}
+
+.align-baseline {
+    display: flex;
+    align-items: baseline;
+}
+
+a.menu {
+    color: #858796;
+    font-size: 20px;
 }

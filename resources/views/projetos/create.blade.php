@@ -2,7 +2,13 @@
 @section('content-app')
 
 <div class="card shadow">
-    <div class="card-header"><h4 class="m-0 font-weight-bold text-primary">Novo Projeto</h4></div>
+    <div class="card-header">
+        <div class="align-baseline">   
+            <a href="{{url('projetos/')}}" class="btn btn-circle"><i class="fas fa-chevron-circle-left"></i></a> 
+            <h4 class="card-title">Novo Projeto</h4>
+        </div>
+        
+    </div>
     <div class="card-body">
         <form action="{{url('projetos')}}" method="post" onsubmit="return validaForm(this);">
             @csrf
@@ -41,8 +47,8 @@
                     <textarea class="form-control" name="descricao" id="descricao" rows="5"></textarea>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            <a href="{{ url('projetos')}}" class="btn btn-warning">Voltar</a>
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a href="{{ url('projetos')}}" class="btn btn-primary">Voltar</a>
             
         </form>
     </div>

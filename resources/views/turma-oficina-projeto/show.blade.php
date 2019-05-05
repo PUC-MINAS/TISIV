@@ -2,7 +2,7 @@
 @section('content-app')
 <div class="card shadow mb-4">
     <div class="card-header card-header-space-between">
-      <h4 class="m-0 font-weight-bold text-primary">Detalhes: {{$turma->nome()}}</h4>
+      <h4 class="card-title">Detalhes: {{$turma->nome()}}</h4>
       <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/'.$turma->id.'/presencas') }}" >
          Listas de Presenças
       </a>
@@ -46,7 +46,7 @@
 
 <div class="card shadow">
     <div class="card-header card-header-space-between">
-        <h4 class="m-0 font-weight-bold text-primary">
+        <h4 class="card-title">
             Alunos
         </h4>
         <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id.'/matriculas/create') }}" >

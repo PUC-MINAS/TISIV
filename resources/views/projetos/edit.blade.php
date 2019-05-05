@@ -1,7 +1,13 @@
 @extends('layouts.app')
 @section('content-app')
 <div class="card shadow">
-    <div class="card-header"><h4 class="m-0 font-weight-bold text-primary">Editar: {{$projeto->nome}}</h4></div>
+    <div class="card-header">
+        <div class="align-baseline">   
+            <a href="{{url('projetos/'.$projeto->id)}}" class="btn btn-circle"><i class="fas fa-chevron-circle-left"></i></a> 
+            <h4 class="card-title">Editar: {{$projeto->nome}}</h4>
+        </div>
+        
+    </div>
     <div class="card-body">
         <form action="{{url('projetos/'.$projeto->id)}}" method="post" onsubmit="return validaForm(this);">
             @csrf
@@ -45,7 +51,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-success">Salvar</button>
-            <a href="{{ url('projetos/'.$projeto->id)}}" class="btn btn-warning">Cancelar</a>
+            <a href="{{ url('projetos/'.$projeto->id)}}" class="btn btn-primary">Voltar</a>
             
         </form>
     </div>

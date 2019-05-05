@@ -20,4 +20,12 @@ final class Sexo extends Enum
                 return self::getKey($value);
         }
     }
+
+    public static function list () {
+        return [
+            Sexo::NaoInformado,
+            Sexo::Masculino,
+            Sexo::Feminino
+        ];
+    }
 }

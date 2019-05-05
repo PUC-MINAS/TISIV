@@ -12,7 +12,7 @@
 
 <div class="card shadow m-4">
     <div class="card-header card-header-space-between">
-        <h4 class="m-0 font-weight-bold text-primary">Endereço</h4>
+        <h4 class="card-title">Endereço</h4>
         @if ($endereco->isEmpty())
             <form action="{{ route('endereco.formulario', $id) }}" method="GET">
                 @method('GET')

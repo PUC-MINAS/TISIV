@@ -27,8 +27,8 @@ class usuario extends Model
         return $this->hasOne('App\endereco_usuario', 'id_usuario')->first();
     }
 
-    public function familia(){
-        return $this->hasOne('App\familia_usuario', 'usuario_id');
+    public function getFamiliares(){
+        return $this->hasMany('App\familia_usuario', 'id_usuario')->get();
     }
 
     public function getFichasAquisicoes() {

@@ -10,31 +10,13 @@
 
 @section('content')
 
-@if(session('error'))
-<div class="row">
-    <div class="col">
-        <div class="alert alert-danger alert-dismissible fade show">
-                {{session('error')}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>                       
-        </div>
-    </div>
-</div>
-@endif
-
 <div class="container-fluid">
 
 	<div class="card">
 		<div class="card-header">
-            <h4 class="card-title" style="display: inline">Cadastrar Beneficiado</h4>
-            <div class="ml-auto close">
-                <a
-                    href="{{ url('usuarios') }}"
-                    class="btn btn-circle"
-                    style="position: relative; bottom: 0.5vh"
-                    ><i class="far fa-times-circle"></i>
-                </a>
+            <div class="align-baseline">
+                <a href="{{url('usuarios/')}}" class="btn btn-circle"><i class="fas fa-chevron-circle-left"></i></a>
+                <h4 class="card-title" style="display: inline">Cadastrar Beneficiado</h4>
             </div>
 		</div>
 		<div class="card-body container">

@@ -3,17 +3,16 @@
 
 <div class="card shadow mb-4">
     <div class="card-header card-header-space-between">
-        <h4 class="m-0 font-weight-bold text-primary">Detalhes: {{$oficina->nome}}</h4>
+        <div class="align-baseline">   
+            <a href="{{url('oficinas-projetos/')}}" class="btn btn-circle"><i class="fas fa-chevron-circle-left"></i></a> 
+            <h4 class="card-title">Detalhes: {{$oficina->nome}}</h4>
+        </div>
         <div class="dropdown no-arrow">
-            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            <a class="dropdown-toggle menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bars"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                <!-- <div class="dropdown-header">Dropdown Header:</div> -->
                 <a class="dropdown-item" href="{{url('oficinas-projetos/'.$oficina->id.'/matriculas/create')}}">Matricular Aluno</a>
-                <!-- <a class="dropdown-item" href="#">Turmas</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a> -->
             </div>
         </div>
     </div>
@@ -82,7 +81,7 @@
 
 <div class="card shadow">
     <div class="card-header card-header-space-between">
-        <h4 class="m-0 font-weight-bold text-primary">Turmas</h4>
+        <h4 class="card-title">Turmas</h4>
         <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/create') }}" >Criar Turma</a>
     </div>
     <div class="card-body">

@@ -8,22 +8,11 @@
     @parent
 @endsection
 
-@section('content')
-@if(session('success'))
-<div class="row">
-    <div class="col">
-        <div class="alert alert-danger alert-dismissible fade show">
-                {{session('success')}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>                       
-        </div>
-    </div>
-</div>
-@endif
-<div class="card shadow m-4">
+@section('content-app')
+
+<div class="card shadow">
     <div class="card-header card-header-space-between">
-        <h4 class="m-0 font-weight-bold text-primary">Beneficiados</h4>
+        <h4 class="card-title">Beneficiados</h4>
         <a href="{{url('usuarios/create')}}"  class="btn btn-primary">Cadastrar Beneficiado</a>
     </div>
     <div class="card-body" style="overflow: auto; white-space: nowrap;">
@@ -54,48 +43,6 @@
                         <td>
                             <a href="{{ url('usuarios/'.$usuario->id) }}" class="btn btn-primary">Detalhes</a>
                         </td>
-                        <!-- <td>
-                            &nbsp;
-                            <form action="{{ route('endereco.index', $usuario->id) }}" method="GET">
-                                @method('GET')
-                                <button
-                                    type="submit"
-                                    class="btn btn-primary"
-                                    style="position: relative; bottom: 3.7vh"
-                                    ><i class="fas fa-map-marked-alt"></i>
-                                </button>
-                            </form>
-                        <td>
-                            &nbsp;
-                            <form action="{{ route('familia.index', $usuario->id) }}" method="GET">
-                                @method('GET')
-                                <button
-                                    type="submit"
-                                    class="btn btn-primary"
-                                    style="position: relative; bottom: 3.7vh"
-                                    ><i class="fas fa-users"></i>
-                                </button>
-                            </form>
-                        </td>
-                        <td>
-                            &nbsp;
-                            <a href="{{ url('usuarios/'.$usuario->id.'/fichas-aquisicoes') }}" class="btn btn-primary">
-                                Fichas de Aquisições
-                            </a>
-                            <button
-                                type="button"
-                                class="btn btn-warning"
-                                >Editar
-                            </button>
-                        </td>
-                        <td>
-                            &nbsp;
-                            <button
-                                type="button"
-                                class="btn btn-danger"
-                                ><i class="fas fa-trash"></i>
-                            </button>
-                        </td> -->
                     </tr>
                     </tbody>
                 @empty

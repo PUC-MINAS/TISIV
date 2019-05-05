@@ -4,7 +4,7 @@
 
 <div class="card shadow">
     <div class="card-header card-header-space-between">
-        <h4 class="m-0 font-weight-bold text-primary">Projetos</h4>
+        <h4 class="card-title">Projetos</h4>
         <a class="btn btn-primary" href="{{ url('projetos/create') }}" >Criar Projeto</a>
     </div>
     <div class="card-body">

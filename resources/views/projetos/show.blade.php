@@ -1,7 +1,12 @@
 @extends('layouts.app')
 @section('content-app')
 <div class="card shadow">
-    <div class="card-header"><h4 class="m-0 font-weight-bold text-primary">Detalhes: {{$projeto->nome}}</h4></div>
+    <div class="card-header">
+        <div class="align-baseline">   
+            <a href="{{url('projetos/')}}" class="btn btn-circle"><i class="fas fa-chevron-circle-left"></i></a> 
+            <h4 class="card-title">Detalhes: {{$projeto->nome}}</h4>
+        </div>
+    </div>
     <div class="card-body">
         <form>
             <div class="form-row">

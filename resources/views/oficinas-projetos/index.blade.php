@@ -3,7 +3,7 @@
 
 <div class="card shadow">
     <div class="card-header card-header-space-between">
-        <h4 class="m-0 font-weight-bold text-primary">Oficinas de Projetos</h4>
+        <h4 class="card-title">Oficinas de Projetos</h4>
         <a class="btn btn-primary" href="{{ url('oficinas-projetos/create') }}" >Criar Oficina</a>
     </div>
     <div class="card-body">

@@ -13,4 +13,16 @@ final class FormaDivulgacao extends Enum
     const Cartaz = 4;
     const MidiaSocial = 5;
     const Indicacao = 6;
+
+    public static function list () {
+        return [
+            FormaDivulgacao::NaoInformado,
+            FormaDivulgacao::CRAS,
+            FormaDivulgacao::InstituicaoPublica,
+            FormaDivulgacao::Panfleto,
+            FormaDivulgacao::Cartaz,
+            FormaDivulgacao::MidiaSocial,
+            FormaDivulgacao::Indicacao
+        ];
+    }
 }

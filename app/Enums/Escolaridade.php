@@ -18,4 +18,21 @@ final class Escolaridade extends Enum
     const SuperiorCompleto = 9;
     const PosIncompleta = 10;
     const PosCompleta = 11;
+
+    public static function list () {
+        return [
+            Escolaridade::NaoInformado,
+            Escolaridade::Analfabeto,
+            Escolaridade::FundamentalIncompleto,
+            Escolaridade::FundamentalCompleto,
+            Escolaridade::MedioIncompleto,
+            Escolaridade::MedioCompleto,
+            Escolaridade::TecnicoIncompleto,
+            Escolaridade::TecnicoCompleto,
+            Escolaridade::SuperiorIncompleto,
+            Escolaridade::SuperiorCompleto,
+            Escolaridade::PosIncompleta,
+            Escolaridade::PosCompleta
+        ];
+    }
 }

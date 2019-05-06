@@ -20,7 +20,7 @@ class UsuarioController extends Controller
 
     public function index()
     {
-        $usuarios = usuario::orderBy('dta_nasc', 'asc')->paginate(10);
+        $usuarios = usuario::all();
 
         return view('usuarios.index', ['usuarios' => $usuarios]);
     }

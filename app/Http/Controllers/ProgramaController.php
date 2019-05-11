@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Programa;
 use App\Filial;
@@ -12,6 +13,23 @@ class ProgramaController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function search(Request $request) 
+    {
+        $filiais = Filial::all();
+        $query = Programa::all();
+        
+        if(!empty($request->input('filial_search'))){
+            $query = $query->where('id_filiais', $request->input('filial_search'));
+        }
+
+        if(!empty($request->input('programa_search'))) {
+            $query = $query->where('nome', 'ilike', '%'.$request->input('programa_search').'%');
+        }
+        
+        dd($query);
+        return view('programas.index')->with('programas', $query)->with('filiais', $filiais);       
+    }
     
     /**
      * Display a listing of the resource.
@@ -20,8 +38,9 @@ class ProgramaController extends Controller
      */
     public function index()
     {
+        $filiais = Filial::all();
         $programas = Programa::all();
-        return view('programas.index')->with('programas', $programas);
+        return view('programas.index')->with('programas', $programas)->with('filiais', $filiais);
     } 
     
     /**

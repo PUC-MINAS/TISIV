@@ -18,17 +18,21 @@ class ProgramaController extends Controller
     {
         $filiais = Filial::all();
         $query = Programa::all();
+        $programas = null;
+
+        $idFilial = $request->input('filial_search');
+        $nomePrograma = '%'.$request->input('programa_search').'%';
         
-        if(!empty($request->input('filial_search'))){
-            $query = $query->where('id_filiais', $request->input('filial_search'));
+        if(!empty($idFilial)) {
+            $programas = Programa::where('id_filiais', $idFilial)->get();
         }
 
-        if(!empty($request->input('programa_search'))) {
-            $query = $query->where('nome', 'ilike', '%'.$request->input('programa_search').'%');
+        if(!empty($nomePrograma)) {
+            $programas = $query->where('nome', 'like', $nomePrograma)->get();
         }
-        
-        dd($query);
-        return view('programas.index')->with('programas', $query)->with('filiais', $filiais);       
+
+        dd($programas);
+        return view('programas.index')->with('programas', $programas)->with('filiais', $filiais);       
     }
     
     /**

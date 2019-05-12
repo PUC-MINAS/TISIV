@@ -18,9 +18,9 @@ class NotificacaoBuscaAtiva extends Notification
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct()
     {
-        $this->details = $details;
+        //
     }
 
     /**
@@ -31,7 +31,7 @@ class NotificacaoBuscaAtiva extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['database'];
     }
 
     /**
@@ -42,11 +42,7 @@ class NotificacaoBuscaAtiva extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->greeting($this->details['greeting'])
-                    ->line($this->details['body'])
-                    ->action($this->details['actionText'], $this->details['actionURL'])
-                    ->line($this->details['thanks']);
+        //
     }
 
     /**
@@ -58,7 +54,8 @@ class NotificacaoBuscaAtiva extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'order_id' => $this->details['order_id']
+            'titulo' => 'Notificação de busca ativa',
+            'descricao' => 'O beneficiado José Carmo Cansado não comparece às oficinas há 3 dias',
         ];
     }
 }

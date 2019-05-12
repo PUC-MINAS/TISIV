@@ -97,4 +97,8 @@ Route::get('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoCo
 Route::put('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoController@update');
 
 /* Rotas Notificações */
-Route::get('notificacoes', 'NotificacoesController@index');
+Route::get('markAsRead/{id}', function ($id) {
+    Auth::user()->unreadNotifications->where('id', $id)->markAsRead();
+
+    return redirect()->back();
+});

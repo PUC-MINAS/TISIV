@@ -54,7 +54,7 @@ class NotificacaoBuscaAtiva extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'titulo' => 'Notificação de busca ativa',
+            'titulo' => 'Iniciar busca ativa',
             'descricao' => 'O beneficiado José Carmo Cansado não comparece às oficinas há 3 dias',
         ];
     }

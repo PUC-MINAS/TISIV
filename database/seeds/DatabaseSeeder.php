@@ -35,8 +35,8 @@ class DatabaseSeeder extends Seeder
 
         DB::table('projetos')->insert([
             [
-                'nome' => 'Projeto Teste', 
-                'objetivo' => 'Fazer um projeto teste', 
+                'nome' => 'Projeto Teste',
+                'objetivo' => 'Fazer um projeto teste',
                 'descricao' => 'Descricao do projeto teste',
                 'inicio' => date('Y-m-d'),
                 'fim' => date('Y-m-d', strtotime('+6 month')),

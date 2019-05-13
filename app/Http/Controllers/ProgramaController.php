@@ -27,9 +27,8 @@ class ProgramaController extends Controller
         $programas = Programa::query();
 
         if(!empty($search)){
-            $programas = $programas->where(
-                'nome', 'LIKE' , "%{$search}%"
-            );
+            $programas = $programas->where('nome', 'LIKE' , "%{$search}%")
+                                    ->orWhere('objetivo', 'Like', "%{$search}%");
         }
 
         if(!empty($idFilial)){

@@ -20,7 +20,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', function () {
 
-    Auth::user()->notify(new NotificacaoBuscaAtiva);
+    $randomNumber = mt_rand(0,  4);
+
+    Auth::user()->notify(new NotificacaoBuscaAtiva($randomNumber));
 
     return view('home');
 
@@ -100,5 +102,5 @@ Route::put('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoCo
 Route::get('markAsRead/{id}', function ($id) {
     Auth::user()->unreadNotifications->where('id', $id)->markAsRead();
 
-    return redirect()->back();
+    return redirect()->route('home');
 });

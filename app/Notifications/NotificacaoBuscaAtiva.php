@@ -12,15 +12,17 @@ class NotificacaoBuscaAtiva extends Notification
     use Queueable;
 
     private $details;
+    public $names = ['José Carmo Cansado','Lúcio Mauro Arlindo','Martha Eleonora','Alfonso Beltrame','Arlindo Silveira'];
+    public $name;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($randomNumber)
     {
-        //
+        $this->name = $this->names[$randomNumber];
     }
 
     /**
@@ -55,7 +57,7 @@ class NotificacaoBuscaAtiva extends Notification
     {
         return [
             'titulo' => 'Iniciar busca ativa',
-            'descricao' => 'O beneficiado José Carmo Cansado não comparece às oficinas há 3 dias',
+            'descricao' => 'Beneficiado: '.$this->name,
         ];
     }
 }

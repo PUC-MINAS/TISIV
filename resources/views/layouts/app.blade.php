@@ -201,7 +201,9 @@
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-bell fa-fw"></i>
                   <!-- Counter - Alerts -->
-                  <span class="badge badge-danger badge-counter">{{Auth::user()->unreadNotifications->count()}}</span>
+                  @if (Auth::user()->unreadNotifications->count() > 0)
+                    <span class="badge badge-danger badge-counter">{{Auth::user()->unreadNotifications->count()}}</span>
+                  @endif
                 </a>
                 <!-- Dropdown - Alerts -->
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -222,7 +224,7 @@
                             </div>
                             {{$notification->data['titulo']}}
                             <hr>
-                            José Carmo Cansado
+                            {{$notification->data['descricao']}}
                         </div>
                     </a>
 

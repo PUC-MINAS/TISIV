@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Programa;
 use App\Filial;
@@ -18,10 +19,31 @@ class ProgramaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $programas = Programa::all();
-        return view('programas.index')->with('programas', $programas);
+        $idFilial = $request->input('filial_search');
+        $search = $request->input('programa_search');
+        $filiais = Filial::all();
+        $programas = Programa::query();
+
+        if(!empty($search)){
+            $programas = $programas->where(
+                'nome', 'LIKE' , "%{$search}%"
+            );
+        }
+
+        if(!empty($idFilial)){
+            $programas = $programas->where('id_filiais', $idFilial);
+        }
+
+        $programas = $programas->get();        
+
+        return view('programas.index')
+                ->with('programas', $programas)
+                ->with('filiais', $filiais)
+                ->with('search', $search)
+                ->with('idFilial', $idFilial);
+        
     } 
     
     /**

@@ -13,38 +13,36 @@ class ProgramaController extends Controller
     {
         $this->middleware('auth');
     }
-
-    public function search(Request $request) 
-    {
-        $filiais = Filial::all();
-        $query = Programa::all();
-        $programas = null;
-
-        $idFilial = $request->input('filial_search');
-        $nomePrograma = '%'.$request->input('programa_search').'%';
-        
-        if(!empty($idFilial)) {
-            $programas = Programa::where('id_filiais', $idFilial)->get();
-        }
-
-        if(!empty($nomePrograma)) {
-            $programas = $query->where('nome', 'like', $nomePrograma)->get();
-        }
-
-        dd($programas);
-        return view('programas.index')->with('programas', $programas)->with('filiais', $filiais);       
-    }
     
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $idFilial = $request->input('filial_search');
+        $search = $request->input('programa_search');
         $filiais = Filial::all();
-        $programas = Programa::all();
-        return view('programas.index')->with('programas', $programas)->with('filiais', $filiais);
+        $programas = Programa::query();
+
+        if(!empty($search)){
+            $programas = $programas->where('nome', 'LIKE' , "%{$search}%")
+                                    ->orWhere('objetivo', 'Like', "%{$search}%");
+        }
+
+        if(!empty($idFilial)){
+            $programas = $programas->where('id_filiais', $idFilial);
+        }
+
+        $programas = $programas->get();        
+
+        return view('programas.index')
+                ->with('programas', $programas)
+                ->with('filiais', $filiais)
+                ->with('search', $search)
+                ->with('idFilial', $idFilial);
+        
     } 
     
     /**

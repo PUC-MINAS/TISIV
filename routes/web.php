@@ -101,6 +101,5 @@ Route::put('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoCo
 /* Rotas Notificações */
 Route::get('markAsRead/{id}', function ($id) {
     Auth::user()->unreadNotifications->where('id', $id)->markAsRead();
-
     return redirect()->route('home');
 });

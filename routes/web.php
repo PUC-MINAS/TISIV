@@ -11,11 +11,24 @@
 |
 */
 
+use App\Notifications\NotificacaoBuscaAtiva;
+use App\User;
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', function () {
+
+    $randomNumber = mt_rand(0,  4);
+
+    Auth::user()->notify(new NotificacaoBuscaAtiva($randomNumber));
+
+    return view('home');
+
+})->middleware('auth');
+
+//Route::get('/', 'HomeController@index')->name('home');
 
 /* Rotas de Programas */
 Route::get('/programas', 'ProgramaController@index')->name('programas');
@@ -84,3 +97,9 @@ Route::get('usuarios/{idUsuario}/fichas-aquisicoes', 'FichaAquisicaoController@i
 Route::post('usuarios/{idUsuario}/fichas-aquisicoes/store', 'FichaAquisicaoController@store');
 Route::get('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoController@show');
 Route::put('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoController@update');
+
+/* Rotas Notificações */
+Route::get('markAsRead/{id}', function ($id) {
+    Auth::user()->unreadNotifications->where('id', $id)->markAsRead();
+    return redirect()->route('home');
+});

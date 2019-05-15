@@ -29,6 +29,7 @@ Route::get('/programas/search', 'ProgramaController@search');
 
 /* Rotas de Usuários */
 Route::resource('usuarios', 'UsuarioController');
+Route::get('usuarios/{id}/relatorio-socioeconomico', 'UsuarioController@relatorioSocioEconomico');
 
 /* Rotas de Endereço */
 Route::get('/usuarios/endereco/{id}', 'EnderecoController@formulario')->name('endereco.formulario');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\usuario;
 use App\endereco_usuario;
+use Barryvdh\DomPDF\Facade as PDF;
 use DateTime;
 use Auth;
 
@@ -138,5 +139,10 @@ class UsuarioController extends Controller
         $usuario = usuario::findOrFail($id);
         $usuario->delete();
         return redirect('usuarios')->with('success', 'Usuário deletado com sucesso.');
+    }
+
+    public function relatorioSocioEconomico($id){
+        $pdf = PDF::loadHtml('<h1>Teste</h1>');
+        return $pdf->stream(); 
     }
 }

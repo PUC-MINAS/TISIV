@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\usuario;
 use App\endereco_usuario;
+use App\Filial;
 use Barryvdh\DomPDF\Facade as PDF;
 use DateTime;
 use Auth;
@@ -142,7 +143,13 @@ class UsuarioController extends Controller
     }
 
     public function relatorioSocioEconomico($id){
-        $pdf = PDF::loadHtml('<h1>Teste</h1>');
-        return $pdf->stream(); 
+        $data['usuario'] = usuario::find($id);
+        $data['filial'] = Filial::find(1);
+        $viewHtml = view('relatorios.relatorio-socioeconomico', $data)->render();
+        //$pdf = PDF::loadView('relatorios.relatorio-socioeconomico', $data);
+        $pdf = PDF::loadHtml($viewHtml);
+        //dd($pdf);
+        //return $pdf->stream(); 
+        return $viewHtml;
     }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Enums\UserType;
 use App\Enums\TipoAquisicao;
+use App\Enums\UF;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,7 +17,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::table('filiais')->insert([
-            ['nome' => 'Sede Matriz', 'logadouro' => 'Praça Juliano Maria', 'numero' => '1', 'bairro' => 'Planalto', 'cep' => '33200000', 'uf' => 0]
+            [
+                'nome' => 'Sede Matriz',
+                'logadouro' => 'Praça Juliano Maria',
+                'numero' => '1', 
+                'bairro' => 'Planalto', 
+                'cep' => '33200000', 
+                'cidade' => 'Belo Horizonte',
+                'uf' => UF::MG,
+                'telefone' => '(31) 3341-1900'
+            ]
         ]);
 
         DB::table('users')->insert([

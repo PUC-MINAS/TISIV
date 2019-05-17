@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\Sexo;
+use App\Enums\Escolaridade;
 
 class usuario extends Model
 {
@@ -47,5 +48,9 @@ class usuario extends Model
 
     public function getSexo () {
         return Sexo::getDescription($this->sexo);
+    }
+
+    public function getEscolaridade() {
+        return Escolaridade::getDescription($this->escolaridade);
     }
 }

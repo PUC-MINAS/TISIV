@@ -23,6 +23,8 @@ class CreateFilialTable extends Migration
             $table->string('numero')->nullable();
             $table->string('bairro')->nullable();
             $table->string('cep')->nullable();
+            $table->string('cidade')->nullable();
+            $table->string('telefone')->nullable();
             $table->tinyInteger('uf')->unsigned()->default(UF::NaoInformado);
             $table->timestamps();
         });

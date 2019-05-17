@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\usuario;
 use App\endereco_usuario;
+use App\Filial;
+use Barryvdh\DomPDF\Facade as PDF;
 use DateTime;
 use Auth;
 
@@ -138,5 +140,19 @@ class UsuarioController extends Controller
         $usuario = usuario::findOrFail($id);
         $usuario->delete();
         return redirect('usuarios')->with('success', 'Usuário deletado com sucesso.');
+    }
+
+    public function relatorioSocioEconomico($id){
+        $data['usuario'] = usuario::find($id);
+        $data['filial'] = Filial::find(1);
+
+        return view('relatorios.relatorio-socioeconomico', $data);
+    }
+
+    public function relatorioAquisicoes($id){
+        $data['usuario'] = usuario::find($id);
+        $data['filial'] = Filial::find(1);
+
+        return view('relatorios.relatorio-aquisicoes', $data);
     }
 }

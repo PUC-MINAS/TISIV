@@ -24,6 +24,8 @@
             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="{{url('usuarios/'.$usuario->id.'/familiares')}}">Familiares</a>
                 <a class="dropdown-item" href="{{url('usuarios/'.$usuario->id.'/fichas-aquisicoes')}}">Fichas de Aquisições</a>
+                <a class="dropdown-item" target="blank" href="{{url('usuarios/'.$usuario->id.'/relatorio-socioeconomico')}}">Relatório Socioeconômico</a>
+                <a class="dropdown-item" target="blank" href="{{url('usuarios/'.$usuario->id.'/relatorio-aquisicoes')}}">Relatório de Aquisições</a>
             </div>
         </div>
     </div>

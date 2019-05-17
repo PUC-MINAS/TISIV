@@ -81,4 +81,7 @@
     'normal' => $fontDir . '\2ee5a7797d02fe4d560048b698835802',
     'italic' => $fontDir . '\9ea5a9dec61d84f2016bdd2516e7cb5b',
   ),
+  'roboto' => array(
+    'normal' => $fontDir . '\200a2d78ffb8c24ec732e40ccfad00bc',
+  ),
 ) ?>

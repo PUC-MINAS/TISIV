@@ -13,32 +13,12 @@
 
     <link href="/css/app.css" rel="stylesheet">
 
+    <link href="/css/print.css" rel="stylesheet">
+
     <!-- Custom fonts for this template-->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <style>
-        body{
-            margin: 0.5cm;
-            font-family: 'Roboto', sans-serif;
-            background-color: white;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            
-        }
-
-        .logo{
-            width: 100px;
-            height: 100px;
-        }
-
-        .text-align-right{
-            text-align: right;       
-        }
-    </style>
 </head>
-<body >
+<body onload="window.print()">
     <div class="header">
 
         <div>
@@ -54,5 +34,7 @@
 
     @yield('pdf-content')
 
+    
+    @yield('script')
 </body>
 </html>

@@ -5,95 +5,20 @@
     h1{
         text-align: center;
     }
-
-    .secao{
-
-    }
-
-    .secao > .secao-header{
-        background-color: gainsboro;
-        padding: 10px;
-        font-weight: bold;
-    }
-
-    .secao > .secao-body{
-        padding: 10px;
-        font-size: 18px;
-    }
     
     .declaracao{
-        font-size: 15px;
+        font-size: 16px;
         text-align:justify;
     }
 
-    .text-center{
-        font-size: 15px;
-        text-align: center;
-    }
-
-    .assinatura-box{
-        display: flex;
-        justify-content: center;
-        height: 20px;
-    }
-
-    .linha-assinatura{
-        border-bottom: 1px solid black;
-        width: 300px;
+    .bold {
+        font-weight: bold;
     }
 </style>
-
 <h1>Formulário para Estudo Socioeconômico</h1>
-<div class="secao">
-    <div class="secao-header">1 - Identificação</div>
-    <div class="container-fluid secao-body">
-        <div class="row">
-            <div class="col-md-6">
-                Nome: {{$usuario->nome}}
-            </div>
-            <div class="col-md-6">
-                Sexo: {{$usuario->getSexo()}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                Endereço: {{$usuario->endereco() != null ? $usuario->endereco()->logadouro : '' }}
-            </div>            
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                Telefone: {{$usuario->telefone}}
-            </div>
-            <div class="col-md-6">
-                <!-- Email -->
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                CPF: {{$usuario->cpf}}
-            </div>
-            <div class="col-md-6">
-                Identidade: {{$usuario->rg}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                Data de nascimento: {{$usuario->dta_nasc}}
-            </div>
-            <div class="col-md-6">
-                Escolaridade: {{$usuario->getEscolaridade()}}
-            </div>
-        </div>
-         <div class="row">
-            <div class="col-md-6">
-                Ocupação: {{$usuario->profissao}}
-            </div>
-            <div class="col-md-6">
-                <!-- Renda -->
-            </div>
-         </div>
-    </div>
-</div>
+
+@component('relatorios.identificacao-usuario', [ 'usuario' => $usuario])
+@endcomponent
 
 <div class="secao">
     <div class="secao-header">2 - Saúde</div>
@@ -114,6 +39,37 @@
 <div class="secao">
     <div class="secao-header">3 - Composição Familiar</div>
     <div class="secao-body container-fluid">
+        <div class="row">
+            <div class="col">
+                <table class="table table-sm table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Parentesco</th>
+                            <th scope="col">Idade</th>
+                            <th scope="col">Ocupação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($usuario->getFamiliares() as $familiar)
+                        <tr>
+                            <td>{{$familiar->nome}}</td>
+                            <td>{{$familiar->getParentesco()}}</td>
+                            <td>{{$familiar->getIdade()}}</td>
+                            <td>{{$familiar->profissao}}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col">
+                        <p class="bold">
+                            Núcleo Familiar: {{count($usuario->getFamiliares())}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col">
@@ -127,11 +83,12 @@
         </div>
         <div class="row">
             <div class="col">
-                <p class="text-center">{{$filial->cidade}}, quarta, 15 de maio de 2019</p>
+            
+                <p class="text-center">{{$filial->cidade}}, {{strftime('%A, %d de %B de %Y', strtotime('today'))}}</p>
             </div>
         </div>
         <div class="assinatura-box">
-            <div class="linha-assinatura"></div>
+            <div class="assinatura-linha"></div>
         </div>
         
     </div>

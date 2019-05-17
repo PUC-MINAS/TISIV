@@ -145,11 +145,14 @@ class UsuarioController extends Controller
     public function relatorioSocioEconomico($id){
         $data['usuario'] = usuario::find($id);
         $data['filial'] = Filial::find(1);
-        $viewHtml = view('relatorios.relatorio-socioeconomico', $data)->render();
-        //$pdf = PDF::loadView('relatorios.relatorio-socioeconomico', $data);
-        $pdf = PDF::loadHtml($viewHtml);
-        //dd($pdf);
-        //return $pdf->stream(); 
-        return $viewHtml;
+
+        return view('relatorios.relatorio-socioeconomico', $data);
+    }
+
+    public function relatorioAquisicoes($id){
+        $data['usuario'] = usuario::find($id);
+        $data['filial'] = Filial::find(1);
+
+        return view('relatorios.relatorio-aquisicoes', $data);
     }
 }

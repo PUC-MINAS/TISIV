@@ -33,4 +33,22 @@ class FichaAquisicao extends Model
             return $value->getAquisicao()->tipo_aquisicao == TipoAquisicao::IndicadorFamiliares;
         });
     }
+
+    public function aquisicoesObtidas(){
+        return $this->getItens()->filter(function ($value, $key){
+            return $value->atende;
+        });
+    }
+
+    public function aquisicoesObtidasIndicadoresUsuarios(){
+        return $this->getItensIndicadoresUsuarios()->filter(function ($value, $key){
+            return $value->atende;
+        });
+    }
+
+    public function aquisicoesObtidasIndicadoresFamiliares(){
+        return $this->getItensIndicadoresFamiliares()->filter(function ($value, $key){
+            return $value->atende;
+        });
+    }
 }

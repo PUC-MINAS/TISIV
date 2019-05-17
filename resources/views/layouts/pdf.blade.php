@@ -22,7 +22,7 @@
     <div class="header">
 
         <div>
-            <img class="logo" src="/img/logo-csf.png" alt="">
+            <img class="logo" src="/img/logo-black.jpg" alt="">
         </div>
         <p class="text-align-right">
             {{$filial->nome}}<br>

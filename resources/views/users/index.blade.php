@@ -8,6 +8,35 @@
         <a class="btn btn-primary" href="{{ url('users/create') }}" >Novo Usuário</a>
     </div>
     <div class="card-body">
+        <form action="{{url('users')}}" method="get" class="mb-4">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <input type="text" name="user_search" class="form-control" value="{{$user_search}}" placeholder="Pesquisar"/>
+                </div>
+                <div class="form-group col-md-4">
+                    <select class="form-control" name="filial_search" placeholder="Filiais">
+                        <option value="">Filtrar por filial</option>
+                        @foreach($filiais as $filial)
+                            <option {{$filial_search == $filial->id ? 'selected' : ''}} value="{{ $filial->id }}">{{$filial->nome}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <select class="form-control" name="tipo_search" placeholder="Tipo">
+                        <option value="">Filtrar por tipo</option>
+                        @foreach(App\Enums\UserType::list() as $tipo)
+                            <option {{$tipo_search != null && $tipo_search == $tipo ? 'selected' : ''}} value="{{$tipo}}">{{App\Enums\UserType::getDescription($tipo)}}</option>
+                        @endforeach
+                    </select>
+                </div>                
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2 col-sm-3">
+                    <button type="submit" class="btn btn-primary form-control">Pesquisar</button>
+                </div>
+            </div>
+            
+        </form>
         <div class="table-responsive table-full-width">
             <table class="table table-hover table-sm">
                 <thead>

@@ -15,11 +15,34 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        $user_search = $request->input('user_search');
+        $filial_search = $request->input('filial_search');
+        $tipo_search = $request->input('tipo_search');
+        $filiais = Filial::all();
+        $users = User::query();
 
-        return view('users.index')->with('users', $users);
+        if(!empty($user_search)){
+            $users = $users->where('name', 'LIKE' , "%{$user_search}%")
+                                    ->orWhere('email', 'Like', "%{$user_search}%");
+        }
+
+        if(!empty($filial_search)){
+            $users = $users->where('id_filiais', $filial_search);
+        }
+
+        if($tipo_search != null){
+            $users = $users->where('tipo', $tipo_search);
+        }
+
+        $users = $users->get();
+
+        return view('users.index')->with('users', $users)
+                                  ->with('user_search', $user_search)
+                                  ->with('filial_search', $filial_search)
+                                  ->with('filiais', $filiais)
+                                  ->with('tipo_search', $tipo_search);
     }
 
     public function create(){
@@ -29,13 +52,12 @@ class UserController extends Controller
     }
 
     public function store(Request $request){
-        $name = $request->input('name');
         $email = $request->input('email');
         
-        $userExist = $this->getUserExist($name, $email);
+        $userExist = User::where('email', $email)->first();
         if( $userExist == null ) {
             $user = new User();
-            $user->name = $name;
+            $user->name = $request->input('name');;
             $user->email = $email;
             $user->tipo = $request->input('tipo');
             $user->id_filiais = $request->input('filial');
@@ -46,13 +68,49 @@ class UserController extends Controller
             return redirect('users')->with('success', 'Usuário cadastrado com sucesso!');
         }
         else {
-            $msg = "Não foi possível realizar o cadastrar, pois já existe outro usuário com os mesmos dados";
+            $msg = "Não foi possível realizar o cadastrar, pois já existe outro usuário com o mesmo email";
             return redirect()->back()->with('error', $msg);
         }
 
     }
 
-    private function getUserExist($name, $email) {
-        return User::where('name', $name)->orWhere('email', $email)->first();
+    public function show($id){
+        $user = User::find($id);
+
+        return view('users.show')->with('user', $user);
+    }
+
+    public function edit($id){
+        $user = User::find($id);
+        $filiais = Filial::all();
+
+        return view('users.edit')->with('user', $user)
+                                 ->with('filiais', $filiais);
+    }
+
+    public function update(Request $request, $id){
+        $error = false;
+        $email = $request->input('email');
+        $user = User::find($id);
+
+        if($user->email != $email){
+            $user = User::where('email', $email)->where('id', '<>', $id);
+            $error = $user != null;
+        }
+        
+        if( !$error ) {
+            $user->name = $request->input('name');
+            $user->email = $email;
+            $user->tipo = $request->input('tipo');
+            $user->id_filiais = $request->input('filial');
+
+            $user->save();
+
+            return redirect('users/'.$user->$id)->with('success', 'Usuário atualizado com sucesso!');
+        }
+        else {
+            $msg = "Não foi possível atualizar o usuarío, pois já existe outro usuário com o mesmo email";
+            return redirect()->back()->with('error', $msg);
+        }
     }
 }

@@ -7,7 +7,7 @@
         <a class="btn btn-primary" href="{{ url('programas/create') }}" >Criar Programa</a>
     </div>
     <div class="card-body">
-    <form action="/programas/" method="get" class="mb-4">
+    <form action="{{url('programas')}}" method="get" class="mb-4">
         <div class="form-row">
             <div class="form-group col-md-5">
                 <input type="text" name="programa_search" class="form-control" value="{{$search}}"/>

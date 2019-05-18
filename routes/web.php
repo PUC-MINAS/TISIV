@@ -86,3 +86,11 @@ Route::get('usuarios/{idUsuario}/fichas-aquisicoes', 'FichaAquisicaoController@i
 Route::post('usuarios/{idUsuario}/fichas-aquisicoes/store', 'FichaAquisicaoController@store');
 Route::get('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoController@show');
 Route::put('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoController@update');
+
+/* Rotas Users */
+Route::get('users', 'UserController@index');
+Route::get('users/create', 'UserController@create');
+Route::post('users', 'UserController@store');
+Route::get('users/{id}', 'UserController@show');
+Route::get('users/{id}/edit', 'UserController@edit');
+Route::put('users/{id}', 'UserController@update');

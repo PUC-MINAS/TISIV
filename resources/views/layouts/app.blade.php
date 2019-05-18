@@ -32,9 +32,9 @@
   <hr class="sidebar-divider">
 
   <!-- Heading -->
-  <div class="sidebar-heading">
+  <!-- <div class="sidebar-heading">
     Interface
-  </div>
+  </div> -->
 
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
@@ -92,6 +92,13 @@
 
   <!-- Divider -->
   <hr class="sidebar-divider">
+
+  <li class="nav-item">
+    <a href="{{url('users')}}" class="nav-link collapsed">
+      <i class="fas fa-fw fa-cog"></i>
+      <span>Usuários Sistema</span>
+    </a>
+  </li>
 
   <!-- Heading -->
   <!-- <div class="sidebar-heading">

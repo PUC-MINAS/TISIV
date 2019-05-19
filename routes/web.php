@@ -94,3 +94,7 @@ Route::post('users', 'UserController@store');
 Route::get('users/{id}', 'UserController@show');
 Route::get('users/{id}/edit', 'UserController@edit');
 Route::put('users/{id}', 'UserController@update');
+
+/* Rotas redefinir Senha */
+Route::get('redefinir-senha/{id}', 'RedefinirSenhaController@edit');
+Route::put('redefinir-senha/{id}', 'RedefinirSenhaController@update');

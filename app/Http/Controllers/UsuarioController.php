@@ -57,13 +57,7 @@ class UsuarioController extends Controller
 
         $search_familia = empty($search_familia) ? null : implode(",", $search_familia);
         
-        return view('usuarios.index')
-            ->with('usuarios', $usuarios)
-            ->with('search_idade', $search_idade)
-            ->with('search_raca', $search_raca)
-            ->with('search_sexo', $search_sexo)
-            ->with('search_escolaridade', $search_escolaridade)
-            ->with('search_familia', $search_familia);
+        return view('usuarios.index')->with('usuarios', $usuarios);
     }
 
     public function create()

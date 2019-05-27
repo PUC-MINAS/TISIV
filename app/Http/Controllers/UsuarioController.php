@@ -20,11 +20,50 @@ class UsuarioController extends Controller
 
     /*  INÍCIO :: MÉTODOS CRUD */
 
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = usuario::all();
+        $usuarios = usuario::query();
+        $search_idade = $request->input('idade_search');
+        $search_raca = $request->input('raca_search');
+        $search_sexo = $request->input('sexo_search');
+        $search_escolaridade = $request->input('escolaridade_search');        
+        $search_familia = !empty($request->input('familia_search')) ? explode(',', $request->input('familia_search')) : null;
 
-        return view('usuarios.index', ['usuarios' => $usuarios]);
+        if(!empty($search_raca)) {
+            $usuarios = $usuarios->where('raca_cor', "{$search_raca}");
+        }
+
+        if(!empty($search_sexo)) {
+            $usuarios = $usuarios->where('sexo', 'LIKE', "{$search_sexo}");
+        }
+
+        if(!empty($search_escolaridade)) {
+            $usuarios = $usuarios->where('escolaridade', "{$search_escolaridade}");
+        }
+
+        $usuarios = $usuarios->get();
+        
+        if(!empty($search_familia)) {
+            $usuarios = $usuarios->filter(function($usuario, $key) use ($search_familia) {
+                return $usuario->qtdFamiliares() >= $search_familia[0] && $usuario->qtdFamiliares() <= $search_familia[1];
+            });
+        }
+
+        if(!empty($search_idade)) {
+            $usuarios = $usuarios->filter(function($usuario, $key) use ($search_idade) {
+                return $usuario->getIdade() == $search_idade;
+            });
+        }
+
+        $search_familia = empty($search_familia) ? null : implode(",", $search_familia);
+        
+        return view('usuarios.index')
+            ->with('usuarios', $usuarios)
+            ->with('search_idade', $search_idade)
+            ->with('search_raca', $search_raca)
+            ->with('search_sexo', $search_sexo)
+            ->with('search_escolaridade', $search_escolaridade)
+            ->with('search_familia', $search_familia);
     }
 
     public function create()

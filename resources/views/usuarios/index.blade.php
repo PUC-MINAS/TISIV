@@ -21,12 +21,12 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label>Idade</label>
-                    <input type="number" max="150" name="idade_search" class="form-control" value="{{$search_idade}}"/>
+                    <input type="number" max="150" name="idade_search" class="form-control" value=""/>
                 </div>
                 <div class="form-group col-md-4">                    
                     <label>Sexo</label>
                     <select class="form-control" name="sexo_search">
-                        <option value="{{$search_sexo}}"></option>
+                        <option value=""></option>
                         <option value="{{\App\Enums\Sexo::NaoInformado}}">Não Informado</option>
                         <option value="{{\App\Enums\Sexo::Masculino}}">Masculino</option>
                         <option value="{{\App\Enums\Sexo::Feminino}}">Feminino</option>
@@ -35,7 +35,7 @@
                 <div class="form-group col-md-4">                    
                     <label>Raça/Cor</label>
                     <select class="form-control" name="raca_search">
-                        <option value="{{$search_raca}}"></option>
+                        <option value=""></option>
                         <option value="{{\App\Enums\RacaCor::NaoInformado}}">Não Informado</option>
                         <option value="{{\App\Enums\RacaCor::Branca}}">Branca</option>
                         <option value="{{\App\Enums\RacaCor::Preta}}">Preta</option>
@@ -48,7 +48,7 @@
                 <div class="form-group col-md-4">                    
                     <label>Escolaridade</label>
                     <select class="form-control" name="escolaridade_search">
-                        <option value="{{$search_escolaridade}}"></option>
+                        <option value=""></option>
                         <option value="{{\App\Enums\Escolaridade::NaoInformado}}">Não informado</option>
                         <option value="{{\App\Enums\Escolaridade::Analfabeto}}">Analfabeto(a)</option>
                         <option value="{{\App\Enums\Escolaridade::FundamentalIncompleto}}">Fundamental Incompleto</option>
@@ -66,7 +66,7 @@
                 <div class="form-group col-md-4">                    
                     <label>Grupo familiar</label>
                     <select class="form-control" name="familia_search">
-                        <option value="{{$search_familia}}}"></option>
+                        <option value=""></option>
                         <option value="1,2">1 a 2 membros</option>
                         <option value="3,5">3 a 5 membros</option>
                         <option value="6,9">6 a 9 membros</option>

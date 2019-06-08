@@ -32,9 +32,9 @@
   <hr class="sidebar-divider">
 
   <!-- Heading -->
-  <div class="sidebar-heading">
+  <!-- <div class="sidebar-heading">
     Interface
-  </div>
+  </div> -->
 
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
@@ -92,6 +92,13 @@
 
   <!-- Divider -->
   <hr class="sidebar-divider">
+
+  <li class="nav-item">
+    <a href="{{url('users')}}" class="nav-link collapsed">
+      <i class="fas fa-fw fa-user"></i>
+      <span>Usuários Sistema</span>
+    </a>
+  </li>
 
   <!-- Heading -->
   <!-- <div class="sidebar-heading">
@@ -306,11 +313,11 @@
             <a class="dropdown-item" href="#">
               <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
               Settings
-            </a>
-            <a class="dropdown-item" href="#">
-              <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-              Activity Log
             </a> -->
+            <a class="dropdown-item" href="{{url('redefinir-senha/'.Auth::user()->id)}}">
+              <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
+              Redefinir Senha
+            </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
               <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

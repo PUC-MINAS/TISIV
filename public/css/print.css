@@ -1,0 +1,66 @@
+body{
+    margin: 0.5cm;
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    -webkit-print-color-adjust: exact;
+    font-size: 18px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.logo{
+    width: 130px;
+    height: 130px;
+}
+
+.text-align-right{
+    text-align: right;       
+}
+
+.secao{
+
+}
+
+.secao > .secao-header{
+    background-color: gainsboro;
+    padding: 10px;
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.secao > .secao-body{
+    padding: 10px;
+    font-size: 20px;
+}
+
+.text-center{
+    font-size: 16px;
+    text-align: center;
+}
+
+.assinatura-box{
+    display: flex;
+    justify-content: center;
+    height: 40px;
+}
+
+.assinatura-linha{
+    border-bottom: 1px solid black;
+    width: 300px;
+}
+
+.table {
+    text-align: center;
+}
+
+.table th {
+    font-size: 15px;
+}
+
+.table td {
+    font-size: 20px;
+}

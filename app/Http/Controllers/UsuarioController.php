@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\usuario;
 use App\endereco_usuario;
+use App\Filial;
+use Barryvdh\DomPDF\Facade as PDF;
 use DateTime;
 use Auth;
 
@@ -18,11 +20,44 @@ class UsuarioController extends Controller
 
     /*  INÍCIO :: MÉTODOS CRUD */
 
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = usuario::all();
+        $usuarios = usuario::query();
+        $search_idade = $request->input('idade_search');
+        $search_raca = $request->input('raca_search');
+        $search_sexo = $request->input('sexo_search');
+        $search_escolaridade = $request->input('escolaridade_search');        
+        $search_familia = !empty($request->input('familia_search')) ? explode(',', $request->input('familia_search')) : null;
 
-        return view('usuarios.index', ['usuarios' => $usuarios]);
+        if(!empty($search_raca)) {
+            $usuarios = $usuarios->where('raca_cor', "{$search_raca}");
+        }
+
+        if(!empty($search_sexo)) {
+            $usuarios = $usuarios->where('sexo', 'LIKE', "{$search_sexo}");
+        }
+
+        if(!empty($search_escolaridade)) {
+            $usuarios = $usuarios->where('escolaridade', "{$search_escolaridade}");
+        }
+
+        $usuarios = $usuarios->get();
+        
+        if(!empty($search_familia)) {
+            $usuarios = $usuarios->filter(function($usuario, $key) use ($search_familia) {
+                return $usuario->qtdFamiliares() >= $search_familia[0] && $usuario->qtdFamiliares() <= $search_familia[1];
+            });
+        }
+
+        if(!empty($search_idade)) {
+            $usuarios = $usuarios->filter(function($usuario, $key) use ($search_idade) {
+                return $usuario->getIdade() == $search_idade;
+            });
+        }
+
+        $search_familia = empty($search_familia) ? null : implode(",", $search_familia);
+        
+        return view('usuarios.index')->with('usuarios', $usuarios);
     }
 
     public function create()
@@ -138,5 +173,19 @@ class UsuarioController extends Controller
         $usuario = usuario::findOrFail($id);
         $usuario->delete();
         return redirect('usuarios')->with('success', 'Usuário deletado com sucesso.');
+    }
+
+    public function relatorioSocioEconomico($id){
+        $data['usuario'] = usuario::find($id);
+        $data['filial'] = Filial::find(1);
+
+        return view('relatorios.relatorio-socioeconomico', $data);
+    }
+
+    public function relatorioAquisicoes($id){
+        $data['usuario'] = usuario::find($id);
+        $data['filial'] = Filial::find(1);
+
+        return view('relatorios.relatorio-aquisicoes', $data);
     }
 }

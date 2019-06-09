@@ -11,11 +11,12 @@
 |
 */
 
+use App\Notifications\NotificacaoBuscaAtiva;
+use App\User;
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/', 'HomeController@index')->name('home');
 
 /* Rotas de Programas */
 Route::get('/programas', 'ProgramaController@index')->name('programas');
@@ -98,3 +99,19 @@ Route::put('users/{id}', 'UserController@update');
 /* Rotas redefinir Senha */
 Route::get('redefinir-senha/{id}', 'RedefinirSenhaController@edit');
 Route::put('redefinir-senha/{id}', 'RedefinirSenhaController@update');
+
+/* Rotas Notificações */
+Route::get('/', function () {
+
+    $randomNumber = mt_rand(0,  4);
+
+    Auth::user()->notify(new NotificacaoBuscaAtiva($randomNumber));
+
+    return view('home');
+
+})->middleware('auth');
+
+Route::get('markAsRead/{id}', function ($id) {
+    Auth::user()->unreadNotifications->where('id', $id)->markAsRead();
+    return redirect()->route('home');
+});

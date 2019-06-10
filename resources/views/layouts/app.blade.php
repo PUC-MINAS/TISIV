@@ -11,7 +11,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
     <div class="sidebar-brand-icon rotate-n-15">
       <i class="fas fa-laugh-wink"></i>
     </div>
@@ -87,6 +87,13 @@
     <a class="nav-link collapsed" href="{{url('usuarios')}}">
       <i class="fas fa-fw fa-users"></i>
       <span>Beneficiados</span>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a href="{{url('busca-ativa')}}" class="nav-link collapsed">
+        <i class="fas fa-search-location"></i>
+        <span>Buscas ativas</span>
     </a>
   </li>
 
@@ -205,38 +212,40 @@
 
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
+            @if (Auth::check())
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-bell fa-fw"></i>
-                  <!-- Counter - Alerts -->
-                  @if (Auth::user()->unreadNotifications->count() > 0)
-                    <span class="badge badge-danger badge-counter">{{Auth::user()->unreadNotifications->count()}}</span>
-                  @endif
+                    <i class="fas fa-bell fa-fw"></i>
+                    <!-- Counter - Alerts -->
+                    @if (Auth::user()->unreadNotifications->count() > 0)
+                        <span class="badge badge-danger badge-counter">{{Auth::user()->unreadNotifications->count()}}</span>
+                    @endif
                 </a>
+            @endif
                 <!-- Dropdown - Alerts -->
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                  <h6 class="dropdown-header">
-                    Central de Notificações
-                  </h6>
-                  @foreach (Auth::user()->unreadNotifications as $notification)
+                    <h6 class="dropdown-header">
+                        Central de Notificações
+                    </h6>
 
-                    <a class="dropdown-item d-flex align-items-center" href="{{ url('markAsRead/'.$notification->id) }}">
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('notificacoes-ativas') }}">
                         <div class="mr-3">
-                            <div class="icon-circle bg-warning">
-                                <i class="fas fa-exclamation-triangle text-white"></i>
-                            </div>
+                            @if (Auth::user()->unreadNotifications->count() > 0)
+                                <div class="icon-circle bg-warning">
+                                    <i class="fas fa-exclamation-triangle text-white"></i>
+                                </div>
+                            @else
+                                <div class="icon-circle bg-success">
+                                    <i class="fas fa-thumbs-up text-white"></i>
+                                </div>
+                            @endif
                         </div>
                         <div>
                             <div class="small text-gray-500">
-                                {{$notification->created_at->format('d/m/y')}}
+                                {{ date('d/m/Y') }}
                             </div>
-                            {{$notification->data['titulo']}}
-                            <hr>
-                            {{$notification->data['descricao']}}
+                                Notificações de busca ativa: {{Auth::user()->unreadNotifications->count()}}
                         </div>
                     </a>
-
-                  @endforeach
-                  <a class="dropdown-item text-center small text-gray-500" href="#">Acessar todos</a>
                 </div>
               </li>
 

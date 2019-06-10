@@ -11,11 +11,15 @@
 |
 */
 
-use App\Notifications\NotificacaoBuscaAtiva;
 use App\User;
+use App\usuario;
+use App\BuscaAtiva;
+use App\Enums\StatusBuscaAtiva;
+use App\Notifications\NotificacaoBuscaAtiva;
 
 Auth::routes();
 
+Route::get('/', 'HomeController@notify')->name('home-notify');
 Route::get('/home', 'HomeController@index')->name('home');
 
 /* Rotas de Programas */
@@ -101,17 +105,45 @@ Route::get('redefinir-senha/{id}', 'RedefinirSenhaController@edit');
 Route::put('redefinir-senha/{id}', 'RedefinirSenhaController@update');
 
 /* Rotas Notificações */
-Route::get('/', function () {
+Route::get('/notificacoes', 'NotificacoesController@index')->name('notificacoes');
+Route::get('/notificacoes/mark-all-as-read', 'NotificacoesController@markAllAsRead')->name('markAllAsRead');
+Route::get('/notificacoes/mark-as-read/{id}','NotificacoesController@markAsRead')->name('markAsRead');
+Route::get('/notificacoes/ativas', 'NotificacoesController@recuperaNotificacoesUsuario')->name('notificacoes-ativas');
 
-    $randomNumber = mt_rand(0,  4);
+/* Rotas Buscas Ativas
+   TODO: extrair funções para o controller correto
+   Isso não foi feito ainda pois as rotas não estavam conseguindo encontrar o controller
+*/
+Route::get('iniciar-busca/{nome}/{idNot}', function ($nome, $idNot) {
 
-    Auth::user()->notify(new NotificacaoBuscaAtiva($randomNumber));
+    $beneficiado = usuario::where('nome', $nome)->first();
+    $usuarioLogado = Auth::user();
 
-    return view('home');
+    $buscaAtiva = new BuscaAtiva();
+    $buscaAtiva->id_usuario = $beneficiado->id;
+    $buscaAtiva->id_users = $usuarioLogado->id;
+    $buscaAtiva->data_inicio = date('Y-m-d');
+    $buscaAtiva->save();
 
-})->middleware('auth');
+    return redirect()->route('markAsRead', ['id' => $idNot]);
 
-Route::get('markAsRead/{id}', function ($id) {
-    Auth::user()->unreadNotifications->where('id', $id)->markAsRead();
-    return redirect()->route('home');
-});
+})->name('iniciar-busca');
+
+Route::get('busca-ativa', 'BuscaAtivaController@index')->name('busca-ativa');
+Route::post('busca-ativa/concluir', 'BuscaAtivaController@concluir')->name('concluir-busca');
+
+// Route::get('concluir-busca/{nome}/{idNot}', function ($nome, $idNot) {
+
+//     $beneficiado = usuario::where('nome', $nome)->first();
+//     $usuarioLogado = Auth::user();
+
+//     $buscaAtiva = BuscaAtiva::where('id_usuario', $beneficiado->id)->first();
+//     $buscaAtiva->status = StatusBuscaAtiva::Concluida;
+//     $buscaAtiva->data_conclusao = date('Y-m-d');
+//     $buscaAtiva->save();
+
+//     return redirect()->route('markAsRead', ['id' => $idNot]);
+
+// })->name('concluir-busca');
+
+

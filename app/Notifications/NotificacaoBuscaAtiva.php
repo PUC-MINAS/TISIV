@@ -11,18 +11,16 @@ class NotificacaoBuscaAtiva extends Notification
 {
     use Queueable;
 
-    private $details;
-    public $names = ['José Carmo Cansado','Lúcio Mauro Arlindo','Martha Eleonora','Alfonso Beltrame','Arlindo Silveira'];
-    public $name;
+    private $beneficiado;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($randomNumber)
+    public function __construct($beneficiado)
     {
-        $this->name = $this->names[$randomNumber];
+        $this->beneficiado = $beneficiado;
     }
 
     /**
@@ -55,9 +53,15 @@ class NotificacaoBuscaAtiva extends Notification
      */
     public function toDatabase($notifiable)
     {
+        $telefone = is_null($this->beneficiado->telefone) ? 'Nao informado' : $this->beneficiado->telefone;
+        $whatsapp = is_null($this->beneficiado->num_wpp) ? 'Nao informado' : $this->beneficiado->num_wpp;
+        $cto_emerg = is_null($this->beneficiado->contato_emerg) ? 'Nao informado' : $this->beneficiado->contato_emerg;
+
         return [
-            'titulo' => 'Iniciar busca ativa',
-            'descricao' => 'Beneficiado: '.$this->name,
+            'nome' => $this->beneficiado->nome,
+            'telefone' => $telefone,
+            'whatsapp' => $whatsapp,
+            'cto_emerg' => $cto_emerg,
         ];
     }
 }

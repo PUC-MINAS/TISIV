@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\disparaNotificacaoBuscaAtiva'
     ];
 
     /**
@@ -24,8 +24,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('daily:notification')
+                 ->everyMinute();
+
+                // ->weekdays()
+                // ->timezone('America/Sao_Paulo')
+                // ->at('08:00');
+
     }
 
     /**

@@ -11,7 +11,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
     <div class="sidebar-brand-icon rotate-n-15">
       <i class="fas fa-laugh-wink"></i>
     </div>
@@ -87,6 +87,13 @@
     <a class="nav-link collapsed" href="{{url('usuarios')}}">
       <i class="fas fa-fw fa-users"></i>
       <span>Beneficiados</span>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a href="{{url('busca-ativa')}}" class="nav-link collapsed">
+        <i class="fas fa-search-location"></i>
+        <span>Buscas ativas</span>
     </a>
   </li>
 
@@ -204,53 +211,43 @@
         </li> -->
 
         <!-- Nav Item - Alerts -->
-        <!-- <li class="nav-item dropdown no-arrow mx-1">
-          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-bell fa-fw"></i> -->
-            <!-- Counter - Alerts -->
-            <!-- <span class="badge badge-danger badge-counter">3+</span>
-          </a> -->
-          <!-- Dropdown - Alerts -->
-          <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-            <h6 class="dropdown-header">
-              Alerts Center
-            </h6>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-              <div class="mr-3">
-                <div class="icon-circle bg-primary">
-                  <i class="fas fa-file-alt text-white"></i>
+        <li class="nav-item dropdown no-arrow mx-1">
+            @if (Auth::check())
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell fa-fw"></i>
+                    <!-- Counter - Alerts -->
+                    @if (Auth::user()->unreadNotifications->count() > 0)
+                        <span class="badge badge-danger badge-counter">{{Auth::user()->unreadNotifications->count()}}</span>
+                    @endif
+                </a>
+            @endif
+                <!-- Dropdown - Alerts -->
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                    <h6 class="dropdown-header">
+                        Central de Notificações
+                    </h6>
+
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('notificacoes-ativas') }}">
+                        <div class="mr-3">
+                            @if (Auth::user()->unreadNotifications->count() > 0)
+                                <div class="icon-circle bg-warning">
+                                    <i class="fas fa-exclamation-triangle text-white"></i>
+                                </div>
+                            @else
+                                <div class="icon-circle bg-success">
+                                    <i class="fas fa-thumbs-up text-white"></i>
+                                </div>
+                            @endif
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">
+                                {{ date('d/m/Y') }}
+                            </div>
+                                Notificações de busca ativa: {{Auth::user()->unreadNotifications->count()}}
+                        </div>
+                    </a>
                 </div>
-              </div>
-              <div>
-                <div class="small text-gray-500">December 12, 2019</div>
-                <span class="font-weight-bold">A new monthly report is ready to download!</span>
-              </div>
-            </a>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-              <div class="mr-3">
-                <div class="icon-circle bg-success">
-                  <i class="fas fa-donate text-white"></i>
-                </div>
-              </div>
-              <div>
-                <div class="small text-gray-500">December 7, 2019</div>
-                $290.29 has been deposited into your account!
-              </div>
-            </a>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-              <div class="mr-3">
-                <div class="icon-circle bg-warning">
-                  <i class="fas fa-exclamation-triangle text-white"></i>
-                </div>
-              </div>
-              <div>
-                <div class="small text-gray-500">December 2, 2019</div>
-                Spending Alert: We've noticed unusually high spending for your account.
-              </div>
-            </a>
-            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-          </div>
-        </li> -->
+              </li>
 
         <!-- Nav Item - Messages -->
         <!-- <li class="nav-item dropdown no-arrow mx-1">
@@ -354,7 +351,7 @@
                         {{session('success')}}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>                       
+                    </button>
                 </div>
             </div>
         </div>
@@ -367,7 +364,7 @@
                         {{session('error')}}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>                       
+                    </button>
                 </div>
             </div>
         </div>

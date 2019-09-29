@@ -30,6 +30,13 @@
             {{$filial->cidade}} - {{App\Enums\UF::getDescription($filial->uf)}} - CEP {{$filial->cep}}<br>
             Tel.: {{$filial->telefone}}<br>
         </p>
+        <script>
+            function isReadyToPrint(){
+                document.addEventListener('DOMContentLoaded', function() {
+                    window.print();
+                }, false);
+            }
+        </script>
     </div>
 
     @yield('pdf-content')

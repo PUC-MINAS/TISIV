@@ -110,6 +110,11 @@ Route::get('/notificacoes/mark-all-as-read', 'NotificacoesController@markAllAsRe
 Route::get('/notificacoes/mark-as-read/{id}','NotificacoesController@markAsRead')->name('markAsRead');
 Route::get('/notificacoes/ativas', 'NotificacoesController@recuperaNotificacoesUsuario')->name('notificacoes-ativas');
 
+/* Rotas relatório demográfico */
+// Route::resource('relatorio-demografico', 'OficinaProjetoController@relatorioDemografico');
+Route::resource('relatorio-demografico', 'RelatorioDemograficoController');
+Route::get('relatorio-demografico/{id}/oficina', 'RelatorioDemograficoController@relatorioDemografico');
+
 /* Rotas Buscas Ativas
    TODO: extrair funções para o controller correto
    Isso não foi feito ainda pois as rotas não estavam conseguindo encontrar o controller

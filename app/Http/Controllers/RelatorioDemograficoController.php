@@ -7,6 +7,10 @@ use App\OficinaProjeto;
 use App\Filial;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Lavacharts;
+use App\Projeto;
+use App\Programa;
+use App\TurmaOficinaProjeto;
+use App\MatriculaOficinaProjeto;
 
 class RelatorioDemograficoController extends Controller
 {
@@ -91,8 +95,38 @@ class RelatorioDemograficoController extends Controller
 
     }
 
-    public function relatorioDemografico($id){
-        $data['oficina'] = OficinaProjeto::find($id);
+    public function relatorioDemografico($id, $type){
+
+        switch($type){
+            case 'oficina':
+            $data['tipo'] = 'Oficina';
+            $data['dados'] = OficinaProjeto::findOrFail($id);
+            $data['turma'] = TurmaOficinaProjeto::where('id_oficina', '=', $id);
+            foreach($data['turma'] as $id_turma){
+                $data['matricula'] = MatriculaOficinaProjeto::where('id_turma', '=', $id_turma);
+            }
+            
+            $data['nome'] = $data['dados']->nome;
+            break;
+
+            case 'projeto':
+            $data['tipo'] = 'Projeto';
+            $data['dados'] = Projeto::findOrFail($id);
+            $data['nome'] = $data['dados']->nome;
+            break;
+
+            case 'programa':
+            $data['tipo'] = 'Programa';
+            $data['dados'] = Programa::findOrFail($id);
+            $data['nome'] = $data['dados']->nome;
+            break;
+
+            default:
+            return Programa::findOrFail(-1);
+            break;
+        }
+        
+        
         $data['filial'] = Filial::find(1);
 
         $lava = new \Khill\Lavacharts\Lavacharts;
@@ -114,9 +148,14 @@ class RelatorioDemograficoController extends Controller
         $lava->BarChart('Idade', $age, [
             'title' => 'Idade',
             'titleTextStyle' => [
-                'fontSize' => 24
+                'fontSize' => 24,
+                'color' => 'black',
+            ],
+            'legend' => [
+                'position' => 'none'
             ]
         ]);
+        
 
         //GÊNERO
 
@@ -150,6 +189,9 @@ class RelatorioDemograficoController extends Controller
             'title' => 'Etnia',
             'titleTextStyle' => [
                 'fontSize' => 24
+            ],
+            'legend' => [
+                'position' => 'none'
             ]
         ]);
 
@@ -157,7 +199,7 @@ class RelatorioDemograficoController extends Controller
 
         $salary = $lava->DataTable();
         $salary->addStringColumn('Salário')
-                ->addNumberColumn('Renda')
+                ->addNumberColumn('Quantidade')
                 ->addRow(['Baixa', 1000])
                 ->addRow(['Média', 600])
                 ->addRow(['Alta', 200]);
@@ -167,6 +209,9 @@ class RelatorioDemograficoController extends Controller
             'titleTextStyle' => [
                 'color'    => '#000000',
                 'fontSize' => 24
+            ],
+            'legend' => [
+                'position' => 'none'
             ]
         ]);
 
@@ -185,6 +230,9 @@ class RelatorioDemograficoController extends Controller
             'titleTextStyle' => [
                 'color'    => '#000000',
                 'fontSize' => 24
+            ],
+            'legend' => [
+                'position' => 'none'
             ]
         ]);
 

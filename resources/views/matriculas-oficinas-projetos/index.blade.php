@@ -32,6 +32,9 @@
                         <td>
                             <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/'.$matricula->id_turmas.'/matriculas/'.$matricula->id) }}" >Detalhes</a>
                         </td>     
+                        <td>
+                            <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/'.$matricula->id_turmas.'/matriculas/'.$matricula->id) }}" >Socorro</a>
+                        </td> 
                     </tr>
                     </tbody>
                 @endforeach

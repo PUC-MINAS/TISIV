@@ -18,7 +18,7 @@
     <!-- Custom fonts for this template-->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
-<body onload="window.print()">
+<body>
     <div class="header">
 
         <div>
@@ -30,18 +30,19 @@
             {{$filial->cidade}} - {{App\Enums\UF::getDescription($filial->uf)}} - CEP {{$filial->cep}}<br>
             Tel.: {{$filial->telefone}}<br>
         </p>
-        <script>
-            function isReadyToPrint(){
-                document.addEventListener('DOMContentLoaded', function() {
-                    window.print();
-                }, false);
-            }
-        </script>
     </div>
+    <button class="btn btn-primary" id="print" style="align-content: center" onclick="printf();">Imprimir</button>
 
     @yield('pdf-content')
 
     
     @yield('script')
+    <script>
+        function printf(){
+            document.getElementById('print').style.display = 'none';
+            window.print();
+            window.onafterprint = function(){ document.getElementById('print').style.display = 'block'};
+        }
+    </script>
 </body>
 </html>

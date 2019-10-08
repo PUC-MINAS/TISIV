@@ -109,7 +109,10 @@
                         <td>{{ $turma->idadeMaxima }}</td>                    
                         <td>
                             <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/'.$turma->id) }}" >Detalhes</a>                    
-                        </td>     
+                        </td>    
+                        <td>
+                            <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/'.$turma->id. '/presencaGrafico/' .$turma->id) }}" >Relatorio de Presença</a>                    
+                        </td>      
                     </tr>
                     </tbody>
                 @endforeach

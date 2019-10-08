@@ -85,6 +85,9 @@ Route::post('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{idMatric
 Route::post('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{idMatricula}/desistir', 'MatriculaOficinaProjetoController@desistir');
 Route::put('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{idMatricula}', 'MatriculaOficinaProjetoController@update');
 Route::delete('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{idMatricula}', 'MatriculaOficinaProjetoController@destroy');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/plotar/', 'PresencaOficinaProjetoController@plotar');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencaGrafico/{id}', 'PresencaOficinaProjetoController@grafico');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencaGrafico/{id}/pdf', 'PresencaOficinaProjetoController@nameMethod');
 
 /* Rotas Fichas Aquisições */
 Route::get('usuarios/{idUsuario}/fichas-aquisicoes', 'FichaAquisicaoController@index');
@@ -113,7 +116,8 @@ Route::get('/notificacoes/ativas', 'NotificacoesController@recuperaNotificacoesU
 /* Rotas relatório demográfico */
 // Route::resource('relatorio-demografico', 'OficinaProjetoController@relatorioDemografico');
 Route::resource('relatorio-demografico', 'RelatorioDemograficoController');
-Route::get('relatorio-demografico/{id}/oficina', 'RelatorioDemograficoController@relatorioDemografico');
+Route::get('relatorio-demografico/{id}/{type}', 'RelatorioDemograficoController@relatorioDemografico');
+
 
 /* Rotas Buscas Ativas
    TODO: extrair funções para o controller correto

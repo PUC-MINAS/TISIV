@@ -11,6 +11,7 @@ use App\Projeto;
 use App\Programa;
 use App\TurmaOficinaProjeto;
 use App\MatriculaOficinaProjeto;
+use App\usuario;
 
 class RelatorioDemograficoController extends Controller
 {
@@ -25,110 +26,77 @@ class RelatorioDemograficoController extends Controller
         return view('relatorio-demografico.index')->with('oficinas', $oficinas);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function calculaIdades(){
-
-    }
-
-    public function relatorioDemografico($id, $type){
-
+    public function pegaDados($id, $type){
         switch($type){
+
             case 'oficina':
-            $data['tipo'] = 'Oficina';
             $data['dados'] = OficinaProjeto::findOrFail($id);
-            $data['turma'] = TurmaOficinaProjeto::where('id_oficina', '=', $id);
-            foreach($data['turma'] as $id_turma){
-                $data['matricula'] = MatriculaOficinaProjeto::where('id_turma', '=', $id_turma);
-            }
-            
             $data['nome'] = $data['dados']->nome;
+            $data['tipo'] = 'Oficina';
+            $data['turma'] = TurmaOficinaProjeto::select('id')->where('id_oficinas_projetos', '=', $id)->get();
+            $data['idUsuario'] = array();
+
+            foreach($data['turma'] as $dado){
+                $dado = preg_replace('/[^0-9]/', '', strval($dado));
+                echo('DADOUSUARIO' . $dado);
+                $data['temp'] = MatriculaOficinaProjeto::where('id_turmas', '=', (int)$dado)->pluck('id_usuario');
+                array_push($data['idUsuario'], $data['temp']);
+            }
+
+            $data['idUsuario'] = preg_replace('/[,]+/', ' ', $data['idUsuario']);
+            $data['idUsuario'] = preg_replace('/[[]+/', ' ', $data['idUsuario']);
+            $data['idUsuario'] = preg_replace('/[]]+/', ' ', $data['idUsuario']);
+           
+            $dataString = "";
+            foreach($data['idUsuario'] as $dado){
+                $dado = preg_split("/[\s,]+/", strval($dado));
+                $dado = implode(" ", $dado);
+                $dataString .= $dado;
+            }
+            var_dump($dataString);
+            // $dado['idFormatado'] = preg_split("/[\s,]+/", $dataString);
+            // foreach($data['idUsuario'] as $dado){
+
+            //     echo('MEU DEUS DO CÉU OLHA AQUI');
+            //     var_dump($dado);
+            //     // $data['idade'] = usuario::select('idade')->where('id', '=', $dado)->get();
+            //     $data['genero'] = usuario::where('id', '=', 1)->pluck('sexo');
+            //     $data['etnia'] = usuario::where('id', '=', 1)->pluck('raca_cor');
+            //     //rent
+            //     $data['escolaridade'] = usuario::select('escolaridade')->where('id', '=', 1)->get();
+            //     //family
+            // }
             break;
 
             case 'projeto':
-            $data['tipo'] = 'Projeto';
             $data['dados'] = Projeto::findOrFail($id);
+            $data['tipo'] = 'Projeto';
             $data['nome'] = $data['dados']->nome;
             break;
 
             case 'programa':
-            $data['tipo'] = 'Programa';
             $data['dados'] = Programa::findOrFail($id);
+            $data['tipo'] = 'Programa';
             $data['nome'] = $data['dados']->nome;
             break;
 
             default:
             return Programa::findOrFail(-1);
-            break;
         }
-        
-        
-        $data['filial'] = Filial::find(1);
+        $this->filtraDados($data);
+        return $this->relatorioDemografico($id, $type, $data);
+    }
 
+    public function filtraDados($data){
+        /**idade */
+
+    }
+
+    /*generate graphics and send them to render in blade*/
+    public function relatorioDemografico($id, $type, $data){
+
+        $data['filial'] = Filial::find(1);
+        // var_dump($data['idUsuario']);
         $lava = new \Khill\Lavacharts\Lavacharts;
 
         //IDADE
@@ -137,12 +105,12 @@ class RelatorioDemograficoController extends Controller
         $age->addStringColumn('Intervalo')
             ->addNumberColumn('Quantidade')
             ->addRow(['< 12',  rand(0,100)])
-            ->addRow(['12 - 18',  rand(0,100)])
-            ->addRow(['19 - 25',  rand(0,100)])
-            ->addRow(['26 - 30', rand(0,100)])
-            ->addRow(['31 - 35',   rand(0,100)])
-            ->addRow(['36 - 40', rand(0, 100)])
-            ->addRow(['41 - 45', rand(0, 100)])
+            ->addRow(['12 a 18',  rand(0,100)])
+            ->addRow(['19 a 25',  rand(0,100)])
+            ->addRow(['26 a 30', rand(0,100)])
+            ->addRow(['31 a 35',   rand(0,100)])
+            ->addRow(['36 a 40', rand(0, 100)])
+            ->addRow(['41 a 45', rand(0, 100)])
             ->addRow(['> 45', rand(0, 100)]);
 
         $lava->BarChart('Idade', $age, [
@@ -240,9 +208,9 @@ class RelatorioDemograficoController extends Controller
         $family = $lava->DataTable();
         $family->addStringColumn('Intervalo')
                 ->addNumberColumn('Membros')
-                ->addRow(['1 - 2', 500])
-                ->addRow(['3 - 5', 600])
-                ->addRow(['6 - 9', 200])
+                ->addRow(['1 a 2', 500])
+                ->addRow(['3 a 5', 600])
+                ->addRow(['6 a 9', 200])
                 ->addRow(['10+', 50]);
 
         $lava->ColumnChart('Family', $family, [

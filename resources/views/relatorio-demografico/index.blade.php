@@ -2,6 +2,8 @@
 @section('pdf-content')
 
 <style>
+
+    /*without this, graphics will render with 1px height*/
     .div-height{
         height: 400px;
     }
@@ -10,6 +12,7 @@
         text-align: center;
     }
 
+    /*subtitle paragraphs. align with graphics*/
     div.col-md-6 > p{
         margin-left: 120px;
         font-size: 16px;
@@ -17,6 +20,35 @@
     }
 </style>
 
+
+{{-- <h5>{!!$qtd_turmas!!}</h5>
+<h5>{{gettype($turma)}}</h5>
+<h5>{{print_r($turma)}}</h5> --}}
+<h3>TURMAS</h3>
+@foreach($turma as $turminha)
+    <h3>{{$turminha}}</h3>
+    <br>
+@endforeach
+{{-- @foreach($dadousuario as $dado)
+    <p>{{$dado->id}}</p>
+@endforeach --}}
+<h3>DADOUSUARIO</h3>
+@foreach($idUsuario as $dado)
+<h6>{{$dado}}</h6>
+<br>
+@endforeach
+
+{{-- <h3>DADO FORMATADO</h3>
+@foreach($idFormatado as $dado)
+<h6>{{$dado}}</h6>
+<br>
+@endforeach --}}
+{{-- 
+<h3>{{$idFormatado}}</h3> --}}
+
+{{-- @foreach($genero as $g)
+<h2>{{$genero}}</h2>
+@endforeach --}}
 <div class="container-fluid">
     <h2 class="document_title">Relatório Demográfico - {!!$tipo!!} {!!$nome!!}</h2>
     <div class="row">

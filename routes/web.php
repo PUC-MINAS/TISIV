@@ -116,7 +116,7 @@ Route::get('/notificacoes/ativas', 'NotificacoesController@recuperaNotificacoesU
 /* Rotas relatório demográfico */
 // Route::resource('relatorio-demografico', 'OficinaProjetoController@relatorioDemografico');
 Route::resource('relatorio-demografico', 'RelatorioDemograficoController');
-Route::get('relatorio-demografico/{id}/{type}', 'RelatorioDemograficoController@relatorioDemografico');
+Route::get('relatorio-demografico/{id}/{type}', 'RelatorioDemograficoController@pegaDados');
 
 
 /* Rotas Buscas Ativas

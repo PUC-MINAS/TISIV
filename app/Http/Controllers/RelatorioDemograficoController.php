@@ -27,45 +27,84 @@ class RelatorioDemograficoController extends Controller
     }
 
     public function pegaDados($id, $type){
+
         switch($type){
 
             case 'oficina':
+
+            /**declaracao de variaveis */
             $data['dados'] = OficinaProjeto::findOrFail($id);
             $data['nome'] = $data['dados']->nome;
             $data['tipo'] = 'Oficina';
             $data['turma'] = TurmaOficinaProjeto::select('id')->where('id_oficinas_projetos', '=', $id)->get();
             $data['idUsuario'] = array();
+            $data['genero'] = array();
+            $data['etnia'] = array();
+            $dataString = "";
+            $dadosSeparados = array();
+            $index = 0;
 
+            /**para cada turma:
+             * substitui a sintaxe '{id:1}' para somente 1;
+             * a partir do 1, faz a busca pelo aluno na tabela de matricula
+             * coloca o resultado da busca num array (tirar array_push depois)
+             */
             foreach($data['turma'] as $dado){
                 $dado = preg_replace('/[^0-9]/', '', strval($dado));
-                echo('DADOUSUARIO' . $dado);
                 $data['temp'] = MatriculaOficinaProjeto::where('id_turmas', '=', (int)$dado)->pluck('id_usuario');
                 array_push($data['idUsuario'], $data['temp']);
             }
 
+            /**
+             * Os dados vão ficar numa sintaxe como essa:
+             * [1,2], [3,4,5]
+             * o replace é para tirar a vírgula e os colchetes, deixando o resultado como:
+             * 1 23 4 5(array)
+             */
             $data['idUsuario'] = preg_replace('/[,]+/', ' ', $data['idUsuario']);
             $data['idUsuario'] = preg_replace('/[[]+/', ' ', $data['idUsuario']);
             $data['idUsuario'] = preg_replace('/[]]+/', ' ', $data['idUsuario']);
            
-            $dataString = "";
+            /**
+             * para cada conjunto de ids '1 2' encontrado:
+             * os separa pelo espaço e adiciona num array;
+             * converte o array para string, colocando espaço entre eles (implode);
+             * concatena o resultado numa string;
+             * resultado: 1 2 3 4 5 (string)
+             */
             foreach($data['idUsuario'] as $dado){
                 $dado = preg_split("/[\s,]+/", strval($dado));
                 $dado = implode(" ", $dado);
                 $dataString .= $dado;
             }
-            var_dump($dataString);
-            // $dado['idFormatado'] = preg_split("/[\s,]+/", $dataString);
-            // foreach($data['idUsuario'] as $dado){
 
-            //     echo('MEU DEUS DO CÉU OLHA AQUI');
-            //     var_dump($dado);
-            //     // $data['idade'] = usuario::select('idade')->where('id', '=', $dado)->get();
-            //     $data['genero'] = usuario::where('id', '=', 1)->pluck('sexo');
-            //     $data['etnia'] = usuario::where('id', '=', 1)->pluck('raca_cor');
-            //     //rent
-            //     $data['escolaridade'] = usuario::select('escolaridade')->where('id', '=', 1)->get();
-            //     //family
-            // }
+            var_dump($dataString);
+
+            /**
+             * tira o primeiro espaço da string
+             * separa cada numero pelo espaço e armazena num array
+             * conta quantos itens para impedir o foreach de fazer a ultima iteração, que seria um espaço
+             */
+            $dataString = preg_replace('/[\s,]/', '', $dataString, 1);
+            $dadosSeparados = preg_split("/[\s,]+/", $dataString);
+            $qtdItens = count($dadosSeparados);
+
+            /**
+             * faz a busca para cada id do array dadosSeparados e adiciona num array
+             */
+            foreach($dadosSeparados as $dado){
+                if(++$index === $qtdItens){
+                    echo "";
+                } else {
+                // $data['idade'] = usuario::select('idade')->where('id', '=', $dado)->get();
+                $data['gen'] = usuario::where('id', '=', $dado)->pluck('sexo');
+                $data['genero'][] = $data['gen'];
+                $data['etn'] = usuario::where('id', '=', $dado)->pluck('raca_cor');
+                $data['etnia'][] = $data['etn'];
+                $data['escolaridade'] = usuario::select('escolaridade')->where('id', '=', $dado)->get();
+                //family
+                }
+            }
             break;
 
             case 'projeto':
@@ -83,12 +122,13 @@ class RelatorioDemograficoController extends Controller
             default:
             return Programa::findOrFail(-1);
         }
-        $this->filtraDados($data);
+        $this->filtraDados($data['genero']);
         return $this->relatorioDemografico($id, $type, $data);
     }
 
     public function filtraDados($data){
-        /**idade */
+        echo('genero  ');
+        var_dump($data);
 
     }
 

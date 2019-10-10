@@ -40,6 +40,7 @@ class RelatorioDemograficoController extends Controller
             $data['idUsuario'] = array();
             $data['genero'] = array();
             $data['etnia'] = array();
+            $data['escolaridade'] = array();
             $dataString = "";
             $dadosSeparados = array();
             $index = 0;
@@ -78,7 +79,7 @@ class RelatorioDemograficoController extends Controller
                 $dataString .= $dado;
             }
 
-            var_dump($dataString);
+            // var_dump($dataString);
 
             /**
              * tira o primeiro espaço da string
@@ -101,7 +102,9 @@ class RelatorioDemograficoController extends Controller
                 $data['genero'][] = $data['gen'];
                 $data['etn'] = usuario::where('id', '=', $dado)->pluck('raca_cor');
                 $data['etnia'][] = $data['etn'];
-                $data['escolaridade'] = usuario::select('escolaridade')->where('id', '=', $dado)->get();
+                $data['esc'] = usuario::where('id', '=', $dado)->pluck('escolaridade');
+                echo'escolaridade a a   a a a a';var_dump($data['esc']);
+                $data['escolaridade'][] = $data['esc'];
                 //family
                 }
             }
@@ -122,13 +125,55 @@ class RelatorioDemograficoController extends Controller
             default:
             return Programa::findOrFail(-1);
         }
-        $this->filtraDados($data['genero']);
+        $data['genero'] = $this->filtraGenero($data['genero']);
+        $data['etnia'] = $this->filtraEtnia($data['etnia']);
+        $data['escolaridade'] = $this->filtraEscolaridade($data['escolaridade']);
         return $this->relatorioDemografico($id, $type, $data);
     }
 
-    public function filtraDados($data){
-        echo('genero  ');
-        var_dump($data);
+    public function filtraGenero($data){
+        $naoInformado = 0; $masculino = 0; $feminino = 0;
+        foreach($data as $dado){
+            if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '0'){$naoInformado++;} 
+            else if (preg_replace('/[\[|\]]+/', '', strval($dado)) === '1'){$masculino++;}
+            else {$feminino++;}
+        }
+        $array[] = $naoInformado; $array[] = $masculino; $array[] = $feminino;
+        return $array;
+    }
+
+    public function filtraEtnia($data){
+        $naoInformado = 0; $branca = 0; $preta = 0; $amarela = 0; $parda = 0;
+        foreach($data as $dado){
+            if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '0'){$naoInformado++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '1'){$branca++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '2'){$preta++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '3'){$amarela++;}
+            else{$parda++;}
+        }
+        $array[] = $naoInformado; $array[] = $branca; $array[] = $preta; $array[] = $amarela; $array[] = $parda;
+        return $array;
+    }
+
+    public function filtraEscolaridade($data){
+        $naoInformado = 0; $analfabeto = 0; $fundamentalIncompleto = 0; $fundamentalCompleto = 0; $medioIncompleto = 0; $medioCompleto = 0; $tecnicoIncompleto = 0; $tecnicoCompleto = 0; $superiorIncompleto = 0; $superiorCompleto = 0; $posIncompleta = 0; $posCompleta = 0;
+        foreach($data as $dado){
+            echo 'dado';var_dump($dado);
+            if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '0'){$naoInformado++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '1'){$analfabeto++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '2'){$fundamentalIncompleto++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '3'){$fundamentalCompleto++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '4'){$medioIncompleto++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '5'){$medioCompleto++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '6'){$tecnicoIncompleto++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '7'){$tecnicoCompleto++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '8'){$superiorIncompleto++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '9'){$superiorCompleto++;}
+            else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '10'){$posIncompleta++;}
+            else{$posCompleta++;}
+        }
+        $array[] = $naoInformado; $array[] = $analfabeto; $array[] = $fundamentalIncompleto; $array[] = $fundamentalCompleto; $array[] = $medioIncompleto; $array[] = $medioCompleto; $array[] = $tecnicoIncompleto; $array[] = $tecnicoCompleto; $array[] = $superiorIncompleto; $array[] = $superiorCompleto; $array[] = $posIncompleta; $array[] = $posCompleta;
+        return $array;
 
     }
 
@@ -170,8 +215,9 @@ class RelatorioDemograficoController extends Controller
         $gender = $lava->DataTable();
         $gender->addStringColumn('Gênero')
                 ->addNumberColumn('Quantidade')
-                ->addRow(['Feminino', 5])
-                ->addRow(['Masculino', 2]);
+                ->addRow(['Feminino', $data['genero'][2]])
+                ->addRow(['Masculino', $data['genero'][1]])
+                ->addRow(['Não especificado', $data['genero'][0]]);
 
         $lava->PieChart('IMDB', $gender, [
             'title'  => 'Gênero',
@@ -186,12 +232,12 @@ class RelatorioDemograficoController extends Controller
         $ethnicity  = $lava->DataTable();
         $ethnicity->addStringColumn('Etnia')
             ->addNumberColumn('Quantidde')
-            ->addRow(['Amarela',  rand(1000,5000)])
-            ->addRow(['Branca',  rand(1000,5000)])
-            ->addRow(['Indígena',  rand(1000,5000)])
-            ->addRow(['Parda', rand(1000,5000)])
-            ->addRow(['Preta',   rand(1000,5000)])
-            ->addRow(['Não declarada', 100]);
+            ->addRow(['Amarela',  $data['etnia'][3]])
+            ->addRow(['Branca',  $data['etnia'][1]])
+            ->addRow(['Indígena',  0])
+            ->addRow(['Parda', $data['etnia'][4]])
+            ->addRow(['Preta',   $data['etnia'][2]])
+            ->addRow(['Não declarada', $data['etnia'][0]]);
 
         $lava->BarChart('Votes', $ethnicity, [
             'title' => 'Etnia',
@@ -229,9 +275,13 @@ class RelatorioDemograficoController extends Controller
         $schooling->addStringColumn('Nível')
                 ->addNumberColumn('Completo')
                 ->addNumberColumn('Incompleto')
-                ->addRow(['Fundamental', 1000, 400])
-                ->addRow(['Médio', 1170, 460])
-                ->addRow(['Superior', 660, 1120]);
+                ->addRow(['Não Informado', 0, $data['escolaridade'][0]])
+                ->addRow(['Analfabeto'], 0, $data['escolaridade'][1])
+                ->addRow(['Fundamental', $data['escolaridade'][3], $data['escolaridade'][2]])
+                ->addRow(['Médio', $data['escolaridade'][5], $data['escolaridade'][4]])
+                ->addRow(['Técnico', $data['escolaridade'][7], $data['escolaridade'][6]])
+                ->addRow(['Superior', $data['escolaridade'][9], $data['escolaridade'][8]])
+                ->addRow(['Pós-graduação', $data['escolaridade'][11], $data['escolaridade'][10]]);
 
         $lava->ColumnChart('Finances', $schooling, [
             'title' => 'Escolaridade',

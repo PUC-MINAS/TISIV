@@ -60,6 +60,14 @@ Route::resource('projetos', 'ProjetoController');
 /* Rotas de OficinasProjetos */
 Route::resource('oficinas-projetos', 'OficinaProjetoController');
 
+
+
+/* Rotas de Relatório de Desistência */
+Route::resource('relatorio-desistencia', 'RelatorioOficinasController');
+Route::get('relatorio-desistencia/{id}', 'RelatorioOficinasController@show');
+Route::resource('relatorioDesistenciaProjeto', 'relatorioDesistenciaProjetoController');
+Route::get('relatorioDesistenciaProjeto/{id}', 'relatorioDesistenciaProjeto@show');
+
 /* Rotas de TurmaOficinaProjeto */
 Route::get('oficinas-projetos/{idOficina}/turmas/create', 'TurmaOficinaProjetoController@create');
 Route::post('oficinas-projetos/{idOficina}/turmas/', 'TurmaOficinaProjetoController@store');

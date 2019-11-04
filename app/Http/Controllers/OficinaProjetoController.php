@@ -5,6 +5,13 @@ namespace App\Http\Controllers;
 use App\OficinaProjeto;
 use App\Projeto;
 use Illuminate\Http\Request;
+use App\Programa;
+use App\TurmaOficinaProjeto;
+use App\PresencaOficinaProjeto;
+use App\MatriculaOficinaProjeto;
+use Khill\Lavacharts\Lavacharts;
+use Carbon\Carbon;
+use App\Filial;
 
 class OficinaProjetoController extends Controller
 {
@@ -119,4 +126,51 @@ class OficinaProjetoController extends Controller
         $oficina = OficinaProjeto::destroy($id);
         return redirect('oficinas-projetos');
     }
+
+    public function graficoPresencaOficina($idOficina){
+     
+        Carbon::setWeekStartsAt(Carbon::SUNDAY);
+        Carbon::setWeekEndsAt(Carbon::SATURDAY);
+
+        $nomeOficina = OficinaProjeto::select('nome')->where([['id','=',$idOficina]])->get();
+        foreach($nomeOficina as $value=>$arrayNomeOficina)
+            $nome=$arrayNomeOficina['nome'];
+        
+        $idTurmas=TurmaOficinaProjeto::select('id')->where([['id_oficinas_projetos','=',$idOficina]])->get();
+
+        $presencaTotal=array();
+        $totalAlunos=array();
+
+        //foreach($idOficinas as $arrayIdOficinas){
+        //    $idTurma=TurmaOficinaProjeto::select('id')->where([['id_oficinas_projetos', '=', $arrayIdOficinas['id']]])->get();
+            foreach($idTurmas as $tu){
+            $contPresenca=PresencaOficinaProjeto::select('id_turmas', 'estevePresente' )->where([['id_turmas', '=', $tu['id']],['estevePresente', '=',1],])->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+            $contTotal = PresencaOficinaProjeto::where('id_turmas', '=', $tu['id'])->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+       
+            array_push($presencaTotal, $contPresenca);
+            array_push($totalAlunos,$contTotal);
+        }
+        
+        $presenca = array_sum($presencaTotal);
+        $total=array_sum($totalAlunos);
+       
+        $lava = new Lavacharts;
+        $alunos = $lava->DataTable();
+        $falta=$total-$presenca;
+        $alunos->addStringColumn('Turma')
+        ->addNumberColumn('Presença')
+        ->addRow(['Presença', $presenca])
+        ->addRow(['Falta', $falta]);
+        $nl=chr(10);
+        $lava->DonutChart('Dados', $alunos, [
+            'title' => ['Relatório Semanal de Frequência - Projeto '.$nome.' ( '.Carbon::now()->startOfWeek()->format(' d-m-Y '). ' até '. now()->format(' d-m-Y ').' )'],
+            'titleTextStyle' => [
+                'fontSize' => 20,
+                'align' => 'center'
+            ],
+        ]);
+        
+        $data['filial'] = Filial::find(1);
+        return view('matriculas-oficinas-projetos.edit',$data)->with(compact('lava','presenca', 'falta'))->with('tipo', 'DonutChart');
+    }    
 }

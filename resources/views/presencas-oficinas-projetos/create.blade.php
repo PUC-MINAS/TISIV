@@ -6,6 +6,7 @@
         <h4 class="card-title">
             Criar Lista de Presença - {{$turma->getOficina()->nome}} - Turma {{$turma->id}}
         </h4>
+        
     </div>
     <div class="card-body">
         <form action="{{url('oficinas-projetos/'.$oficina->id.'/turmas/'.$turma->id.'/presencas')}}" method="post" onsubmit="return validaForm(this);">

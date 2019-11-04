@@ -74,7 +74,7 @@
                         <td>{{ $matricula->data_desistencia}}</td>
                         <td>
                             <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id.'/turmas/'.$matricula->id_turmas.'/matriculas/'.$matricula->id) }}" >Detalhes</a>
-                        </td>     
+                        </td>      
                     </tr>
                     </tbody>
                 @endforeach

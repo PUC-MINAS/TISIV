@@ -75,6 +75,9 @@ class PresencaOficinaProjetoController extends Controller
             return self::Barra();
         }
 
+    public function falta(){
+        $presenca= PresencaOficinaProjeto::select('id_turmas', 'estevePresente' )->where([['id_turmas', '=', $id],['estevePresente', '=',1],])->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+    }
     public function grafico($idOficina, $idTurma,$id){
      
         Carbon::setWeekStartsAt(Carbon::SUNDAY);

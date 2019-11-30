@@ -98,6 +98,8 @@ Route::get('usuarios/{idUsuario}/fichas-aquisicoes', 'FichaAquisicaoController@i
 Route::post('usuarios/{idUsuario}/fichas-aquisicoes/store', 'FichaAquisicaoController@store');
 Route::get('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoController@show');
 Route::put('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoController@update');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/graficoAquisicao/{id}', 'FichaAquisicaoController@graficoAquisicao');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/graficoAquisicao/{id}/pdf', 'FichaAquisicaoController@nameMethod');
 
 /* Rotas Users */
 Route::get('users', 'UserController@index');

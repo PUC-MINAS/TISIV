@@ -32,7 +32,7 @@
                             <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id) }}" >Detalhes</a>                    
                         </td>   
                         <td>
-                            <a href="{{url('relatorio-demografico/oficina')}}" class="btn btn-success">Relatório Demográfico</a>    
+                            <a href="{{url('relatorio-demografico/'.$oficina->id.'/oficina')}}" class="btn btn-success">Relatório Demográfico</a>    
                         </td>  
                     </tr>
                     </tbody>

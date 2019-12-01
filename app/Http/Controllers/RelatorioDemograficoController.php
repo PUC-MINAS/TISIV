@@ -26,6 +26,10 @@ class RelatorioDemograficoController extends Controller
         return view('relatorio-demografico.index')->with('oficinas', $oficinas);
     }
 
+    public function pegaUsuario($id){
+
+    }
+
     public function pegaDados($id, $type){
 
         switch($type){
@@ -41,6 +45,7 @@ class RelatorioDemograficoController extends Controller
             $data['genero'] = array();
             $data['etnia'] = array();
             $data['escolaridade'] = array();
+            $data['idade'] = array();
             $dataString = "";
             $dadosSeparados = array();
             $index = 0;
@@ -97,13 +102,17 @@ class RelatorioDemograficoController extends Controller
                 if(++$index === $qtdItens){
                     echo "";
                 } else {
-                // $data['idade'] = usuario::select('idade')->where('id', '=', $dado)->get();
+                $data['ida'] = usuario::select('dta_nasc')->where('id', '=', $dado)->get();
+                $data['ida'] = preg_replace('/[\[|\]|\{|\}\"]+/', '', strval($data['ida']));
+                $data['ida'] = preg_replace('/dta_nasc:|null/', '', $data['ida']);
+                $data['ida'] = $this->calcIdade($data['ida']);
+                $data['idade'][] = $data['ida'];
                 $data['gen'] = usuario::where('id', '=', $dado)->pluck('sexo');
                 $data['genero'][] = $data['gen'];
                 $data['etn'] = usuario::where('id', '=', $dado)->pluck('raca_cor');
                 $data['etnia'][] = $data['etn'];
                 $data['esc'] = usuario::where('id', '=', $dado)->pluck('escolaridade');
-                echo'escolaridade a a   a a a a';var_dump($data['esc']);
+                // echo'escolaridade a a   a a a a';var_dump($data['esc']);
                 $data['escolaridade'][] = $data['esc'];
                 //family
                 }
@@ -111,9 +120,113 @@ class RelatorioDemograficoController extends Controller
             break;
 
             case 'projeto':
+
+            $data['idTurma'] = array();
+            $data['idUsuario'] = array();
+            $data['genero'] = array();
+            $data['etnia'] = array();
+            $data['escolaridade'] = array();
+            $dataString = "";
+            $dadosSeparados = array();
+            $index = 0;
             $data['dados'] = Projeto::findOrFail($id);
-            $data['tipo'] = 'Projeto';
             $data['nome'] = $data['dados']->nome;
+            $data['tipo'] = 'Projeto';
+            $data['idade'] = array();
+            $data['oficinas'] = OficinaProjeto::select('id')->where('id_projetos', '=', $id)->get();
+            // var_dump($data['oficinas']);
+            
+
+            foreach($data['oficinas'] as $dado){
+                
+                $dado = preg_replace('/[^0-9]/', '', strval($dado));
+                // echo $dado . 'dhuhue  ';
+                $data['temp'] = TurmaOficinaProjeto::where('id_oficinas_projetos', '=', (int)$dado)->pluck('id');
+                
+                $data['idTurma'][] = $data['temp'];
+            }
+
+            $data['idTurma'] = preg_replace('/[,]+/', ' ', $data['idTurma']);
+            $data['idTurma'] = preg_replace('/[[]+/', ' ', $data['idTurma']);
+            $data['idTurma'] = preg_replace('/[]]+/', ' ', $data['idTurma']);
+
+            foreach($data['idTurma'] as $dado){
+                $dado = preg_split("/[\s,]+/", strval($dado));
+                $dado = implode(" ", $dado);
+                $dataString .= $dado;
+            }
+            $data['idTurma'] = explode(" ", $dataString);
+            var_dump($data['idTurma']);
+            $qtdId = count($data['idTurma']);
+            $ind = 0;
+
+            foreach($data['idTurma'] as $dado){
+                if(++$ind === $qtdId){
+                    echo "";
+                }
+                else {
+                $dado = preg_replace('/[^0-9]/', '', strval($dado));
+                $data['temp'] = MatriculaOficinaProjeto::where('id_turmas', '=', (int)$dado)->pluck('id_usuario');
+                // echo $data['temp'] . 'testeinho';
+                array_push($data['idUsuario'], $data['temp']);}
+            }
+
+            // $data['turma'] = TurmaOficinaProjeto::select('id')->where('id_oficinas_projetos', '=', $id)->get();
+            // 
+            // $data['nome'] = $data['dados']->nome;
+            // $data['oficina'] = OficinaProjeto::select('id')->where('id_oficinas_projetos', '=', $id)->get();
+
+            $data['idUsuario'] = preg_replace('/[,]+/', ' ', $data['idUsuario']);
+            $data['idUsuario'] = preg_replace('/[[]+/', ' ', $data['idUsuario']);
+            $data['idUsuario'] = preg_replace('/[]]+/', ' ', $data['idUsuario']);
+           
+            /**
+             * para cada conjunto de ids '1 2' encontrado:
+             * os separa pelo espaço e adiciona num array;
+             * converte o array para string, colocando espaço entre eles (implode);
+             * concatena o resultado numa string;
+             * resultado: 1 2 3 4 5 (string)
+             */
+            $dataString = "";
+            foreach($data['idUsuario'] as $dado){
+                $dado = preg_split("/[\s,]+/", strval($dado));
+                $dado = implode(" ", $dado);
+                $dataString .= $dado;
+            }
+
+            // var_dump($dataString);
+
+            /**
+             * tira o primeiro espaço da string
+             * separa cada numero pelo espaço e armazena num array
+             * conta quantos itens para impedir o foreach de fazer a ultima iteração, que seria um espaço
+             */
+            $dataString = preg_replace('/[\s,]/', '', $dataString, 1);
+            $dadosSeparados = preg_split("/[\s,]+/", $dataString);
+            $qtdItens = count($dadosSeparados);
+
+            /**
+             * faz a busca para cada id do array dadosSeparados e adiciona num array
+             */
+            foreach($dadosSeparados as $dado){
+                if(++$index === $qtdItens){
+                    echo "";
+                } else {
+                $data['ida'] = usuario::select('dta_nasc')->where('id', '=', $dado)->get();
+                $data['ida'] = preg_replace('/[\[|\]|\{|\}\"]+/', '', strval($data['ida']));
+                $data['ida'] = preg_replace('/dta_nasc:|null/', '', $data['ida']);
+                $data['ida'] = $this->calcIdade($data['ida']);
+                $data['idade'][] = $data['ida'];
+                $data['gen'] = usuario::where('id', '=', $dado)->pluck('sexo');
+                $data['genero'][] = $data['gen'];
+                $data['etn'] = usuario::where('id', '=', $dado)->pluck('raca_cor');
+                $data['etnia'][] = $data['etn'];
+                $data['esc'] = usuario::where('id', '=', $dado)->pluck('escolaridade');
+                // echo'escolaridade a a   a a a a';var_dump($data['esc']);
+                $data['escolaridade'][] = $data['esc'];
+                //family
+                }
+            }
             break;
 
             case 'programa':
@@ -126,9 +239,22 @@ class RelatorioDemograficoController extends Controller
             return Programa::findOrFail(-1);
         }
         $data['genero'] = $this->filtraGenero($data['genero']);
+        // var_dump($data['genero']);
         $data['etnia'] = $this->filtraEtnia($data['etnia']);
         $data['escolaridade'] = $this->filtraEscolaridade($data['escolaridade']);
+        $data['idade'] = $this->filtraIdade($data['idade']);
         return $this->relatorioDemografico($id, $type, $data);
+    }
+
+    public function calcIdade($data){
+        if($data == null){
+            return 0;
+        } else {
+        $nascimento = strtotime($data);
+        $hoje = strtotime(date('Y-m-d'));
+        $idade = floor( (($hoje - $nascimento) / 60 / 60 / 24 / 365.25) );
+        return $idade;
+        }
     }
 
     public function filtraGenero($data){
@@ -158,7 +284,7 @@ class RelatorioDemograficoController extends Controller
     public function filtraEscolaridade($data){
         $naoInformado = 0; $analfabeto = 0; $fundamentalIncompleto = 0; $fundamentalCompleto = 0; $medioIncompleto = 0; $medioCompleto = 0; $tecnicoIncompleto = 0; $tecnicoCompleto = 0; $superiorIncompleto = 0; $superiorCompleto = 0; $posIncompleta = 0; $posCompleta = 0;
         foreach($data as $dado){
-            echo 'dado';var_dump($dado);
+            // echo 'dado';var_dump($dado);
             if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '0'){$naoInformado++;}
             else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '1'){$analfabeto++;}
             else if(preg_replace('/[\[|\]]+/', '', strval($dado)) === '2'){$fundamentalIncompleto++;}
@@ -177,6 +303,23 @@ class RelatorioDemograficoController extends Controller
 
     }
 
+    public function filtraIdade($data){
+        $doze = 0; $dezoito = 0; $vintecinco = 0; $trinta = 0; $trintacinco = 0; $quarenta = 0; $quarentacinco = 0; $infinito = 0;
+        foreach($data as $dado){
+            if($dado == 0){}
+        else if(intval(preg_replace('/[\[|\]]+/', '', strval($dado))) < 12){$doze++;}
+        else if(intval(preg_replace('/[\[|\]]+/', '', strval($dado))) > 12 && intval(preg_replace('/[\[|\]]+/', '', strval($dado))) <= 18){$dezoito++;}
+        else if(intval(preg_replace('/[\[|\]]+/', '', strval($dado))) > 18 && intval(preg_replace('/[\[|\]]+/', '', strval($dado))) <= 25){$vintecinco++;}
+        else if(intval(preg_replace('/[\[|\]]+/', '', strval($dado))) > 25 && intval(preg_replace('/[\[|\]]+/', '', strval($dado))) <= 30){$trinta++;}
+        else if(intval(preg_replace('/[\[|\]]+/', '', strval($dado))) > 30 && intval(preg_replace('/[\[|\]]+/', '', strval($dado))) <= 35){$trintacinco++;}
+        else if(intval(preg_replace('/[\[|\]]+/', '', strval($dado))) > 35 && intval(preg_replace('/[\[|\]]+/', '', strval($dado))) <= 40){$quarenta++;}
+        else if(intval(preg_replace('/[\[|\]]+/', '', strval($dado))) > 40 && intval(preg_replace('/[\[|\]]+/', '', strval($dado))) <= 45){$quarentacinco++;}
+        else{$infinito++;}}
+
+        $array[] = $doze; $array[] = $dezoito; $array[] = $vintecinco; $array[] = $trinta; $array[] = $trintacinco; $array[] = $quarenta; $array[] = $quarentacinco; $array[] = $infinito;
+        return $array;
+    }
+
     /*generate graphics and send them to render in blade*/
     public function relatorioDemografico($id, $type, $data){
 
@@ -189,14 +332,14 @@ class RelatorioDemograficoController extends Controller
 
         $age->addStringColumn('Intervalo')
             ->addNumberColumn('Quantidade')
-            ->addRow(['< 12',  rand(0,100)])
-            ->addRow(['12 a 18',  rand(0,100)])
-            ->addRow(['19 a 25',  rand(0,100)])
-            ->addRow(['26 a 30', rand(0,100)])
-            ->addRow(['31 a 35',   rand(0,100)])
-            ->addRow(['36 a 40', rand(0, 100)])
-            ->addRow(['41 a 45', rand(0, 100)])
-            ->addRow(['> 45', rand(0, 100)]);
+            ->addRow(['< 12',  $data['idade'][0]])
+            ->addRow(['12 a 18',  $data['idade'][1]])
+            ->addRow(['19 a 25',  $data['idade'][2]])
+            ->addRow(['26 a 30', $data['idade'][3]])
+            ->addRow(['31 a 35',   $data['idade'][4]])
+            ->addRow(['36 a 40', $data['idade'][5]])
+            ->addRow(['41 a 45', $data['idade'][6]])
+            ->addRow(['> 45', $data['idade'][7]]);
 
         $lava->BarChart('Idade', $age, [
             'title' => 'Idade',
@@ -290,7 +433,7 @@ class RelatorioDemograficoController extends Controller
                 'fontSize' => 24
             ],
             'legend' => [
-                'position' => 'none'
+                'position' => 'bottom'
             ]
         ]);
 

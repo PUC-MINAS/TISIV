@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\TurmaOficinaProjeto;
 use App\OficinaProjeto;
 use App\PresencaOficinaProjeto;
-
+use App\MatriculaOficinaProjeto;
+use Khill\Lavacharts\Lavacharts;
+use Carbon\Carbon;
+use App\Filial;
 class PresencaOficinaProjetoController extends Controller
 {
     public function __construct()
@@ -66,4 +69,35 @@ class PresencaOficinaProjetoController extends Controller
 
         return redirect('oficinas-projetos/'.$idOficina.'/turmas/'.$idTurma.'/presencas/'.$presenca->data);
     }
+
+    public function plotar(){
+            return self::Barra();
+        }
+
+    public function grafico($id){
+        
+        Carbon::setWeekStartsAt(Carbon::SUNDAY);
+        Carbon::setWeekEndsAt(Carbon::SATURDAY);
+        $presenca= PresencaOficinaProjeto::select('id_turmas', 'estevePresente' )->where([['id_turmas', '=', $id],['estevePresente', '=',1],])->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+        $total = PresencaOficinaProjeto::where('id_turmas', '=', $id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+        $d= PresencaOficinaProjeto::select('id_turmas', 'estevePresente','created_at' )->where([['id_turmas', '=', $id],['estevePresente', '=',1],])->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $lava = new Lavacharts;
+        $alunos = $lava->DataTable();
+        $falta=$total-$presenca;
+        $alunos->addStringColumn('Turma')
+        ->addNumberColumn('Presença')
+        ->addRow(['Presença', $presenca])
+        ->addRow(['Falta', $falta]);
+        
+
+        $lava->DonutChart('Dados', $alunos, [
+            'title' => 'Relatório de Frequência',
+            'titleTextStyle' => [
+                'fontSize' => 20
+            ],
+        ]);
+        
+        $data['filial'] = Filial::find(1);
+        return view('matriculas-oficinas-projetos.edit',$data)->with(compact('lava','presenca', 'falta','d'))->with('tipo', 'DonutChart');
+    }    
 }

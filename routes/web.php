@@ -85,12 +85,22 @@ Route::post('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{idMatric
 Route::post('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{idMatricula}/desistir', 'MatriculaOficinaProjetoController@desistir');
 Route::put('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{idMatricula}', 'MatriculaOficinaProjetoController@update');
 Route::delete('oficinas-projetos/{idOficina}/turmas/{idTurma}/matriculas/{idMatricula}', 'MatriculaOficinaProjetoController@destroy');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/plotar/', 'PresencaOficinaProjetoController@plotar');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencaGrafico/{id}', 'PresencaOficinaProjetoController@grafico');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/presencaGrafico/{id}/pdf', 'PresencaOficinaProjetoController@nameMethod');
 
 /* Rotas Fichas Aquisições */
 Route::get('usuarios/{idUsuario}/fichas-aquisicoes', 'FichaAquisicaoController@index');
 Route::post('usuarios/{idUsuario}/fichas-aquisicoes/store', 'FichaAquisicaoController@store');
 Route::get('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoController@show');
 Route::put('usuarios/{idUsuario}/fichas-aquisicoes/{idFicha}', 'FichaAquisicaoController@update');
+Route::get('oficinas-projetos/{idOficina}/turmas/{idTurma}/graficoAquisicao/{id}', 'FichaAquisicaoController@graficoAquisicao');
+
+/* Rotas de Relatório de Desistência */
+Route::resource('relatorio-desistencia', 'RelatorioOficinasController');
+Route::get('relatorio-desistencia/{id}', 'RelatorioOficinasController@show');
+Route::resource('relatorioDesistenciaProjeto', 'RelatorioDesistenciaProjetoController');
+Route::get('relatorioDesistenciaProjeto/{id}/{type}', 'RelatorioDesistenciaProjetoController@show');
 
 /* Rotas Users */
 Route::get('users', 'UserController@index');
@@ -109,6 +119,12 @@ Route::get('/notificacoes', 'NotificacoesController@index')->name('notificacoes'
 Route::get('/notificacoes/mark-all-as-read', 'NotificacoesController@markAllAsRead')->name('markAllAsRead');
 Route::get('/notificacoes/mark-as-read/{id}','NotificacoesController@markAsRead')->name('markAsRead');
 Route::get('/notificacoes/ativas', 'NotificacoesController@recuperaNotificacoesUsuario')->name('notificacoes-ativas');
+
+/* Rotas relatório demográfico */
+// Route::resource('relatorio-demografico', 'OficinaProjetoController@relatorioDemografico');
+Route::resource('relatorio-demografico', 'RelatorioDemograficoController');
+Route::get('relatorio-demografico/{id}/{type}', 'RelatorioDemograficoController@pegaDados');
+
 
 /* Rotas Buscas Ativas
    TODO: extrair funções para o controller correto

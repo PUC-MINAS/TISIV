@@ -17,6 +17,7 @@
                     <th scope="col">Projeto</th>
                     <th scope="col">Programa</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 @foreach($oficinas as $oficina)
@@ -29,7 +30,10 @@
                         <td>{{ $oficina->getProjeto()->getPrograma()->nome }}</td>
                         <td>
                             <a class="btn btn-primary" href="{{ url('oficinas-projetos/'.$oficina->id) }}" >Detalhes</a>                    
-                        </td>     
+                        </td>   
+                        <td>
+                            <a href="{{url('relatorio-demografico/'.$oficina->id.'/oficina')}}" class="btn btn-success">Relatório Demográfico</a>    
+                        </td>  
                     </tr>
                     </tbody>
                 @endforeach

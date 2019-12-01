@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\OficinaProjeto;
 use App\Projeto;
+use App\Filial;
 use Illuminate\Http\Request;
 
 class OficinaProjetoController extends Controller
@@ -119,4 +120,5 @@ class OficinaProjetoController extends Controller
         $oficina = OficinaProjeto::destroy($id);
         return redirect('oficinas-projetos');
     }
+
 }

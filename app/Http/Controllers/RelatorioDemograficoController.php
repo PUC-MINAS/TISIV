@@ -156,7 +156,7 @@ class RelatorioDemograficoController extends Controller
                 $dataString .= $dado;
             }
             $data['idTurma'] = explode(" ", $dataString);
-            var_dump($data['idTurma']);
+            // var_dump($data['idTurma']);
             $qtdId = count($data['idTurma']);
             $ind = 0;
 

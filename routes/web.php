@@ -66,7 +66,7 @@ Route::resource('oficinas-projetos', 'OficinaProjetoController');
 Route::resource('relatorio-desistencia', 'RelatorioOficinasController');
 Route::get('relatorio-desistencia/{id}', 'RelatorioOficinasController@show');
 Route::resource('relatorioDesistenciaProjeto', 'relatorioDesistenciaProjetoController');
-Route::get('relatorioDesistenciaProjeto/{id}', 'relatorioDesistenciaProjeto@show');
+Route::get('relatorioDesistenciaProjeto/{id}', 'relatorioDesistenciaProjetoController@show');
 
 /* Rotas de TurmaOficinaProjeto */
 Route::get('oficinas-projetos/{idOficina}/turmas/create', 'TurmaOficinaProjetoController@create');

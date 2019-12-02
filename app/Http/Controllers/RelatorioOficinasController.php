@@ -52,35 +52,22 @@ class RelatorioOficinasController extends Controller
     {
         $oficina = OficinaProjeto::find($id);
         $turma = TurmaOficinaProjeto::all();
-        // $query = "SELECT estevePresente from PRESENCAS_OFICINAS_PROJETOS Where id_turmas = '$id'";
-
+        
 
         $teste['dados'] = PresencaOficinaProjeto::select('estevePresente')->where("estevePresente", "=", $id)->count();
         $teste['dados2'] = OficinaProjeto::select("percentualMinimoFrequencia")->where('id', '=', $id)->get();
         $count = PresencaOficinaProjeto::where('estevePresente', '=', 1)->count();
-        
-        // echo $teste['dados2'];
-        // echo "<br>";
-        // echo "valor count " . $count , "<br>";
-        // echo "<br>";
-
-        //var_dump($teste['dados']);
-        // echo $teste['dados'];
-        // echo "<br>";   
-       
-
 
         foreach($teste['dados2'] as $teste){
             echo "<br>";
             $value_percent = $teste->percentualMinimoFrequencia;
         } 
 
-
         $count = ($count * 100 )/ $value_percent;
         if($count < $value_percent){
             return $oficina->nome . " Teve um total de " . $count . "% de Reprovações";
         }else{
-            echo "errado";
+            return $oficina->nome . " Teve um total de " . $count . "% de Aprovações";
         }
 
         return view('relatorio-desistencia.index')->with('dados', $turma)

@@ -7,8 +7,14 @@ use App\OficinaProjeto;
 use App\TurmaOficinaProjeto;
 use App\PresencaOficinaProjeto;
 use App\RelatorioOficinasController;
+use App\ProjetoController;
+use App\ProgramaController;
+use App\Projeto;
+use Carbon\Carbon;
+use Khill\Lavacharts\Lavacharts;
+use App\Filial;
 
-class RelatorioDesistenciaController extends Controller
+class RelatorioDesistenciaProjetoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -47,108 +53,75 @@ class RelatorioDesistenciaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $type) 
+    public function show($idProjeto)
     {
-        switch($type)
-        {
-            case 'projeto':
+
+        Carbon::setWeekStartsAt(Carbon::SUNDAY);
+        Carbon::setWeekEndsAt(Carbon::SATURDAY);
 
 
 
+
+        $nomeProjeto = Projeto::select('nome')->where([['id', '=', $idProjeto]])->get();
+        foreach ($nomeProjeto as $value => $arrayNomeProjeto)
+            $nome = $arrayNomeProjeto['nome'];
+
+
+        $idOficinas = OficinaProjeto::select('id')->where([['id_projetos', '=', $idProjeto]])->get();
+
+        $presencaTotal = array();
+        $totalAlunos = array();
+
+
+        foreach ($idOficinas as $arrayIdOficinas) {
+            $idTurma = TurmaOficinaProjeto::select('id')->where([['id_oficinas_projetos', '=', $arrayIdOficinas['id']]])->get();
+            foreach ($idTurma as $tu) {                                                           //pega o id igual ao que eu quero e compara com a presença igual à que eu quero 
+                // $contPresenca = PresencaOficinaProjeto::select('id_turmas', 'estevePresente')->where([['id_turmas', '=', $tu['id']], ['estevePresente', '=', 1],])->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+                // $contTotal = PresencaOficinaProjeto::where('id_turmas', '=', $tu['id'])->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+
+                $countDesistencia = PresencaOficinaProjeto::select('id_turmas', 'estevePresente')->where([['id_turmas', '=', $tu['id']], ['estevePresente', '=', 1],])->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+                //$teste['dados'] = PresencaOficinaProjeto::select('id_turmas','estevePresente')->where([['id_turmas', "=", $tu['id']], ["estevePresente", '=', 1],])->count();
+                //$teste['dados2'] = OficinaProjeto::select("percentualMinimoFrequencia")->where('id', '=', $id)->get();
+                $countTotal = PresencaOficinaProjeto::where('estevePresente', '=', 1)->count();
                 
-                $dada['dados'] = OficinaProjeto::findOrFail($id);
-                $data['nome'] = $data['dados']->nome;
-                $data['tipo'] = 'Oficina';
-                $data['turma'] = TurmaOficinaProjeto::select('id')->where('id_oficinas_projetos', '=', $id)->get();
-                $data['idUsuario'] = array();
-                $dataString = "";
-                $dadosSeparados = array();
-                $index = 0;
-
-                
-                $countPresente = PresencaOficinaProjeto::where('estevePresente', '=', 1)->count();
-                $countDesistencia = PresencaOficinaProjeto::where('estevePresente', '=', 0)->count();
-                
-                // $data['presente'] = PresencaOficinaProjeto::select('estevePresente')->where("estevePresente", "=", $id)->count();
-                // $data['desistencia'] = RelatorioOficinasController::select('count')->where('id_oficinas_projetos', '=', $id)->get();
-               
 
 
-                //fiz a busca pelo aluno em uma oficina
-                foreach($data['turma'] as $dado)
-                {
-                    $dado = preg_replace('/[^0-9]/', '', strval($dado));
-                    // $data['presente'] = PresecaOficinanProjeto::select('estevePresente')->where("estevePresente", "=", $id)->count();
-                    // $data['desistencia'] = RelatorioOficinasController::select('count')->where('id_oficinas_projetos', '=', $id)->get();
-                    $data['temp'] = OficinaProjeto::where('id_turmas', '=', (int)$dado)->pluck('id_usuario');
-                    array_push($data['idUsuario'], $data['temp']);
-                }
+                array_push($presencaTotal, $countDesistencia);
+                array_push($totalAlunos, $countTotal);
+            }
+        }
 
-                $data['idUsuario'] = preg_replace('/[,]+/', ' ', $data['desistencia']);
-                $data['idUsuario'] = preg_replace('/[[]+/', ' ', $data['desistencia']);
-                $data['idUsuario'] = preg_replace('/[]]+/', ' ', $data['desistencia']);
-
-
-
-                foreach($data['desistencia'] as $dado)
-                {
-                    $dado = preg_split("/[\s,]+/", strval($dado));
-                    $dado = implode(" ", $dado);
-                    $dataString .= $dado;
-                }
-
-                $dataString = preg_replace('/[\s,]/', '', $dataString, 1);
-                $dadosSeparados = preg_split("/[\s,]+/", $dataString);
-                $qtdItens = count($dadosSeparados);
+        $presenca = array_sum($presencaTotal);
+        $total = array_sum($totalAlunos);
 
 
 
 
-                //pego o aluno 
-                foreach($dadosSeparados as $dado){
-                    if(++$index === $qtdItens){
-                        echo "";
-                    } else {
-                    //pega preseca de cada aluno de uma oficina
-                    $data['etvP'] = usuario::where('id', '=', $dado)->count();
-                    $data['estevePresente'][] = $data['estvP'];
 
-                    //pega desistecia total de uma oficina 
-                    $data['count'] = oficina::where('id', '=', $dado)->pluck('count');
-                    $data['countDesistencia'][] = $data['count'];
+        $lava = new Lavacharts;
+        $alunos = $lava->DataTable();
+        $falta = $total - $presenca;
+        $alunos->addStringColumn('Turma')
+            ->addNumberColumn('Presença')
+            ->addRow(['Presença', $presenca])
+            ->addRow(['Falta', $falta]);
+        $nl = chr(10);
+        $lava->DonutChart('Dados', $alunos, [
+            'title' => ['Relatório Semanal de Desistência - Projeto ' . $nome . ' ( ' . Carbon::now()->startOfWeek()->format(' d-m-Y ') . ' até ' . now()->format(' d-m-Y ') . ' )'],
+            'titleTextStyle' => [
+                'fontSize' => 20,
+                'align' => 'center'
+            ],
+        ]);
 
-                    
-                    }
-                }
-                break;
-
-                return $this->GraficoRelatorioDesistecicaProjeto($id, $type, $data);
-
-            //case 'prgrama':
-       }
+        $data['filial'] = Filial::find(1);
+        return view('RelatorioDesistenciaProjeto.index',$data)->with(compact('lava','presenca', 'falta'))
+                                                             ->with('tipo', 'DonutChart');
+        
+        
     }
     
 
-    public function GraficoRelatorioDesistecicaProjeto($id, $type, $data){
-        $data['filial'] = Filial::find(1);
-        // var_dump($data['idUsuario']);
-        $lava = new \Khill\Lavacharts\Lavacharts;
-
-        $gender = $lava->DataTable();
-        $gender->addStringColumn('Desistencia')
-                ->addNumberColumn('Quantidade')
-                ->addRow(['Presenca', 5])
-                ->addRow(['Desistencia', 2]);
-        $lava->PieChart('IMDB', $gender, [
-            'title'  => 'Desistencia',
-            'is3D'   => false,
-            'titleTextStyle' => [
-                'fontSize' => 24
-            ]
-        ]);
-
-        return view('RelatorioDesistenciaProjeto.index', $data, ['lava' => $lava]);
-    }
 
 
     /**
@@ -184,5 +157,4 @@ class RelatorioDesistenciaController extends Controller
     {
         //
     }
-
 }

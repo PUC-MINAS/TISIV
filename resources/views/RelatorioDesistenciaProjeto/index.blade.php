@@ -1,22 +1,24 @@
-@extends('layouts.app')
-@section('content-app')
-
-
-<h1>Testando</h1>
-
-
-<?php
-
-
-use Illuminate\Support\Lavacharts;
-      
-
-echo "Teste 1 2 3 ";
-
-
-?>
 
 
 
+@extends('layouts.pdf')
+@section('pdf-content')
+<div id='chart-div' style='border:1px; height:400px'>
+   
+    <?php echo $lava->render($tipo, 'Dados', 'chart-div');?>
+    
+</div>
+<div style='font-size:16px; display:inline; text-align:center'>
+<center>
+<p style='display:inline'>Número total de alunos presentes na semana: <?php echo $presenca; ?><p>
+<p style='display:inline'>Número total de faltas da semana: <?php echo $falta; ?>.<p>
+</center>
 
+</div> 
 @endsection
+
+@section('script')
+<script>
+    
+</script>
+@endsection    

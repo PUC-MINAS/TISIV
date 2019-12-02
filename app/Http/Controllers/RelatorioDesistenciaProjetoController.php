@@ -8,7 +8,7 @@ use App\TurmaOficinaProjeto;
 use App\PresencaOficinaProjeto;
 use App\RelatorioOficinasController;
 
-class RelatorioDesistenciaController extends Controller
+class RelatorioDesistenciaProjetoController extends Controller
 {
     /**
      * Display a listing of the resource.
